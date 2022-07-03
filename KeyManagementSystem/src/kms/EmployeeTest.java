@@ -15,7 +15,7 @@ class EmployeeTest {
 	}
 	@DisplayName("Constructor: id = 0")
 	@Test
-	void testConstructorPayrateLess0() {
+	void testConstructorIdSetTo0() {
 		Assertions.assertThrows(RuntimeException.class, () -> {new Employee("Markus",0);});
 	}
 
@@ -27,7 +27,7 @@ class EmployeeTest {
 	
 	@DisplayName("Constructor: id > 9999")
 	@Test
-	void testConstructorPayrateGreaterThan9999() {
+	void testConstructorIdGreaterThan9999() {
 		Assertions.assertThrows(RuntimeException.class, () -> {new Employee("Markus",10000);});
 	}
 
