@@ -1,7 +1,5 @@
 package kms;
 
-import java.util.ArrayList;
-
 public class Building {
 	
 	private String name;
