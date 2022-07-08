@@ -30,12 +30,18 @@ public class Employee {
 	
 	public void addAccess(String type, String code) {
 		if(type.equals("building")) {
+			if(code.length() != 2)
+				throw new RuntimeException("Building code must be 2 digits long");
 			buildingAccess.add(code);
 		}
 		if(type.equals("suite")) {
+			if(code.length() != 2)
+				throw new RuntimeException("Suite code must be 2 digits long");
 			suiteAccess.add(code);
 		}
 		if(type.equals("room")) {
+			if(code.length() != 3)
+				throw new RuntimeException("Room number must be 3 digits long");
 			roomAccess.add(code);
 		}
 	}

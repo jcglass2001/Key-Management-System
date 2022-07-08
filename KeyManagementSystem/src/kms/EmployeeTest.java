@@ -39,6 +39,48 @@ class EmployeeTest {
 		assertEquals("5432",e.getId());	
 	}
 	
+	@DisplayName("add building access: code < 2")
+	@Test
+	void testAddBuildingAccessCodeLessThan2() {
+		Employee e = new Employee("Markus", "5432");
+		Assertions.assertThrows(RuntimeException.class, () -> {e.addAccess("building", "1");});
+	}
+	
+	@DisplayName("add building access: code > 2")
+	@Test
+	void testAddBuildingAccessCodeGreaterThan2() {
+		Employee e = new Employee("Markus", "5432");
+		Assertions.assertThrows(RuntimeException.class, () -> {e.addAccess("building", "123");});
+	}
+	
+	@DisplayName("add suite access: code < 2")
+	@Test
+	void testAddSuiteAccessCodeLessThan2() {
+		Employee e = new Employee("Markus", "5432");
+		Assertions.assertThrows(RuntimeException.class, () -> {e.addAccess("suite", "1");});
+	}
+	
+	@DisplayName("add suite access: code > 2")
+	@Test
+	void testAddSuiteAccessCodeGreaterThan2() {
+		Employee e = new Employee("Markus", "5432");
+		Assertions.assertThrows(RuntimeException.class, () -> {e.addAccess("suite", "123");});
+	}
+	
+	@DisplayName("add room access: code < 3")
+	@Test
+	void testAddRoomAccessCodeLessThan3() {
+		Employee e = new Employee("Markus", "5432");
+		Assertions.assertThrows(RuntimeException.class, () -> {e.addAccess("room", "12");});
+	}
+	
+	@DisplayName("add room access: code > 3")
+	@Test
+	void testAddRoomAccessCodeGreaterThan3() {
+		Employee e = new Employee("Markus", "5432");
+		Assertions.assertThrows(RuntimeException.class, () -> {e.addAccess("room", "1234");});
+	}
+	
 	@DisplayName("getAccess: Buildings Only")
 	@Test
 	void testBuildingsOnly(){
