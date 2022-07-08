@@ -1,12 +1,15 @@
 package kms;
 
-public class Room {
+public class Room extends Suite{
 	
+	//Vars
 	String buildingCode;
 	String suiteCode;
 	String roomNumber;
 	
+	//Constructor
 	public Room(String buildingCode, String suiteCode, String roomNumber) {
+		
 		if(buildingCode.length() != 2)
 			throw new RuntimeException("buildingCode must contain 2 digits");
 		this.buildingCode = buildingCode;
@@ -20,6 +23,7 @@ public class Room {
 		this.roomNumber = roomNumber;
 	}
 	
+	//Methods
 	public String getBuildingCode() {
 		return buildingCode;
 	}
