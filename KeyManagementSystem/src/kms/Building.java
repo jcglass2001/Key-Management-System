@@ -2,14 +2,20 @@ package kms;
 
 public class Building {
 	
+	//Vars
 	private String name;
 	private String code;
 	
+	//Constuctor
 	public Building(String name, String code) {
 		this.name = name;
 		this.code = code;
 	}
 	
+	public Building() {
+	}
+	
+	//Methods
 	public String getName() {
 		return name;
 	}
