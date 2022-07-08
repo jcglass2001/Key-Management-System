@@ -42,43 +42,92 @@ class EmployeeTest {
 	@DisplayName("getAccess: Buildings Only")
 	@Test
 	void testBuildingsOnly(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("building", "12");
+		e.addAccess("building", "21");
+		e.addAccess("building", "02");
+		String[][] accessList = e.getAccess();
+		assertEquals("12", accessList[0][0]);
+		assertEquals("21", accessList[0][1]);
+		assertEquals("02", accessList[0][2]);
 	}
 	
 	@DisplayName("getAccess: Suites Only")
 	@Test
 	void testSuitesOnly(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("suite", "12");
+		e.addAccess("suite", "21");
+		e.addAccess("suite", "02");
+		String[][] accessList = e.getAccess();
+		assertEquals("12", accessList[1][0]);
+		assertEquals("21", accessList[1][1]);
+		assertEquals("02", accessList[1][2]);
 	}
 	
 	@DisplayName("getAccess: Rooms Only")
 	@Test
 	void testRoomsOnly(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("room", "123");
+		e.addAccess("room", "213");
+		e.addAccess("room", "023");
+		String[][] accessList = e.getAccess();
+		assertEquals("123", accessList[2][0]);
+		assertEquals("213", accessList[2][1]);
+		assertEquals("023", accessList[2][2]);
 	}
 	
 	@DisplayName("getAccess: Buildings and Suites")
 	@Test
 	void testBuildingsAndSuites(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("building", "12");
+		e.addAccess("suite", "21");
+		e.addAccess("building", "02");
+		String[][] accessList = e.getAccess();
+		assertEquals("12", accessList[0][0]);
+		assertEquals("21", accessList[1][0]);
+		assertEquals("02", accessList[0][1]);
 	}
 	
 	@DisplayName("getAccess: Buildings and Rooms")
 	@Test
 	void testBuildingsAndRooms(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("room", "123");
+		e.addAccess("building", "21");
+		e.addAccess("building", "02");
+		String[][] accessList = e.getAccess();
+		assertEquals("123", accessList[2][0]);
+		assertEquals("21", accessList[0][0]);
+		assertEquals("02", accessList[0][1]);
 	}
 	
 	@DisplayName("getAccess: Suites and Rooms")
 	@Test
 	void testSuitesAndRooms(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("room", "123");
+		e.addAccess("suite", "21");
+		e.addAccess("suite", "02");
+		String[][] accessList = e.getAccess();
+		assertEquals("123", accessList[2][0]);
+		assertEquals("21", accessList[1][0]);
+		assertEquals("02", accessList[1][1]);
 	}
 	
 	@DisplayName("getAccess: Buildings, Suites, and Rooms")
 	@Test
 	void testBuildingsSuitessAndRooms(){
-		
+		Employee e = new Employee("Markus", "5432");
+		e.addAccess("room", "123");
+		e.addAccess("suite", "21");
+		e.addAccess("building", "02");
+		String[][] accessList = e.getAccess();
+		assertEquals("123", accessList[2][0]);
+		assertEquals("21", accessList[1][0]);
+		assertEquals("02", accessList[0][0]);
 	}
 
 
