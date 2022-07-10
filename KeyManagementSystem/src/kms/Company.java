@@ -12,6 +12,24 @@ public class Company {
 	static ArrayList<Room> rooms = new ArrayList<Room>();
 	static ArrayList<Employee> employees = new ArrayList<Employee>();
 	
+	//Constructor
+	public Company() {
+	}
+	
+	//Getters
+	public ArrayList<Building> getBuildings() {
+		return buildings;
+	}
+	public ArrayList<Suite> getSuites() {
+		return suites;
+	}
+	public ArrayList<Room> getRooms() {
+		return rooms;
+	}
+	public ArrayList<Employee> getEmployees() {
+		return employees;
+	}
+	
 	//File Writer
 	public static void WriteToFile() {
 		try {
