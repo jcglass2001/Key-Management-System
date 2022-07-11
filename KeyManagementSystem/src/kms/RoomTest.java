@@ -8,24 +8,6 @@ import org.junit.jupiter.api.Test;
 
 class RoomTest {
 	
-	@DisplayName("Only room number supplied")
-	@Test
-	void testOnlyRoom() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("","", "123");});
-	}
-	
-	@DisplayName("Only suite code supplied")
-	@Test
-	void testOnlySuite() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("","12", "");});
-	}
-	
-	@DisplayName("Only building code supplied")
-	@Test
-	void testOnlyBuilding() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","", "");});
-	}
-	
 	@DisplayName("Missing building code")
 	@Test
 	void testMissingBuilding() {
