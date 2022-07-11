@@ -13,6 +13,7 @@ public class Company {
 	static ArrayList<Room> rooms = new ArrayList<Room>();
 	static ArrayList<Employee> employees = new ArrayList<Employee>();
 	
+	//Constructors
 	public Company() {
 		
 	}
