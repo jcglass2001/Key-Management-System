@@ -204,6 +204,7 @@ public class Main extends Application {
 		root.add(btnMenu, 0, 2);
 		// register event handlers
 		btnMenu.setOnAction(e -> switchToMenu());
+		btnGenerate_Report.setOnAction(new GenerateReportEventHandler());
 		// add padding
 		root.setPadding(new Insets(20, 20, 20, 20));
 		// set grid to scene
@@ -462,10 +463,13 @@ public class Main extends Application {
 				//add building to company
 				cp.getBuildings().add(b);
 				//set alert and content text
-				a.setAlertType(AlertType.CONFIRMATION);
+				a.setAlertType(AlertType.INFORMATION);
 				a.setContentText("Building Added Successfully");
 				//show alert
 				a.show();
+				//clear textfields
+				txtBuildingId.clear();
+				txtBuildingName.clear();
 			}catch(Exception e) {
 				//set alert and content text
 				a.setAlertType(AlertType.ERROR);
@@ -490,10 +494,14 @@ public class Main extends Application {
 				//add suite to company
 				cp.getSuites().add(s);
 				//set alert and content text
-				a.setAlertType(AlertType.CONFIRMATION);
+				a.setAlertType(AlertType.INFORMATION);
 				a.setContentText("Suite Added Successfully");
 				//show alert
 				a.show();
+				//clear textfields
+				txtSuiteName_Suite.clear();
+				txtSuiteId_Suite.clear();
+				txtBuildingId_Suite.clear();
 			}catch(Exception e) {
 				//set alert and content text
 				a.setAlertType(AlertType.ERROR);
@@ -518,10 +526,14 @@ public class Main extends Application {
 				//add room to company
 				cp.getRooms().add(r);
 				//set alert and content text
-				a.setAlertType(AlertType.CONFIRMATION);
+				a.setAlertType(AlertType.INFORMATION);
 				a.setContentText("Room Added Successfully");
 				//show alert
 				a.show();
+				//clear textfields
+				txtRoomNum_Room.clear();
+				txtSuiteId_Room.clear();
+				txtBuildingId_Room.clear();
 			}catch(Exception e) {
 			    //set alert and content text
 				a.setAlertType(AlertType.ERROR);
@@ -548,10 +560,16 @@ public class Main extends Application {
 				//add employee to company
 				cp.getEmployees().add(emp);
 				//set alert and content text
-				a.setAlertType(AlertType.CONFIRMATION);
+				a.setAlertType(AlertType.INFORMATION);
 				a.setContentText("Employee Added Successfully");
 				//show alert
 				a.show();
+				//clear textfields
+				txtFirstName.clear();
+				txtMiddleInitial.clear();
+				txtLastName.clear();
+				txtEmployeeId.clear();
+			
 			}catch(Exception e) {
 				//set alert and content text
 				a.setAlertType(AlertType.ERROR);
@@ -559,6 +577,24 @@ public class Main extends Application {
 				//show alert
 				a.show();
 			}
+		}
+	}
+	private class GenerateReportEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			try {
+				//grab selected choice from choicebox
+				 Character selectedOption = (Character)cBoxList_Report.getValue();
+				 //call printReport methods depending on which option was selected
+				 if(selectedOption == 'A') {
+					 String msg = cp.printReportA();
+					 //display msg to text area
+					 displayInfo_Report.setText(msg);
+				 }else if(selectedOption == 'D') {
+					 String msg = cp.printReportD();
+					 //display msg to text area
+					 displayInfo_Report.setText(msg);
+				 }
+			}catch(Exception e) {}
 		}
 	}
 
