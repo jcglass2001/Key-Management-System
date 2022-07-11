@@ -6,11 +6,19 @@ import java.util.ArrayList;
 
 public class Company {
 
+	private String compName;
 	//Lists
 	static ArrayList<Building> buildings = new ArrayList<Building>();
 	static ArrayList<Suite> suites = new ArrayList<Suite>();
 	static ArrayList<Room> rooms = new ArrayList<Room>();
 	static ArrayList<Employee> employees = new ArrayList<Employee>();
+	
+	public Company() {
+		
+	}
+	public Company(String name) {
+		this.compName = name;
+	}
 	
 	//File Writer
 	public static void WriteToFile() {
@@ -41,6 +49,20 @@ public class Company {
 		      e.printStackTrace();
 		    }
 		
+	}
+	
+	//Getters
+	public ArrayList<Building> getBuildings() {
+	    return buildings;
+	}
+	public ArrayList<Suite> getSuites() {
+	    return suites;
+	}
+	public ArrayList<Room> getRooms() {
+	    return rooms;
+	}
+	public ArrayList<Employee> getEmployees() {
+	    return employees;
 	}
 	
 	public static void main(String[] args) {
