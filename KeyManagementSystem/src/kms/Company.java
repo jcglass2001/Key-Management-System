@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class Company {
 
 	private String compName;
+	
 	// Lists
-  ArrayList<Building> buildings = new ArrayList<Building>();
+	ArrayList<Building> buildings = new ArrayList<Building>();
 	ArrayList<Suite> suites = new ArrayList<Suite>();
 	ArrayList<Room> rooms = new ArrayList<Room>();
 	ArrayList<Employee> employees = new ArrayList<Employee>();
