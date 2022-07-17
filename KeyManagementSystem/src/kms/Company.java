@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class Company {
 
 	//Lists
-	static ArrayList<Building> buildings = new ArrayList<Building>();
-	static ArrayList<Suite> suites = new ArrayList<Suite>();
-	static ArrayList<Room> rooms = new ArrayList<Room>();
-	static ArrayList<Employee> employees = new ArrayList<Employee>();
+	ArrayList<Building> buildings = new ArrayList<Building>();
+	ArrayList<Suite> suites = new ArrayList<Suite>();
+	ArrayList<Room> rooms = new ArrayList<Room>();
+	ArrayList<Employee> employees = new ArrayList<Employee>();
 	
 	//Constructor
 	public Company() {
@@ -31,7 +31,7 @@ public class Company {
 	}
 	
 	//File Writer
-	public static void WriteToFile() {
+	public void writeToFile() {
 		try {
 		      FileWriter myWriter = new FileWriter("Report.txt");
 		      myWriter.write("Buildings: \n");
@@ -58,6 +58,10 @@ public class Company {
 		      System.out.println("An error occurred.");
 		      e.printStackTrace();
 		    }
+		
+	}
+	
+	public void buildFromFile() {
 		
 	}
 	
