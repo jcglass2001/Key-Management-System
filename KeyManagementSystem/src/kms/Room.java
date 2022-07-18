@@ -3,9 +3,9 @@ package kms;
 public class Room extends Suite{
 	
 	//Vars
-	String buildingCode;
-	String suiteCode;
-	String roomNumber;
+	private String buildingCode;
+	private String suiteCode;
+	private String roomNumber;
 	
 	//Constructor
 	public Room(String buildingCode, String suiteCode, String roomNumber) {

@@ -1,32 +1,35 @@
 package kms;
 
+import java.util.ArrayList;
+
 public class Suite extends Building{
 	
 	//Vars
-	String name;
-	String suiteCode;
-	String buildingCode;
+	private String name;
+	private String suiteCode;
+	private String buildingCode;
+	private ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	//Constructor
 	public Suite(String name, String suiteCode, String buildingCode) {
 		
 		if(name.length() == 0 || suiteCode.length() == 0 || suiteCode.length() == 0) {
-			throw new RuntimeException("Name must have length > 0");
+			throw new IllegalArgumentException("Name must have length > 0");
 		}
 			
 		if (buildingCode.matches("[0-9]+") == false) {
-			throw new RuntimeException("Building code must contain digits only");
+			throw new IllegalArgumentException("Building code must contain digits only");
 		}
 		
 		if(buildingCode.length() != 2)
-			throw new RuntimeException("Building code must contain 2 digits");
+			throw new IllegalArgumentException("Building code must contain 2 digits");
 		
 		if (suiteCode.matches("[0-9]+") == false) {
-			throw new RuntimeException("Suite code must contain digits only");
+			throw new IllegalArgumentException("Suite code must contain digits only");
 		}
 		
 		if(suiteCode.length() != 2)
-			throw new RuntimeException("Suite code must contain 2 digits");
+			throw new IllegalArgumentException("Suite code must contain 2 digits");
 		
 		this.name = name;
 		this.buildingCode = buildingCode;
@@ -48,6 +51,10 @@ public class Suite extends Building{
 	
 	public String getBuildingCode() {
 		return buildingCode;
+	}
+	
+	public ArrayList<Room> getRooms(){
+		return rooms;
 	}
 	
 	public static void main(String[] args) {

@@ -11,55 +11,55 @@ class RoomTest {
 	@DisplayName("Missing building code")
 	@Test
 	void testMissingBuilding() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("","12", "123");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("","12", "123");});
 	}
 	
 	@DisplayName("Missing suite code")
 	@Test
 	void testMissingSuite() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","", "123");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","", "123");});
 	}
 	
 	@DisplayName("Missing room number")
 	@Test
 	void testMissingRoom() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","12", "");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","12", "");});
 	}
 	
 	@DisplayName("Too many digits in building code")
 	@Test
 	void testTooManyDigitsBuilding() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12345","12", "123");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12345","12", "123");});
 	}
 	
 	@DisplayName("Too many digits in suite code")
 	@Test
 	void testTooManyDigitsSuite() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","12345", "123");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","12345", "123");});
 	}
 	
 	@DisplayName("Too many digits in room number")
 	@Test
 	void testTooManyDigitsRoom() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","12", "12345");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","12", "12345");});
 	}
 	
 	@DisplayName("Not enough digits in building code")
 	@Test
 	void testNotEnoughDigitsBuilding() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("1","12", "123");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("1","12", "123");});
 	}
 	
 	@DisplayName("Not enough digits in building code")
 	@Test
 	void testNotEnoughDigitsSuite() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","1", "123");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","1", "123");});
 	}
 	
 	@DisplayName("Not enough digits in building code")
 	@Test
 	void testNotEnoughDigitsRoom() {
-		Assertions.assertThrows(RuntimeException.class, () -> {new Room("12","12", "1");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","12", "1");});
 	}
 	
 	@DisplayName("Constructor: saves instance vars")
