@@ -10,9 +10,9 @@ class SuiteTest {
 	@Test
 	void testConstructorEmpty() {
 		//This case tests for empty strings
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("", "02", "01");});
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "", "01");});
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "02", "");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("", "02", "01");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "", "01");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "02", "");});
 	}
 	
 	@Test
@@ -46,19 +46,19 @@ class SuiteTest {
 	@Test
 	void testGetSuiteCode_long() {
 		//This case is if the code is longer than the expected format
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "200", "01");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "200", "01");});
 	}
 	
 	@Test
 	void testGetSuiteCode_short() {
 		//This case is if the code is shorter that the expected format
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "1", "01");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "1", "01");});
 	}
 	
 	@Test
 	void testGetSuiteCode_letters() {
 		//This case is if the code contains letters instead of numbers
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "ab", "01");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "ab", "01");});
 	}
 	
 	@Test
@@ -73,19 +73,19 @@ class SuiteTest {
 	@Test
 	void testGetBuildingCode_long() {
 		//This case is if the code is longer than the expected format
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "02", "100");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "02", "100");});
 	}
 	
 	@Test
 	void testGetBuildingCode_short() {
 		//This case is if the code is shorter that the expected format
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "02", "1");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "02", "1");});
 	}
 	
 	@Test
 	void testGetBuildingCode_letters() {
 		//This case is if the code contains letters instead of numbers
-		Assertions.assertThrows(RuntimeException.class, () -> {new Suite("Sales Suite", "02", "cd");});
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Suite("Sales Suite", "02", "cd");});
 	}
 
 }
