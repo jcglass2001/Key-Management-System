@@ -346,10 +346,10 @@ public class Main extends Application {
 		txtLastName = new TextField();
 		txtEmployeeId = new TextField();
 		lblFirstName = new Label("First Name: ");
-		lblMiddleInitial = new Label("Middile Initial: ");
+		lblMiddleInitial = new Label("Middle Initial: ");
 		lblLastName = new Label("Last Name: ");
 		lblEmployeeId = new Label("Emploee ID: ");
-		btnAddEmployee = new Button("Add Button");
+		btnAddEmployee = new Button("Add Employee");
 		// create first name container
 		HBox hBoxFirstNameInfo = buildLabelTextContainer_H(lblFirstName, txtFirstName);
 		// create middle initial container
