@@ -19,7 +19,7 @@ class BuildingTest {
 		//This case is what we expect; a 2 digit code
 		Building b = new Building("Nevins", "02");
 		String expected = "02";
-		String actual = b.getCode();
+		String actual = b.getBuildingCode();
 		assertEquals(expected, actual);
 	}
 	
@@ -28,7 +28,7 @@ class BuildingTest {
 		//This case is if the code is longer than the expected format
 		Building b = new Building("Nevins", "022");
 		String expected = "Building code must be exactly 2 digits";
-		String actual = b.getCode();
+		String actual = b.getBuildingCode();
 		assertEquals(expected, actual);
 	}
 	
@@ -37,7 +37,7 @@ class BuildingTest {
 		//This case is if the code is shorter that the expected format
 		Building b = new Building("Nevins", "2");
 		String expected = "Building code must be exactly 2 digits";
-		String actual = b.getCode();
+		String actual = b.getBuildingCode();
 		assertEquals(expected, actual);
 	}
 	
@@ -46,7 +46,7 @@ class BuildingTest {
 		//This case is if the code contains letters instead of numbers
 		Building b = new Building("Nevins", "foo");
 		String expected = "Building code must only contain digits";
-		String actual = b.getCode();
+		String actual = b.getBuildingCode();
 		assertEquals(expected, actual);
 	}
 

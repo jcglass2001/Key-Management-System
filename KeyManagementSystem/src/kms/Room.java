@@ -7,23 +7,41 @@ public class Room extends Suite{
 	private String suiteCode;
 	private String roomNumber;
 	
-	//Constructor
+	//Constructors
 	public Room(String buildingCode, String suiteCode, String roomNumber) {
-		
 		if(buildingCode.length() != 2)
-			throw new RuntimeException("buildingCode must contain 2 digits");
-		this.buildingCode = buildingCode;
+			throw new RuntimeException("Building code must contain 2 digits");
+		
+		if (buildingCode.matches("[0-9]+") == false) {
+			throw new IllegalArgumentException("Building code must contain digits only");
+		}
 		
 		if(suiteCode.length() != 2)
-			throw new RuntimeException("suiteCode must contain 2 digits");
-		this.suiteCode = suiteCode;
+			throw new RuntimeException("Suite code must contain 2 digits");
+		
+		if (suiteCode.matches("[0-9]+") == false) {
+			throw new IllegalArgumentException("Building code must contain digits only");
+		}
+		
+		if (roomNumber.matches("[0-9]+") == false) {
+			throw new IllegalArgumentException("Room number must contain digits only");
+		}
 		
 		if(roomNumber.length() != 3)
-			throw new RuntimeException("roomNumber must contain 3 digits");
+			throw new RuntimeException("Roomn number must contain 3 digits");
+		
+		this.buildingCode = buildingCode;
+		this.suiteCode = suiteCode;
 		this.roomNumber = roomNumber;
 	}
 	
-	//Methods
+	public Room(String roomNumber) {
+	}
+	
+	public Room() {
+	}
+	
+	//Getters
 	public String getBuildingCode() {
 		return buildingCode;
 	}
@@ -36,9 +54,15 @@ public class Room extends Suite{
 		return roomNumber;
 	}
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Room) {
+			Room r = (Room)o;
+			if(this.roomNumber.equals(r.roomNumber)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

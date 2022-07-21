@@ -24,7 +24,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main extends Application {
-	Company cp = new Company();
+	CompanyController companyController;
+	
 	//stage
 	private Stage stage;
 	// Scenes
@@ -148,8 +149,8 @@ public class Main extends Application {
 		// register event handlers
 		btnMenu.setOnAction(e -> switchToMenu());
 		btnAddBuilding.setOnAction(new AddBuildingEventHandler());
-		btnAddRoom.setOnAction(new AddRoomEventHandler());
 		btnAddSuite.setOnAction(new AddSuiteEventHandler());
+		btnAddRoom.setOnAction(new AddRoomEventHandler());
 		btnAddEmployee.setOnAction(new AddEmployeeEventHandler());
 		// assign container to scene
 		add = new Scene(root, 1000, 500);
@@ -264,8 +265,7 @@ public class Main extends Application {
 		// combine containers
 		VBox vBoxReportEntry = new VBox();
 		vBoxReportEntry.getStyleClass().add("h_or_v_box");
-		vBoxReportEntry.getChildren().addAll(cBoxList_Report, hBoxBuildingIdInfo, hBoxSuiteIdInfo, hBoxRoomIdInfo,
-				hBoxEmpIdInfo, btnGenerate_Report);
+		vBoxReportEntry.getChildren().addAll(cBoxList_Report, hBoxBuildingIdInfo, hBoxSuiteIdInfo, hBoxRoomIdInfo, hBoxEmpIdInfo, btnGenerate_Report);
 
 		return vBoxReportEntry;
 	}
@@ -349,7 +349,7 @@ public class Main extends Application {
 		lblFirstName = new Label("First Name: ");
 		lblMiddleInitial = new Label("Middile Initial: ");
 		lblLastName = new Label("Last Name: ");
-		lblEmployeeId = new Label("Emploee ID: ");
+		lblEmployeeId = new Label("Employee ID: ");
 		btnAddEmployee = new Button("Add Button");
 		// create first name container
 		HBox hBoxFirstNameInfo = buildLabelTextContainer_H(lblFirstName, txtFirstName);
@@ -451,156 +451,60 @@ public class Main extends Application {
 	//Event Handlers
 	private class AddBuildingEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
-			
-			//create alert
-			Alert a = new Alert(AlertType.NONE);
-			try {
-				//grab user input from textfields
+				//grab user input from text fields
 				String buildingId = txtBuildingId.getText();
 				String buildingName = txtBuildingName.getText();
-				//create building instance
-				Building b = new Building(buildingName,buildingId);
-				//add building to company
-				cp.getBuildings().add(b);
-				//set alert and content text
-				a.setAlertType(AlertType.INFORMATION);
-				a.setContentText("Building Added Successfully");
-				//show alert
-				a.show();
-				//clear textfields
-				txtBuildingId.clear();
-				txtBuildingName.clear();
-			}catch(Exception e) {
-				//set alert and content text
-				a.setAlertType(AlertType.ERROR);
-				a.setContentText("Error Adding Building");
-				//show alert
-				a.show();
-			}
+				companyController.addBuilding(buildingName, buildingId);
 		}
 	}
+	
+	
+	
 	private class AddSuiteEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
-			
-			//create alert
-			Alert a = new Alert(AlertType.NONE);
-			try {
-				//grab user input from textfields
-				String suiteName = txtSuiteName_Suite.getText();
-				String suiteId = txtSuiteId_Suite.getText();
-				String buildingId = txtBuildingId_Suite.getText();
-				//create suite instance
-				Suite s = new Suite(suiteName,suiteId,buildingId);
-				//add suite to company
-				cp.getSuites().add(s);
-				//set alert and content text
-				a.setAlertType(AlertType.INFORMATION);
-				a.setContentText("Suite Added Successfully");
-				//show alert
-				a.show();
-				//clear textfields
-				txtSuiteName_Suite.clear();
-				txtSuiteId_Suite.clear();
-				txtBuildingId_Suite.clear();
-			}catch(Exception e) {
-				//set alert and content text
-				a.setAlertType(AlertType.ERROR);
-				a.setContentText("Error Adding Suite");
-				//show alert
-				a.show();
-			}
+			//grab user input from text fields
+			String suiteName = txtSuiteName_Suite.getText();
+			String buildingId = txtBuildingId_Suite.getText();
+			String suiteId = txtSuiteId_Suite.getText();
+			companyController.addSuite(suiteName, buildingId, suiteId);
 		}
 	}
+	
 	private class AddRoomEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
-			//create alert
-			Alert a = new Alert(AlertType.NONE);
-			
-			try {
-				//grab user input from textfields
-				String roomNum = txtRoomNum_Room.getText();
-				String suiteId = txtSuiteId_Room.getText();
-				String buildingId = txtBuildingId_Room.getText();
-				//create room instance
-				Room r = new Room(buildingId,suiteId,roomNum);
-				//add room to company
-				cp.getRooms().add(r);
-				//set alert and content text
-				a.setAlertType(AlertType.INFORMATION);
-				a.setContentText("Room Added Successfully");
-				//show alert
-				a.show();
-				//clear textfields
-				txtRoomNum_Room.clear();
-				txtSuiteId_Room.clear();
-				txtBuildingId_Room.clear();
-			}catch(Exception e) {
-			    //set alert and content text
-				a.setAlertType(AlertType.ERROR);
-				a.setContentText("Error Adding Room");
-				//show alert
-				a.show();
-			}
+			//grab user input from text fields
+			String buildingId = txtBuildingId_Room.getText();
+			String suiteId= txtSuiteId_Room.getText();
+			String roomNum = txtRoomNum_Room.getText();
+			companyController.addRoom(buildingId, suiteId, roomNum);
 		}
 	}
+	
 	private class AddEmployeeEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
-			//create alert
-			Alert a = new Alert(AlertType.NONE);
-			try {
-				//grab user input from textfields
-				String first = txtFirstName.getText();
-				String middle = txtMiddleInitial.getText();
-				String last = txtLastName.getText();
-				String id = txtEmployeeId.getText();
-				//create full name
-				String fullName = String.format("%s %s. %s", first,middle,last);
-				//create Employee instance
-				Employee emp = new Employee(fullName,id);
-				//add employee to company
-				cp.getEmployees().add(emp);
-				//set alert and content text
-				a.setAlertType(AlertType.INFORMATION);
-				a.setContentText("Employee Added Successfully");
-				//show alert
-				a.show();
-				//clear textfields
-				txtFirstName.clear();
-				txtMiddleInitial.clear();
-				txtLastName.clear();
-				txtEmployeeId.clear();
-			
-			}catch(Exception e) {
-				//set alert and content text
-				a.setAlertType(AlertType.ERROR);
-				a.setContentText("Error Adding Employee");
-				//show alert
-				a.show();
-			}
+			//grab user input from textfields
+			String first = txtFirstName.getText();
+			String middle = txtMiddleInitial.getText();
+			String last = txtLastName.getText();
+			String id = txtEmployeeId.getText();
+			companyController.addEmployee(first, middle, last, id);
 		}
 	}
+	
 	private class GenerateReportEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
-			try {
-				//grab selected choice from choicebox
-				 Character selectedOption = (Character)cBoxList_Report.getValue();
-				 //call printReport methods depending on which option was selected
-				 if(selectedOption == 'A') {
-					 String msg = cp.printReportA();
-					 //display msg to text area
-					 displayInfo_Report.setText(msg);
-				 }else if(selectedOption == 'D') {
-					 String msg = cp.printReportD();
-					 //display msg to text area
-					 displayInfo_Report.setText(msg);
-				 }
-			}catch(Exception e) {}
+			//grab selected choice from choicebox
+			Character selectedOption = (Character)cBoxList_Report.getValue();
+			companyController.printReports(selectedOption);
 		}
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			//Passing controller GUI
+			companyController = new CompanyController(this);
+					
 			// build stage scenes
 			buildScenes();
 			// initiate stage
