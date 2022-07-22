@@ -20,8 +20,8 @@ class SuiteTest {
 		//This case test for constructor creation
 		Suite s = new Suite("Sales Suite", "02", "01");
 		assertEquals("Sales Suite",s.getName());
-		assertEquals("02",s.getSuiteCode());
-		assertEquals("01",s.getBuildingCode());
+		assertEquals("01",s.getSuiteCode());
+		assertEquals("02",s.getBuildingCode());
 		
 	}
 	
@@ -37,7 +37,7 @@ class SuiteTest {
 	@Test
 	void testGetSuiteCode_correct() {
 		//This case is what we expect; a 2 digit code
-		Suite s = new Suite("Sales Suite", "02", "01");
+		Suite s = new Suite("Sales Suite", "01", "02");
 		String expected = "02";
 		String actual = s.getSuiteCode();
 		assertEquals(expected, actual);
@@ -64,7 +64,7 @@ class SuiteTest {
 	@Test
 	void testGetBuildingCode_correct() {
 		//This case is what we expect; a 2 digit code
-		Suite s = new Suite("Sales Suite", "02", "01");
+		Suite s = new Suite("Sales Suite", "01", "02");
 		String expected = "01";
 		String actual = s.getBuildingCode();
 		assertEquals(expected, actual);

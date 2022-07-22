@@ -10,14 +10,14 @@ public class Room extends Suite{
 	//Constructors
 	public Room(String buildingCode, String suiteCode, String roomNumber) {
 		if(buildingCode.length() != 2)
-			throw new RuntimeException("Building code must contain 2 digits");
+			throw new IllegalArgumentException("Building code must contain 2 digits");
 		
 		if (buildingCode.matches("[0-9]+") == false) {
 			throw new IllegalArgumentException("Building code must contain digits only");
 		}
 		
 		if(suiteCode.length() != 2)
-			throw new RuntimeException("Suite code must contain 2 digits");
+			throw new IllegalArgumentException("Suite code must contain 2 digits");
 		
 		if (suiteCode.matches("[0-9]+") == false) {
 			throw new IllegalArgumentException("Building code must contain digits only");
@@ -28,7 +28,7 @@ public class Room extends Suite{
 		}
 		
 		if(roomNumber.length() != 3)
-			throw new RuntimeException("Roomn number must contain 3 digits");
+			throw new IllegalArgumentException("Roomn number must contain 3 digits");
 		
 		this.buildingCode = buildingCode;
 		this.suiteCode = suiteCode;
