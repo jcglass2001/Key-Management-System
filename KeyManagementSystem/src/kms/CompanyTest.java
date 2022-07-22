@@ -112,5 +112,15 @@ class CompanyTest {
 		assertEquals(testFile.exists(), true);
 	}
 	
+	/*
+	@DisplayName("FileReader: build from file")
+	@Test
+	void FileReaderTest() {
+		Company c1 = new Company();
+		File testFile = new File("TestReport.txt");
+		c1.buildFromFile(testFile);
+		assertEquals(c1.getBuildings().get(0).getCode(), "Google");
+	}
+	*/
 
 }
