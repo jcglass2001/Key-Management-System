@@ -13,7 +13,7 @@ public class CompanyPersistence {
 		return new CompanyManager();
 	}
 	
-	public static void saveCompany(CompanyManager companyManager) {
+	public void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
 			myWriter.write("Buildings: \n");
