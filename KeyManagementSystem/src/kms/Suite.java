@@ -10,13 +10,13 @@ public class Suite extends Building{
 	private String buildingCode;
 	private ArrayList<Room> rooms = new ArrayList<Room>();
 	
-	//Constructor
-	public Suite(String name, String suiteCode, String buildingCode) {
+	//Constructors
+	public Suite(String name, String buildingCode, String suiteCode) {
 		
-		if(name.length() == 0 || suiteCode.length() == 0 || suiteCode.length() == 0) {
-			throw new IllegalArgumentException("Name must have length > 0");
+		if(name.length() == 0) {
+			throw new IllegalArgumentException("Name can't be empty");
 		}
-			
+		
 		if (buildingCode.matches("[0-9]+") == false) {
 			throw new IllegalArgumentException("Building code must contain digits only");
 		}
@@ -37,28 +37,39 @@ public class Suite extends Building{
 		
 	}
 	
+	public Suite(String suiteCode) {
+	}
+	
 	public Suite() {
 	}
 	
-	//Methods
+	//Getters
 	public String getName() {
 		return name;
-	}
-	
-	public String getSuiteCode() {
-		return suiteCode;
 	}
 	
 	public String getBuildingCode() {
 		return buildingCode;
 	}
 	
+	public String getSuiteCode() {
+		return suiteCode;
+	}
+	
+	
 	public ArrayList<Room> getRooms(){
 		return rooms;
 	}
 	
-	public static void main(String[] args) {
-
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Suite) {
+			Suite s = (Suite)o;
+			if(this.buildingCode.equals(s.suiteCode)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
