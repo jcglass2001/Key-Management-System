@@ -1,10 +1,9 @@
 package kms;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class CompanyPersistence {
 	public static CompanyManager buildCompanyManager() {
@@ -45,10 +44,9 @@ public class CompanyPersistence {
 	//File Reader
 		public void buildFromFile(File file, CompanyManager companyManager) {
 			try {
-				FileReader myReader = new FileReader(file);
-				BufferedReader br = new BufferedReader(myReader);
-				String currentLine = br.readLine();
-				while (currentLine != null){
+				Scanner scan = new Scanner(file);
+				while (scan.hasNextLine()){
+					String currentLine = scan.nextLine();
 					//loop through characters in string
 					for(int i = 0; i < currentLine.length(); i++) {
 						
@@ -60,16 +58,13 @@ public class CompanyPersistence {
 							for(int j = i+1; j < currentLine.length(); j++) {
 								char ch = currentLine.charAt(j);
 								boolean periodEncountered = false;
-								
-								while(ch != '#' && ch != '%' && ch != '!' && ch != '$'  ) {
-									if(ch == '.') periodEncountered = true;
+								if(ch == '.') periodEncountered = true;
 									
-									if(periodEncountered == true) {
-										tempCode = tempCode + ch;
-									}
-									
-									else tempName = tempName + ch;
+								if(periodEncountered == true) {
+									tempCode = tempCode + ch;
 								}
+									
+								else tempName = tempName + ch;
 							}
 							Building tempBuild = new Building(tempName, tempCode);
 							companyManager.buildings.add(tempBuild);
@@ -86,20 +81,19 @@ public class CompanyPersistence {
 								boolean periodEncountered = false;
 								boolean commaEncountered = false;
 								
-								while(ch != '#' && ch != '%' && ch != '!' && ch != '$'  ) {
-									if(ch == '.') periodEncountered = true;
-									if(ch == ',') commaEncountered = true;
+
+								if(ch == '.') periodEncountered = true;
+								if(ch == ',') commaEncountered = true;
 									
-									if(periodEncountered == true && commaEncountered == false) {
-										tempCode = tempCode + ch;
-									}
-									
-									if(periodEncountered == true && commaEncountered == true) {
-										tempBuild = tempBuild + ch;
-									}
-									
-									else tempName = tempName + ch;		
+								if(periodEncountered == true && commaEncountered == false) {
+									tempCode = tempCode + ch;
 								}
+									
+								if(periodEncountered == true && commaEncountered == true) {
+									tempBuild = tempBuild + ch;
+								}
+									
+								else tempName = tempName + ch;		
 							}
 							Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
 							companyManager.suites.add(tempSuite);
@@ -116,20 +110,18 @@ public class CompanyPersistence {
 								boolean periodEncountered = false;
 								boolean commaEncountered = false;
 								
-								while(ch != '#' && ch != '%' && ch != '!' && ch != '$'  ) {
-									if(ch == '.') periodEncountered = true;
-									if(ch == ',') commaEncountered = true;
+								if(ch == '.') periodEncountered = true;
+								if(ch == ',') commaEncountered = true;
 									
-									if(periodEncountered == true && commaEncountered == false) {
-										tempSuite = tempSuite + ch;
-									}
-									
-									if(periodEncountered == true && commaEncountered == true) {
-										tempBuild = tempBuild + ch;
-									}
-									
-									else tempNum = tempNum + ch;
+								if(periodEncountered == true && commaEncountered == false) {
+									tempSuite = tempSuite + ch;
 								}
+									
+								if(periodEncountered == true && commaEncountered == true) {
+									tempBuild = tempBuild + ch;
+								}
+									
+								else tempNum = tempNum + ch;
 							}
 							Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
 							companyManager.rooms.add(tempRoom);
@@ -144,25 +136,20 @@ public class CompanyPersistence {
 								char ch = currentLine.charAt(j);
 								boolean periodEncountered = false;
 								
-								while(ch != '#' && ch != '%' && ch != '!' && ch != '$'  ) {
-									if(ch == '.') periodEncountered = true;
+								if(ch == '.') periodEncountered = true;
 									
-									if(periodEncountered == true) {
-										tempID = tempID + ch;
-									}
-									
-									else tempName = tempName + ch;
+								if(periodEncountered == true) {
+									tempID = tempID + ch;
 								}
+									
+								else tempName = tempName + ch;
 							}
 							Employee tempEmp = new Employee(tempName, tempID);
 							companyManager.employees.add(tempEmp);
-						}
-						
+						}	
 					}
-					
 				}
-				br.close();
-				
+				scan.close();
 			} catch (IOException e) {
 				System.out.println("An error occured.");
 				e.printStackTrace();
