@@ -3,20 +3,15 @@ package kms;
 import java.util.ArrayList;
 
 public class CompanyManager {
-	
 	//Lists
 	ArrayList<Building> buildings = new ArrayList<Building>();
 	ArrayList<Suite> suites = new ArrayList<Suite>();
 	ArrayList<Room> rooms = new ArrayList<Room>();
 	ArrayList<Employee> employees = new ArrayList<Employee>();
 	
-	//Access Lists
-	ArrayList<String> buildingAccess = new ArrayList<String>();
-	ArrayList<String> suiteAccess = new ArrayList<String>();
-	ArrayList<String> roomAccess = new ArrayList<String>();
-	
 	//Constructor
-	public CompanyManager() {}
+	public CompanyManager() {
+	}
 	
 	//Adders
 	public void addBuilding(Building b) {
@@ -33,18 +28,6 @@ public class CompanyManager {
 	
 	public void addEmployee(Employee e) {
 		employees.add(e);
-	}
-	
-	public void addAccess(String type, String code) {
-		if(type.equals("building")) {
-			buildingAccess.add(code);
-		}
-		if(type.equals("suite")) {
-			suiteAccess.add(code);
-		}
-		if(type.equals("room")) {
-			roomAccess.add(code);
-		}
 	}
 	
 	//Removers
@@ -65,20 +48,20 @@ public class CompanyManager {
 	}
 	
 	//Getters
-	public int getNumBuildings() {
-		return buildings.size();
+	public ArrayList<Building> getBuildings() {
+		return buildings;
 	}
-	
-	public int getNumSuites() {
-		return suites.size();
+
+	public ArrayList<Suite> getSuites() {
+		return suites;
 	}
-	
-	public int getNumRooms() {
-		return rooms.size();
+
+	public ArrayList<Room> getRooms() {
+		return rooms;
 	}
-	
-	public int getNumEmployees() {
-		return employees.size();
+
+	public ArrayList<Employee> getEmployees() {
+		return employees;
 	}
 	
 	public Building getBuilding(int i) {
@@ -109,27 +92,21 @@ public class CompanyManager {
 		return null;
 	}
 	
-	public String[][] getAccess() {
-		int buildings = buildingAccess.size();
-		int suites = suiteAccess.size();
-		int rooms = roomAccess.size();
-		int listSize = Math.max(rooms, Math.max(suites, buildings));
-		
-		//building = [0][x] suites = [1][x] rooms = [2][x]
-		String[][] accessList = new String[3][listSize];
-		
-		for(int i = 0; i < buildings; i++) {
-			accessList[0][i] = buildingAccess.get(i);
-		}
-		for(int i = 0; i < suites; i++) {
-			accessList[1][i] = suiteAccess.get(i);
-		}
-		for(int i = 0; i < rooms; i++) {
-			accessList[2][i] = roomAccess.get(i);
-		}
-		return accessList;
+	public int getNumBuildings() {
+		return buildings.size();
 	}
 	
+	public int getNumSuites() {
+		return suites.size();
+	}
+	
+	public int getNumRooms() {
+		return rooms.size();
+	}
+	
+	public int getNumEmployees() {
+		return employees.size();
+	}
 	
 	//Clear and Contains
 	public void clear() {
@@ -154,6 +131,5 @@ public class CompanyManager {
 	public boolean containsEmployee(String name, String id) {
 		return employees.contains(new Employee(name, id));
 	}
-
 
 }
