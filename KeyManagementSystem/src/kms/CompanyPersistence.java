@@ -10,6 +10,7 @@ public class CompanyPersistence {
 		return new CompanyManager();
 	}
 	
+	//Save to text file
 	public static void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
@@ -39,13 +40,25 @@ public class CompanyPersistence {
 		}
 	}
 	
-	
+	//Reports
 	public static String printReportA(CompanyManager companyManager) {
 		String report = "";
 		for (int i = 0; i < companyManager.employees.size(); i++) {
 			String addition = (companyManager.employees.get(i).getName() + ", ID= " + companyManager.employees.get(i).getId() + "\n");
 			report += addition;
 		}
+		return report;
+	}
+	
+	public static String printReportB(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportC(CompanyManager companyManager) {
+		String report = "";
+		
 		return report;
 	}
 
@@ -55,6 +68,72 @@ public class CompanyPersistence {
 			String addition = (companyManager.buildings.get(i).getName() + " Building (" + companyManager.buildings.get(i).getBuildingCode() + ")\n");
 			report += addition;
 		}
+		return report;
+	}
+	
+	public static String printReportE(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportF(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportG(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportH(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportI(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportJ(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportK(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportL(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportM(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportN(CompanyManager companyManager) {
+		String report = "";
+		
+		return report;
+	}
+	
+	public static String printReportO(CompanyManager companyManager) {
+		String report = "";
+		
 		return report;
 	}
 }

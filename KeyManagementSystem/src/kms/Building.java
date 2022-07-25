@@ -26,7 +26,7 @@ public class Building {
 		this.buildingCode = buildingCode;
 	}
 	
-	public Building(String code) {
+	public Building(String buildingCode) {
 	}
 	
 	public Building() {

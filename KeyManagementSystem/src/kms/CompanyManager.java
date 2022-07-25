@@ -60,6 +60,10 @@ public class CompanyManager {
 		rooms.remove(r);
 	}
 	
+	public void remEmployee(Employee e) {
+		employees.remove(e);
+	}
+	
 	//Getters
 	public int getNumBuildings() {
 		return buildings.size();
@@ -73,6 +77,10 @@ public class CompanyManager {
 		return rooms.size();
 	}
 	
+	public int getNumEmployees() {
+		return employees.size();
+	}
+	
 	public Building getBuilding(int i) {
 		if(i>=0 && i<buildings.size()) {
 			return buildings.get(i);
@@ -80,16 +88,23 @@ public class CompanyManager {
 		return null;
 	}
 	
-	public Building getSuite(int i) {
+	public Suite getSuite(int i) {
 		if(i>=0 && i<suites.size()) {
 			return suites.get(i);
 		}
 		return null;
 	}
 	
-	public Building getRoom(int i) {
+	public Room getRoom(int i) {
 		if(i>=0 && i<rooms.size()) {
 			return rooms.get(i);
+		}
+		return null;
+	}
+	
+	public Employee getEmployee(int i) {
+		if(i>=0 && i<employees.size()) {
+			return employees.get(i);
 		}
 		return null;
 	}
@@ -121,18 +136,24 @@ public class CompanyManager {
 		buildings.clear();
 		suites.clear();
 		rooms.clear();
+		employees.clear();
 	}
 	
-	public boolean containsBuilding(String code) {
-		return buildings.contains(new Building(code));
+	public boolean containsBuilding(String name, String buildingCode) {
+		return buildings.contains(new Building(name, buildingCode));
 	}
 	
-	public boolean containsSuite(String code) {
-		return suites.contains(new Suite(code));
+	public boolean containsSuite(String name, String buildingCode, String suiteCode) {
+		return suites.contains(new Suite(name, buildingCode, suiteCode));
 	}
 	
-	public boolean containsRoom(String code) {
-		return rooms.contains(new Room(code));
+	public boolean containsRoom(String buildingCode, String suiteCode, String roomNumber) {
+		return rooms.contains(new Room(buildingCode, suiteCode, roomNumber));
 	}
+	
+	public boolean containsEmployee(String name, String id) {
+		return employees.contains(new Employee(name, id));
+	}
+
 
 }

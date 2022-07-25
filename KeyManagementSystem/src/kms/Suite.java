@@ -65,7 +65,7 @@ public class Suite extends Building{
 	public boolean equals(Object o) {
 		if(o instanceof Suite) {
 			Suite s = (Suite)o;
-			if(this.buildingCode.equals(s.suiteCode)) {
+			if(this.suiteCode.equals(s.suiteCode)) {
 				return true;
 			}
 		}
