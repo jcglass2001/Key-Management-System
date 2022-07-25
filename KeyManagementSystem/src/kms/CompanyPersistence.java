@@ -47,108 +47,107 @@ public class CompanyPersistence {
 				Scanner scan = new Scanner(file);
 				while (scan.hasNextLine()){
 					String currentLine = scan.nextLine();
-					//loop through characters in string
-					for(int i = 0; i < currentLine.length(); i++) {
-						
-						//# represents new building
-						if(currentLine.charAt(i) == '#') {
-							String tempName = "";
-							String tempCode = "";
+				
+					//# represents new building
+					if(currentLine.charAt(0) == '#') {
+						String tempName = "";
+						String tempCode = "";
 
-							for(int j = i+1; j < currentLine.length(); j++) {
-								char ch = currentLine.charAt(j);
-								boolean periodEncountered = false;
-								if(ch == '.') periodEncountered = true;
-									
-								if(periodEncountered == true) {
-									tempCode = tempCode + ch;
-								}
-									
-								else tempName = tempName + ch;
-							}
+						for(int i = 1; i < currentLine.length(); i++) {
+							char ch = currentLine.charAt(i);
+							boolean periodEncountered = false;
+							if(ch == '.') periodEncountered = true;
+								
+							while(periodEncountered == false)
+								tempName += ch;
+								
+							while(periodEncountered == true)
+								tempCode += ch;
+							
 							Building tempBuild = new Building(tempName, tempCode);
 							companyManager.buildings.add(tempBuild);
 						}
+					}
 						
 						//% represents new suite
-						if(currentLine.charAt(i) == '%') {
+						if(currentLine.charAt(0) == '%') {
 							String tempName = "";
 							String tempCode = "";
 							String tempBuild = "";
 							
-							for(int j = i+1; j < currentLine.length(); j++) {
-								char ch = currentLine.charAt(j);
+							for(int i = 1; i < currentLine.length(); i++) {
+								char ch = currentLine.charAt(i);
 								boolean periodEncountered = false;
 								boolean commaEncountered = false;
 								
 
 								if(ch == '.') periodEncountered = true;
 								if(ch == ',') commaEncountered = true;
+								
+								while(periodEncountered == false && commaEncountered == false)
+									tempName += ch;	
+								
+								while(periodEncountered == true && commaEncountered == false)
+									tempCode += ch;
 									
-								if(periodEncountered == true && commaEncountered == false) {
-									tempCode = tempCode + ch;
-								}
-									
-								if(periodEncountered == true && commaEncountered == true) {
-									tempBuild = tempBuild + ch;
-								}
-									
-								else tempName = tempName + ch;		
+								while(periodEncountered == true && commaEncountered == true)
+									tempBuild += ch;
+								
+								Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
+								companyManager.suites.add(tempSuite);
 							}
-							Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
-							companyManager.suites.add(tempSuite);
 						}
 						
 						//! represents new room
-						if(currentLine.charAt(i) == '!') {
+						if(currentLine.charAt(0) == '!') {
 							String tempNum = "";
 							String tempSuite = "";
 							String tempBuild = "";
 							
-							for(int j = i+1; j < currentLine.length(); j++) {
-								char ch = currentLine.charAt(j);
+							for(int i = 1; i < currentLine.length(); i++) {
+								char ch = currentLine.charAt(i);
 								boolean periodEncountered = false;
 								boolean commaEncountered = false;
 								
 								if(ch == '.') periodEncountered = true;
 								if(ch == ',') commaEncountered = true;
+								
+								while(periodEncountered == false && commaEncountered == false)
+									tempNum += ch;
+								
+								while(periodEncountered == true && commaEncountered == false)
+									tempSuite += ch;
 									
-								if(periodEncountered == true && commaEncountered == false) {
-									tempSuite = tempSuite + ch;
-								}
-									
-								if(periodEncountered == true && commaEncountered == true) {
-									tempBuild = tempBuild + ch;
-								}
-									
-								else tempNum = tempNum + ch;
+								while(periodEncountered == true && commaEncountered == true)
+									tempBuild += ch;	
+								
+								Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
+								companyManager.rooms.add(tempRoom);
 							}
-							Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
-							companyManager.rooms.add(tempRoom);
 						}
 						
 						//$ represents new employee
-						if(currentLine.charAt(i) == '$') {
+						if(currentLine.charAt(0) == '$') {
 							String tempName = "";
 							String tempID = "";
 							
-							for(int j = i+1; j < currentLine.length(); j++) {
-								char ch = currentLine.charAt(j);
+							for(int i = 1; i < currentLine.length(); i++) {
+								char ch = currentLine.charAt(i);
 								boolean periodEncountered = false;
 								
 								if(ch == '.') periodEncountered = true;
-									
-								if(periodEncountered == true) {
-									tempID = tempID + ch;
-								}
-									
-								else tempName = tempName + ch;
+								
+								while(periodEncountered == false)
+									tempName += ch;
+								
+								while(periodEncountered == true) 
+									tempID += ch;
+								
+								Employee tempEmp = new Employee(tempName, tempID);
+								companyManager.employees.add(tempEmp);
 							}
-							Employee tempEmp = new Employee(tempName, tempID);
-							companyManager.employees.add(tempEmp);
 						}	
 					}
-				}
 				scan.close();
 			} catch (IOException e) {
 				System.out.println("An error occured.");
