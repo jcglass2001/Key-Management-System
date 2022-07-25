@@ -26,5 +26,15 @@ class CompanyPersistenceTest {
 		File testFile = new File("Report.txt");
 		assertEquals(testFile.exists(), true);
 	}
+	
+	@DisplayName("FileReader: build from file")
+	@Test
+	void FileReaderTest() {
+		CompanyPersistence p1 = new CompanyPersistence();
+		CompanyManager c1 = new CompanyManager();
+		File testFile = new File("TestReport.txt");
+		p1.buildFromFile(testFile, c1);
+		assertEquals(testFile.exists(), true);
+	}
 
 }
