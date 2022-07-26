@@ -7,8 +7,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -18,10 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 public class Main extends Application {
 	CompanyController companyController;
@@ -101,7 +95,7 @@ public class Main extends Application {
 	protected TextField txtRoomId_Report;
 	protected TextField txtEmpId_Report;
 	protected Button btnGenerate_Report;
-	protected ChoiceBox cBoxList_Report;
+	protected ChoiceBox<Character> cBoxList_Report;
 	protected TextArea displayInfo_Report;
 
 	/*
@@ -350,7 +344,7 @@ public class Main extends Application {
 		lblMiddleInitial = new Label("Middile Initial: ");
 		lblLastName = new Label("Last Name: ");
 		lblEmployeeId = new Label("Employee ID: ");
-		btnAddEmployee = new Button("Add Button");
+		btnAddEmployee = new Button("Add Employee");
 		// create first name container
 		HBox hBoxFirstNameInfo = buildLabelTextContainer_H(lblFirstName, txtFirstName);
 		// create middle initial container
@@ -400,7 +394,7 @@ public class Main extends Application {
 
 	/* helper method that builds choicebox with chars A-O */
 	private ChoiceBox<Character> populateChoiceBox() {
-		ChoiceBox<Character> cb = new ChoiceBox();
+		ChoiceBox<Character> cb = new ChoiceBox<Character>();
 		// create char array to list with elements A-O
 		char[] alphabet = "ABCDEFGHIJKLMNO".toCharArray();
 		// populate letters in choiceBox
