@@ -453,12 +453,12 @@ public class CompanyController {
 				 gui.displayInfo_Report.setText(msgD);
 				 break;
 			 case 'E':
-				 String msgE = CompanyPersistence.printReportE(companyManager);
+				 String msgE = CompanyPersistence.printReportE(companyManager, gui.txtBuildingId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgE);
 				 break;
 			 case 'F':
-				 String msgF = CompanyPersistence.printReportF(companyManager);
+				 String msgF = CompanyPersistence.printReportF(companyManager, gui.txtBuildingId_Report.getText(), gui.txtSuiteId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgF);
 				 break;

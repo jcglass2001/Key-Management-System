@@ -61,6 +61,10 @@ public class Suite extends Building{
 		return rooms;
 	}
 	
+	public void addRoom(Room r){
+		rooms.add(r);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Suite) {

@@ -137,15 +137,34 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportE(CompanyManager companyManager) {
+	public static String printReportE(CompanyManager companyManager, String buildingCode) {
 		String report = "";
+        //grab building
+        Building b = companyManager.getBuildingByCode(buildingCode);
+        //print building
+        report += String.format("Building: %s(%s)", b.getName(),b.getBuildingCode());
+        //loop through suites list in building
+        for(Suite s: b.getSuites()) {
+            //print suites
+            report += String.format("\t\tSuite: %s(%s)", s.getName(),s.getSuiteCode());
+            //loop through and print all rooms in suite
+            for(Room r: s.getRooms()) {
+                //print rooms
+                report += String.format("\t\t\tRoom: %s", r.getRoomNumber());
+            }
+        }
 		
-		return report;
+        return report;
 	}
 	
-	public static String printReportF(CompanyManager companyManager) {
+	public static String printReportF(CompanyManager companyManager, String buildingCode, String suiteCode) {
 		String report = "";
-		
+		for(int i = 0; i < companyManager.rooms.size(); i++) {
+			if(companyManager.getRoom(i).getBuildingCode().equals(buildingCode) && companyManager.getRoom(i).getSuiteCode().equals(suiteCode)) {
+				String addition = ("Room Number: " + companyManager.rooms.get(i).getRoomNumber() + "\n");
+				report += addition;
+			}
+		}
 		return report;
 	}
 	

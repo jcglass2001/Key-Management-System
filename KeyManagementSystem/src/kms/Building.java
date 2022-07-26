@@ -45,6 +45,10 @@ public class Building {
 		return suites;
 	}
 	
+	public void addSuite(Suite s) {
+		suites.add(s);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Building) {

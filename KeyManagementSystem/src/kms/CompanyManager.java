@@ -19,12 +19,22 @@ public class CompanyManager {
 	}
 	
 	public void addSuite(Suite s) {
-		suites.add(s);
-	}
+		for(Building b: buildings) {
+            if(b.getBuildingCode().equals(s.getBuildingCode())) {
+            	 b.addSuite(s);
+                 suites.add(s);
+            }
+        }
+    }
 	
 	public void addRoom(Room r) {
-		rooms.add(r);
-	}
+		for(Suite s: suites) {
+          if(s.getSuiteCode().equals(r.getSuiteCode())) {
+        	  s.addRoom(r);
+              rooms.add(r);
+          }
+		}
+    }
 	
 	public void addEmployee(Employee e) {
 		employees.add(e);
@@ -107,6 +117,24 @@ public class CompanyManager {
 	public int getNumEmployees() {
 		return employees.size();
 	}
+	
+	public Building getBuildingByCode(String code) {
+        Building dummy = new Building();
+        for(Building b: buildings) {
+            if(b.getBuildingCode().equals(code)) {dummy = b;}
+        }
+        return dummy;
+    }
+	
+	public Suite getSuiteByCode(String code) {
+        Suite dummy = new Suite();        
+        for(Suite s: suites) {
+            if(s.getSuiteCode().equals(code)) {
+                dummy = s;
+            }
+        }
+        return dummy;
+    }
 	
 	//Clear and Contains
 	public void clear() {
