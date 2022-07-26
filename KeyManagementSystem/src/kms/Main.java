@@ -123,7 +123,7 @@ public class Main extends Application {
 	protected TextField txtRoomId_Report;
 	protected TextField txtEmpId_Report;
 	protected Button btnGenerate_Report;
-	protected ChoiceBox cBoxList_Report;
+	protected ChoiceBox<Character> cBoxList_Report;
 	protected TextArea displayInfo_Report;
 
 	/*
@@ -351,11 +351,11 @@ public class Main extends Application {
 	/* constructs suite entry pane section for add scene */
 	private Pane buildSuiteEntry_Add() {
 		// assign pane elements
-		txtSuiteId_Suite = new TextField();
-		txtSuiteId_Suite.setPromptText("Enter Suite ID.");
-		
 		txtSuiteName_Suite = new TextField();
 		txtSuiteName_Suite.setPromptText("Enter Suite Name.");
+		
+		txtSuiteId_Suite = new TextField();
+		txtSuiteId_Suite.setPromptText("Enter Suite ID.");
 		
 		txtBuildingId_Suite = new TextField();
 		txtBuildingId_Suite.setPromptText("Enter Building ID.");
@@ -363,7 +363,7 @@ public class Main extends Application {
 		btnAddSuite = new Button("Add Suite");
 		
 		//create arraylist of textfield elements
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtSuiteId_Suite,txtSuiteName_Suite,txtBuildingId_Suite));
+		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtSuiteName_Suite,txtSuiteId_Suite,txtBuildingId_Suite));
 		//create container populated with textfields
 		VBox vBoxSuiteEntry = buildTextContainer(tFields);
 		//combine container with button
@@ -386,7 +386,7 @@ public class Main extends Application {
 		
 		btnAddRoom = new Button("Add Room");
 		//create arraylist of textfield elements
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtRoomNum_Room,txtSuiteId_Room,txtBuildingId_Room));
+		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtRoomNum_Room,txtSuiteId_Room, txtBuildingId_Room));
 		//create container populated with textfields
 		VBox vBoxRoomEntry = buildTextContainer(tFields);
 		//combine container with button
@@ -488,7 +488,7 @@ public class Main extends Application {
 		//return container
 		return vBoxRoomEntry;	
 	}
-	private  Pane buildEmployeeEntry_Remove() {
+	private Pane buildEmployeeEntry_Remove() {
 		//assign pane elements
 		txtFName_Remove = new TextField();
 		txtFName_Remove.setPromptText("Enter First Name.");
@@ -692,7 +692,7 @@ public class Main extends Application {
 			String lName = txtLName_Remove.getText();
 			String empID = txtEmpId_Remove.getText();
 			//remove employee from company
-			companyController.remEmployee(fName,mInit,lName,empID);
+			companyController.removeEmployee(fName,mInit,lName,empID);
 		}
 	}
 	

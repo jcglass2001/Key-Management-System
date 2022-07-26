@@ -241,8 +241,8 @@ public class CompanyController {
 					a.show();
 					
 					//clear textfields
-					gui.txtBuildingId.clear();
-					gui.txtBuildingName.clear();
+					gui.txtBuildingId_Remove.clear();
+					gui.txtBuildingName_Remove.clear();
 				}
 				else {
 					//set alert and content text
@@ -290,9 +290,9 @@ public class CompanyController {
 						a.show();
 						
 						//clear textfields
-						gui.txtSuiteName_Suite.clear();
-						gui.txtBuildingId_Suite.clear();
-						gui.txtSuiteId_Suite.clear();
+						gui.txtSuiteName_Suite_Remove.clear();
+						gui.txtBuildingId_Suite_Remove.clear();
+						gui.txtSuiteId_Suite_Remove.clear();
 					}
 					else {
 						//set alert and content text
@@ -347,9 +347,9 @@ public class CompanyController {
 						a.show();
 						
 						//clear textfields
-						gui.txtBuildingId_Room.clear();
-						gui.txtSuiteId_Room.clear();
-						gui.txtRoomNum_Room.clear();
+						gui.txtBuildingId_Room_Remove.clear();
+						gui.txtSuiteId_Room_Remove.clear();
+						gui.txtRoomNum_Room_Remove.clear();
 					}
 					else {
 						//set alert and content text
@@ -385,7 +385,7 @@ public class CompanyController {
 		}
 	}
 	
-	public void remEmployee(String first, String middle, String last, String id) {
+	public void removeEmployee(String first, String middle, String last, String id) {
 		//Calling validators
 		CompanyCodeStatus companyEmployeeMessage = CompanyValidator.isEmployeeValid(first, middle, last, id);
 		//Create full name
@@ -395,7 +395,7 @@ public class CompanyController {
 			if(companyManager.containsEmployee(fullName, id)) {
 				//create Employee instance
 				Employee e = new Employee(fullName, id);
-				companyManager.addEmployee(e);
+				companyManager.remEmployee(e);
 				
 				//set alert and content text
 				a.setAlertType(AlertType.INFORMATION);
@@ -404,10 +404,10 @@ public class CompanyController {
 				a.show();
 				
 				//clear textfields
-				gui.txtFirstName.clear();
-				gui.txtMiddleInitial.clear();
-				gui.txtLastName.clear();
-				gui.txtEmployeeId.clear();
+				gui.txtFName_Remove.clear();
+				gui.txtMInitial_Remove.clear();
+				gui.txtLName_Remove.clear();
+				gui.txtEmpId_Remove.clear();
 			}
 			else {
 				//set alert and content text
