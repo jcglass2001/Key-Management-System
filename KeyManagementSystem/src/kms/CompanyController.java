@@ -222,6 +222,211 @@ public class CompanyController {
 		}
 	}
 	
+	public void removeBuilding(String name, String buildingCode) {
+		//Calling validators
+		CompanyCodeStatus companyNameMessage = CompanyValidator.isNameValid(name);
+		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
+		
+		if(companyNameMessage.isValid()) {
+			if(companyBuildingMessage.isValid()) {
+				if(companyManager.containsBuilding(name, buildingCode)) {
+					//create building instance
+					Building b = new Building(name, buildingCode);
+					companyManager.remBuilding(b);
+					
+					//set alert and content text
+					a.setAlertType(AlertType.INFORMATION);
+					a.setContentText("Building Removed Successfully");
+					//show alert
+					a.show();
+					
+					//clear textfields
+					gui.txtBuildingId_Remove.clear();
+					gui.txtBuildingName_Remove.clear();
+				}
+				else {
+					//set alert and content text
+					a.setAlertType(AlertType.INFORMATION);
+					a.setContentText("Building with that code doesn't exist!");
+					//show alert
+					a.show();
+				}
+			}
+			else {
+				//set alert and content text
+				a.setAlertType(AlertType.ERROR);
+				a.setContentText(companyBuildingMessage.getErrorMessage());
+				//show alert
+				a.show();
+			}
+		}
+		else {
+			//set alert and content text
+			a.setAlertType(AlertType.ERROR);
+			a.setContentText(companyNameMessage.getErrorMessage());
+			//show alert
+			a.show();
+		}
+	}
+	
+	public void removeSuite(String name, String suiteCode, String buildingCode) {
+		//Calling validators
+		CompanyCodeStatus companyNameMessage = CompanyValidator.isNameValid(name);
+		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
+		CompanyCodeStatus companySuiteMessage = CompanyValidator.isSuiteValid(suiteCode);
+		
+		if(companyNameMessage.isValid()) {
+			if(companyBuildingMessage.isValid()) {
+				if(companySuiteMessage.isValid()) {
+					if(companyManager.containsSuite(name, buildingCode, suiteCode)) {
+						//create building instance
+						Suite s = new Suite(name, buildingCode, suiteCode);
+						companyManager.addSuite(s);
+						
+						//set alert and content text
+						a.setAlertType(AlertType.INFORMATION);
+						a.setContentText("Suite Removed Successfully");
+						//show alert
+						a.show();
+						
+						//clear textfields
+						gui.txtSuiteName_Suite_Remove.clear();
+						gui.txtBuildingId_Suite_Remove.clear();
+						gui.txtSuiteId_Suite_Remove.clear();
+					}
+					else {
+						//set alert and content text
+						a.setAlertType(AlertType.INFORMATION);
+						a.setContentText("Suite with that code doesn't exist!");
+						//show alert
+						a.show();
+					}
+				}
+				else {
+					//set alert and content text
+					a.setAlertType(AlertType.ERROR);
+					a.setContentText(companySuiteMessage.getErrorMessage());
+					//show alert
+					a.show();
+				}
+			}
+			else {
+				//set alert and content text
+				a.setAlertType(AlertType.ERROR);
+				a.setContentText(companyBuildingMessage.getErrorMessage());
+				//show alert
+				a.show();
+			}
+		}
+		else {
+				//set alert and content text
+				a.setAlertType(AlertType.ERROR);
+				a.setContentText(companyNameMessage.getErrorMessage());
+				//show alert
+				a.show();
+		}
+	}
+	public void removeRoom(String roomNumber, String suiteCode, String buildingCode) {
+		//Calling validators
+		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
+		CompanyCodeStatus companySuiteMessage = CompanyValidator.isSuiteValid(suiteCode);
+		CompanyCodeStatus companyRoomMessage = CompanyValidator.isRoomValid(roomNumber);
+	
+		if(companyBuildingMessage.isValid()) {
+			if(companySuiteMessage.isValid()) {
+				if(companyRoomMessage.isValid()) {
+					if(companyManager.containsRoom(buildingCode, suiteCode, roomNumber)) {
+						//creates room instance
+						Room r = new Room(buildingCode, suiteCode, roomNumber);
+						companyManager.addRoom(r);
+						
+						//set alert and content text
+						a.setAlertType(AlertType.INFORMATION);
+						a.setContentText("Room Removed Successfully");
+						//show alert
+						a.show();
+						
+						//clear textfields
+						gui.txtBuildingId_Room_Remove.clear();
+						gui.txtSuiteId_Room_Remove.clear();
+						gui.txtRoomNum_Room_Remove.clear();
+					}
+					else {
+						//set alert and content text
+						a.setAlertType(AlertType.INFORMATION);
+						a.setContentText("Room with that number doesn't exist!");
+						//show alert
+						a.show();
+					}
+				}
+				else {
+					//set alert and content text
+					a.setAlertType(AlertType.ERROR);
+					a.setContentText(companyRoomMessage.getErrorMessage());
+					//show alert
+					a.show();
+				}
+				
+			}
+			else {
+				//set alert and content text
+				a.setAlertType(AlertType.ERROR);
+				a.setContentText(companySuiteMessage.getErrorMessage());
+				//show alert
+				a.show();
+			}
+		}
+		else {
+			//set alert and content text
+			a.setAlertType(AlertType.ERROR);
+			a.setContentText(companyBuildingMessage.getErrorMessage());
+			//show alert
+			a.show();
+		}
+	}
+	
+	public void removeEmployee(String first, String middle, String last, String id) {
+		//Calling validators
+		CompanyCodeStatus companyEmployeeMessage = CompanyValidator.isEmployeeValid(first, middle, last, id);
+		//Create full name
+		String fullName = String.format("%s %s. %s", first, middle, last);
+		
+		if(companyEmployeeMessage.isValid()) {
+			if(companyManager.containsEmployee(fullName, id)) {
+				//create Employee instance
+				Employee e = new Employee(fullName, id);
+				companyManager.remEmployee(e);
+				
+				//set alert and content text
+				a.setAlertType(AlertType.INFORMATION);
+				a.setContentText("Employee Removed Successfully");
+				//show alert
+				a.show();
+				
+				//clear textfields
+				gui.txtFName_Remove.clear();
+				gui.txtMInitial_Remove.clear();
+				gui.txtLName_Remove.clear();
+				gui.txtEmpId_Remove.clear();
+			}
+			else {
+				//set alert and content text
+				a.setAlertType(AlertType.INFORMATION);
+				a.setContentText("Employee with that id doesn't exist!");
+				//show alert
+				a.show();
+			}
+		}
+		else {
+			//set alert and content text
+			a.setAlertType(AlertType.ERROR);
+			a.setContentText(companyEmployeeMessage.getErrorMessage());
+			//show alert
+			a.show();
+		}
+	}
+
+	
 	public void printReports(Character selected) {
 		//Calling printers
 		try {
