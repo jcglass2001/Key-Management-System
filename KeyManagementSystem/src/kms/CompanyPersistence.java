@@ -15,23 +15,24 @@ public class CompanyPersistence {
 	public void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
-			myWriter.write("Buildings: \n");
+
+			//buildings
 			for (int i = 0; i < companyManager.buildings.size(); i++)
-				myWriter.write("Building #" + companyManager.buildings.get(i).getBuildingCode() + ": " + companyManager.buildings.get(i).getName() + "\n");
+				myWriter.write("#" + companyManager.buildings.get(i).getName() + "-" + companyManager.buildings.get(i).getBuildingCode() + "\n");
 
-			myWriter.write("\nSuites: \n");
+			//suites
 			for (int i = 0; i < companyManager.suites.size(); i++)
-				myWriter.write("Suite #" + companyManager.suites.get(i).getSuiteCode() + ": " + companyManager.suites.get(i).getName()
-						+ " belongs to building: #" + companyManager.suites.get(i).getBuildingCode() + "\n");
+				myWriter.write("%" + companyManager.suites.get(i).getName() + "-" + companyManager.suites.get(i).getSuiteCode()
+						+ "-" + companyManager.suites.get(i).getBuildingCode() + "\n");
 
-			myWriter.write("\nRooms: \n");
+			//rooms
 			for (int i = 0; i < companyManager.rooms.size(); i++)
-				myWriter.write("Room #" + companyManager.rooms.get(i).getRoomNumber() + " found in suite: #"
-						+ companyManager.rooms.get(i).getSuiteCode() + "\n");
+				myWriter.write("!" + companyManager.rooms.get(i).getRoomNumber() + "-"
+						+ companyManager.rooms.get(i).getSuiteCode() + "-" + companyManager.rooms.get(i).getBuildingCode() +"\n");
 
-			myWriter.write("\nEmployees: \n");
+			//employees
 			for (int i = 0; i < companyManager.employees.size(); i++)
-				myWriter.write("Employee #" + companyManager.employees.get(i).getId() + ": " + companyManager.employees.get(i).getName() + "\n");
+				myWriter.write("$" + companyManager.employees.get(i).getName() + "-" + companyManager.employees.get(i).getId() + "\n");
 
 			myWriter.close();
 			System.out.println("Successfully wrote to the file.");
@@ -50,104 +51,50 @@ public class CompanyPersistence {
 				
 					//# represents new building
 					if(currentLine.charAt(0) == '#') {
-						String tempName = "";
-						String tempCode = "";
-
-						for(int i = 1; i < currentLine.length(); i++) {
-							char ch = currentLine.charAt(i);
-							boolean periodEncountered = false;
-							if(ch == '.') periodEncountered = true;
-								
-							while(periodEncountered == false)
-								tempName += ch;
-								
-							while(periodEncountered == true)
-								tempCode += ch;
+						String lineData = currentLine.substring(1);
+						String[] components = lineData.split("-");
+						String tempName = components[0];
+						String tempCode = components[1];
 							
-							Building tempBuild = new Building(tempName, tempCode);
-							companyManager.buildings.add(tempBuild);
-						}
+						Building tempBuild = new Building(tempName, tempCode);
+						companyManager.addBuilding(tempBuild);;
 					}
 						
-						//% represents new suite
-						if(currentLine.charAt(0) == '%') {
-							String tempName = "";
-							String tempCode = "";
-							String tempBuild = "";
+					//% represents new suite
+					if(currentLine.charAt(0) == '%') {
+						String lineData = currentLine.substring(1);
+						String[] components = lineData.split("-");
+						String tempName = components[0];
+						String tempCode = components[1];
+						String tempBuild = components[2];
 							
-							for(int i = 1; i < currentLine.length(); i++) {
-								char ch = currentLine.charAt(i);
-								boolean periodEncountered = false;
-								boolean commaEncountered = false;
-								
-
-								if(ch == '.') periodEncountered = true;
-								if(ch == ',') commaEncountered = true;
-								
-								while(periodEncountered == false && commaEncountered == false)
-									tempName += ch;	
-								
-								while(periodEncountered == true && commaEncountered == false)
-									tempCode += ch;
-									
-								while(periodEncountered == true && commaEncountered == true)
-									tempBuild += ch;
-								
-								Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
-								companyManager.suites.add(tempSuite);
-							}
-						}
-						
-						//! represents new room
-						if(currentLine.charAt(0) == '!') {
-							String tempNum = "";
-							String tempSuite = "";
-							String tempBuild = "";
-							
-							for(int i = 1; i < currentLine.length(); i++) {
-								char ch = currentLine.charAt(i);
-								boolean periodEncountered = false;
-								boolean commaEncountered = false;
-								
-								if(ch == '.') periodEncountered = true;
-								if(ch == ',') commaEncountered = true;
-								
-								while(periodEncountered == false && commaEncountered == false)
-									tempNum += ch;
-								
-								while(periodEncountered == true && commaEncountered == false)
-									tempSuite += ch;
-									
-								while(periodEncountered == true && commaEncountered == true)
-									tempBuild += ch;	
-								
-								Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
-								companyManager.rooms.add(tempRoom);
-							}
-						}
-						
-						//$ represents new employee
-						if(currentLine.charAt(0) == '$') {
-							String tempName = "";
-							String tempID = "";
-							
-							for(int i = 1; i < currentLine.length(); i++) {
-								char ch = currentLine.charAt(i);
-								boolean periodEncountered = false;
-								
-								if(ch == '.') periodEncountered = true;
-								
-								while(periodEncountered == false)
-									tempName += ch;
-								
-								while(periodEncountered == true) 
-									tempID += ch;
-								
-								Employee tempEmp = new Employee(tempName, tempID);
-								companyManager.employees.add(tempEmp);
-							}
-						}	
+						Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
+						companyManager.addSuite(tempSuite);;
 					}
+						
+					//! represents new room
+					if(currentLine.charAt(0) == '!') {
+						String lineData = currentLine.substring(1);
+						String[] components = lineData.split("-");
+						String tempNum = components[0];
+						String tempSuite = components[1];
+						String tempBuild = components[2];
+								
+						Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
+						companyManager.addRoom(tempRoom);
+					}
+						
+					//$ represents new employee
+					if(currentLine.charAt(0) == '$') {
+						String lineData = currentLine.substring(1);
+						String[] components = lineData.split("-");
+						String tempName = components[0];
+						String tempID = components[1];
+
+						Employee tempEmp = new Employee(tempName, tempID);
+						companyManager.addEmployee(tempEmp);
+					}	
+				}
 				scan.close();
 			} catch (IOException e) {
 				System.out.println("An error occured.");
