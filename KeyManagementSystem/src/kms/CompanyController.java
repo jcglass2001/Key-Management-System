@@ -221,6 +221,136 @@ public class CompanyController {
 			a.show();
 		}
 	}
+	public void removeBuilding(String buildingName, String buildingCode) {
+		//Calling validators
+				CompanyCodeStatus companyNameMessage = CompanyValidator.isNameValid(buildingName);
+				CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
+
+				if(companyNameMessage.isValid()) {
+					if(companyBuildingMessage.isValid()) {
+						//create building instance
+						Building b = new Building(buildingName, buildingCode);
+						companyManager.remBuilding(b);
+
+						//set alert and content text
+						a.setAlertType(AlertType.INFORMATION);
+						a.setContentText("Building Removed Successfully");
+						//show alert
+						a.show();
+
+						//clear textfields
+						gui.txtBuildingId.clear();
+						gui.txtBuildingName.clear();
+					}
+					else {
+						//set alert and content text
+						a.setAlertType(AlertType.ERROR);
+						a.setContentText(companyBuildingMessage.getErrorMessage());
+						//show alert
+						a.show();
+					}
+				}
+				else {
+					//set alert and content text
+					a.setAlertType(AlertType.ERROR);
+					a.setContentText(companyNameMessage.getErrorMessage());
+					//show alert
+					a.show();
+				}
+	}
+	public void removeSuite(String suiteName, String suiteCode, String buildingCode) {
+		//Calling validators
+				CompanyCodeStatus companyNameMessage = CompanyValidator.isNameValid(suiteName);
+				CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
+				CompanyCodeStatus companySuiteMessage = CompanyValidator.isSuiteValid(suiteCode);
+
+				if(companyNameMessage.isValid()) {
+					if(companyBuildingMessage.isValid()) {
+						if(companySuiteMessage.isValid()) {
+							//create building instance
+							Suite s = new Suite(suiteName, buildingCode, suiteCode);
+							companyManager.remSuite(s);
+
+							//set alert and content text
+							a.setAlertType(AlertType.INFORMATION);
+							a.setContentText("Building Removed Successfully");
+							//show alert
+							a.show();
+
+							//clear textfields
+							gui.txtSuiteName_Suite.clear();
+							gui.txtBuildingId_Suite.clear();
+							gui.txtSuiteId_Suite.clear();
+						}
+						else {
+							//set alert and content text
+							a.setAlertType(AlertType.ERROR);
+							a.setContentText(companySuiteMessage.getErrorMessage());
+							//show alert
+							a.show();
+						}
+					}
+					else {
+						//set alert and content text
+						a.setAlertType(AlertType.ERROR);
+						a.setContentText(companyBuildingMessage.getErrorMessage());
+						//show alert
+						a.show();
+					}
+				}
+				else {
+						//set alert and content text
+						a.setAlertType(AlertType.ERROR);
+						a.setContentText(companyNameMessage.getErrorMessage());
+						//show alert
+						a.show();
+				}
+	}
+	public void removeRoom(String roomNumber, String suiteCode, String buildingCode) {
+		//Calling validators
+				CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
+				CompanyCodeStatus companySuiteMessage = CompanyValidator.isSuiteValid(suiteCode);
+				CompanyCodeStatus companyRoomMessage = CompanyValidator.isRoomValid(roomNumber);
+
+				if(companyBuildingMessage.isValid()) {
+
+					if(companySuiteMessage.isValid()) {
+
+						if(companyRoomMessage.isValid()) {
+							//create building instance
+							Room r = new Room(buildingCode, suiteCode, roomNumber);
+							companyManager.remRoom(r);
+
+							//set alert and content text
+							a.setAlertType(AlertType.INFORMATION);
+							a.setContentText("Room Removed Successfully");
+							//show alert
+							a.show();
+
+							//clear textfields
+							gui.txtBuildingId_Room.clear();
+							gui.txtSuiteId_Room.clear();
+							gui.txtRoomNum_Room.clear();
+						}
+						else {
+							//set alert and content text
+							a.setAlertType(AlertType.ERROR);
+							a.setContentText(companyRoomMessage.getErrorMessage());
+							//show alert
+							a.show();
+						}
+
+					}
+					else {
+						//set alert and content text
+						a.setAlertType(AlertType.ERROR);
+						a.setContentText(companySuiteMessage.getErrorMessage());
+						//show alert
+						a.show();
+					}
+				}
+	}
+
 	
 	public void printReports(Character selected) {
 		//Calling printers
