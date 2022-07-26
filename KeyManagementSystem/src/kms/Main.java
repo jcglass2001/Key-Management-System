@@ -505,7 +505,7 @@ public class Main extends Application {
 		btnRemoveEmployee = new Button("Remove Employee");
 		
 		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtFName_Remove,txtMInitial_Remove,txtLName_Remove));
+		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtFName_Remove,txtMInitial_Remove,txtLName_Remove,txtEmpId_Remove));
 		//crate container populated with textfields
 		VBox vBoxEmployeeEntry = buildTextContainer(tFields);
 		//add button to container
