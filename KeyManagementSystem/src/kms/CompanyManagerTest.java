@@ -190,4 +190,37 @@ class CompanyManagerTest {
 		assertEquals(cp.getEmployeeById("6549"), -1);
 	}
 	
+	@DisplayName("Test Employee Access: Pass")
+	@Test
+	void testEmployeePass() {
+		CompanyManager cp = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Room r = new Room("12", "12", "123");
+		cp.getEmployees().add(e1);
+		e1.addRoomAccess(r);
+		assertEquals(cp.testAccess("1234", "123"), "Success");
+	}
+	
+	@DisplayName("Test Employee Access: Fail")
+	@Test
+	void testEmployeeFail() {
+		CompanyManager cp = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Room r = new Room("12", "12", "123");
+		cp.getEmployees().add(e1);
+		e1.addRoomAccess(r);
+		assertEquals(cp.testAccess("1234", "122"), "Failure");
+		
+	}
+	
+	@DisplayName("Test Employee Access: Security Alert")
+	@Test
+	void testEmployeeNotFound() {
+		CompanyManager cp = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Room r = new Room("12", "12", "123");
+		assertEquals(cp.testAccess("1234", "123"), "Security Alert");
+		
+	}
+	
 }

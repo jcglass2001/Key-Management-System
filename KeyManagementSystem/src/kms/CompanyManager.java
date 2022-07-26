@@ -2,6 +2,7 @@ package kms;
 
 import java.util.ArrayList;
 
+
 public class CompanyManager {
 	//Lists
 	ArrayList<Building> buildings = new ArrayList<Building>();
@@ -138,6 +139,25 @@ public class CompanyManager {
 	
 	public boolean containsEmployee(String name, String id) {
 		return employees.contains(new Employee(name, id));
+	}
+	
+	//test employee access
+	//test access
+	public String testAccess(String eId, String roomNum) {
+		String result =  "";
+		if(getEmployeeById(eId) == -1)
+			result = "Security Alert";
+		else {
+			Employee e = employees.get(getEmployeeById(eId));
+			ArrayList<Room> employeeAccess = e.getFullAccess();
+			for(int i = 0; i < employeeAccess.size(); i++) {
+				if(employeeAccess.get(i).getRoomNumber().equals(roomNum))
+					result = "Success";
+				else result = "Failure";
+			}
+		}
+		
+		return result;
 	}
 
 }
