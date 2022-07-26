@@ -108,6 +108,14 @@ public class CompanyManager {
 		return employees.size();
 	}
 	
+	public int getEmployeeById(String id) {
+        Employee dummy = new Employee("temp", "1234");
+		for(Employee e: employees) {
+            if(e.getId().equals(id)) {dummy = e;}
+        }
+        return employees.indexOf(dummy);
+    }
+	
 	//Clear and Contains
 	public void clear() {
 		buildings.clear();
