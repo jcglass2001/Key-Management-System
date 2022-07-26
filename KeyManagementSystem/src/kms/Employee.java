@@ -1,6 +1,8 @@
 package kms;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Employee {
 	
@@ -9,9 +11,9 @@ public class Employee {
 	String id;
 	
 	//Lists
-	ArrayList<String> buildingAccess = new ArrayList<String>();
-	ArrayList<String> suiteAccess = new ArrayList<String>();
-	ArrayList<String> roomAccess = new ArrayList<String>();
+	ArrayList<Building> buildingAccess = new ArrayList<Building>();
+	ArrayList<Suite> suiteAccess = new ArrayList<Suite>();
+	ArrayList<Room> roomAccess = new ArrayList<Room>();
 	
 	//constructor 
 	public Employee(String name, String id){
@@ -31,43 +33,59 @@ public class Employee {
 		return id;
 	}
 	
-	public void addAccess(String type, String code) {
-		if(type.equals("building")) {
-			if(code.length() != 2)
-				throw new RuntimeException("Building code must be 2 digits long");
-			buildingAccess.add(code);
-		}
-		if(type.equals("suite")) {
-			if(code.length() != 2)
-				throw new RuntimeException("Suite code must be 2 digits long");
-			suiteAccess.add(code);
-		}
-		if(type.equals("room")) {
-			if(code.length() != 3)
-				throw new RuntimeException("Room number must be 3 digits long");
-			roomAccess.add(code);
-		}
+	
+	//add access methods
+	public void addBuildingAccess(Building building) {
+		buildingAccess.add(building);
 	}
 	
-	public String[][] getAccess() {
-		int buildings = buildingAccess.size();
-		int suites = suiteAccess.size();
-		int rooms = roomAccess.size();
-		int listSize = Math.max(rooms, Math.max(suites, buildings));
+	public void addSuiteAccess(Suite suite) {
+		suiteAccess.add(suite);
+	}
+
+	public void addRoomAccess(Room room) {
+		roomAccess.add(room);
+	}
+	
+	//get access methods
+	public ArrayList<Building> getBuildingAccess() {
+		return buildingAccess;
+	}
+	
+	public ArrayList<Suite> getSuiteAccess() {
+		return suiteAccess;
+	}
+	
+	public ArrayList<Room> getRoomAccess() {
+		return roomAccess;
+	}
+	
+	public ArrayList<Room> getFullAccess(){
+		Set<Room> fullAccessSet = new HashSet<Room>();
 		
-		//building = [0][x] suites = [1][x] rooms = [2][x]
-		String[][] accessList = new String[3][listSize];
+		//adding from building access
+		for(int i = 0; i < buildingAccess.size(); i++) {
+			for(int j = 0; j < buildingAccess.get(i).getSuites().size(); i++) {
+				for(int k = 0; k < buildingAccess.get(i).getSuites().get(j).getRooms().size(); k++) {
+					fullAccessSet.add(buildingAccess.get(i).getSuites().get(j).getRooms().get(k));
+				}
+			}
+		}
 		
-		for(int i = 0; i < buildings; i++) {
-			accessList[0][i] = buildingAccess.get(i);
+		//adding from suite access
+		for(int i = 0; i <suiteAccess.size(); i++) {
+			for(int j = 0; j < suiteAccess.get(i).getRooms().size(); j++) {
+				fullAccessSet.add(suiteAccess.get(i).getRooms().get(j));
+			}
 		}
-		for(int i = 0; i < suites; i++) {
-			accessList[1][i] = suiteAccess.get(i);
+		
+		//adding from room access
+		for(int i = 0; i < roomAccess.size(); i++) {
+			fullAccessSet.add(roomAccess.get(i));
 		}
-		for(int i = 0; i < rooms; i++) {
-			accessList[2][i] = roomAccess.get(i);
-		}
-		return accessList;
+		
+		ArrayList<Room> fullAccessList = new ArrayList<Room>(fullAccessSet); 
+		return fullAccessList;
 	}
 	
 	@Override
