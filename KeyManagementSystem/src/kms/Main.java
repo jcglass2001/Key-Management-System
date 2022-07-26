@@ -90,6 +90,12 @@ public class Main extends Application {
 	protected TextField txtSuiteId_Room_Remove;
 	protected TextField txtBuildingId_Room_Remove;
 	protected Button btnRemoveRoom;
+	//removeEmployeeInfo
+	protected TextField txtFName_Remove;
+	protected TextField txtMInitial_Remove;
+	protected TextField txtLName_Remove;
+	protected TextField txtEmpId_Remove;
+	protected Button btnRemoveEmployee;
 	/* Elements for the Access scene */
 	protected Label lblEmpId_Access;
 	protected Label lblRoomNum_Access;
@@ -183,6 +189,7 @@ public class Main extends Application {
 		root.add(buildBuildingEntry_Remove(), 0, 0);
 		root.add(buildSuiteEntry_Remove(), 1, 0);
 		root.add(buildRoomEntry_Remove(), 2, 0);
+		root.add(buildEmployeeEntry_Remove(), 3, 0);
 		//add navigation button
 		root.add(btnMenu, 0, 3);
 		// add padding
@@ -192,6 +199,7 @@ public class Main extends Application {
 		btnRemoveBuilding.setOnAction(new RemoveBuildingEventHandler());
 		btnRemoveSuite.setOnAction(new RemoveSuiteEventHandler());
 		btnRemoveRoom.setOnAction(new RemoveRoomEventHandler());
+		btnRemoveEmployee.setOnAction(new RemoveEmployeeHandler());
 		//assign grid to scene
 		remove = new Scene(root,800,500);
 		//return scene
@@ -480,6 +488,31 @@ public class Main extends Application {
 		//return container
 		return vBoxRoomEntry;	
 	}
+	private  Pane buildEmployeeEntry_Remove() {
+		//assign pane elements
+		txtFName_Remove = new TextField();
+		txtFName_Remove.setPromptText("Enter First Name.");
+		
+		txtMInitial_Remove = new TextField();
+		txtMInitial_Remove.setPromptText("Enter Middile Initial.");
+		
+		txtLName_Remove = new TextField();
+		txtLName_Remove.setPromptText("Enter Last Name.");
+		
+		txtEmpId_Remove = new TextField();
+		txtEmpId_Remove.setPromptText("Enter Employee ID.");
+		
+		btnRemoveEmployee = new Button("Remove Employee");
+		
+		//create arraylist of textfields
+		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtFName_Remove,txtMInitial_Remove,txtLName_Remove));
+		//crate container populated with textfields
+		VBox vBoxEmployeeEntry = buildTextContainer(tFields);
+		//add button to container
+		vBoxEmployeeEntry.getChildren().add(btnRemoveEmployee);
+		//return container
+		return vBoxEmployeeEntry;
+	}
 	
 
 	/* 
@@ -649,6 +682,17 @@ public class Main extends Application {
 			//grab selected choice from choicebox
 			Character selectedOption = (Character)cBoxList_Report.getValue();
 			companyController.printReports(selectedOption);
+		}
+	}
+	private class RemoveEmployeeHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			//grab user input
+			String fName = txtFName_Remove.getText();
+			String mInit = txtMInitial_Remove.getText();
+			String lName = txtLName_Remove.getText();
+			String empID = txtEmpId_Remove.getText();
+			//remove employee from company
+			companyController.remEmployee(fName,mInit,lName,empID);
 		}
 	}
 	
