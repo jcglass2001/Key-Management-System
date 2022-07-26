@@ -109,7 +109,7 @@ public class CompanyManager {
 	}
 	
 	public int getEmployeeById(String id) {
-        Employee dummy = new Employee("temp", "1234");
+        Employee dummy = new Employee("temp", "-000");
 		for(Employee e: employees) {
             if(e.getId().equals(id)) {dummy = e;}
         }

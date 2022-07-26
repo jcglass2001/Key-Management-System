@@ -164,5 +164,30 @@ class CompanyManagerTest {
 		assertEquals(cp.containsEmployee(e1.getName(), e1.getId()), true);
 	}
 	
+	@DisplayName("Search for employee with ID: employee exists")
+	@Test
+	void searchEmployeeExists() {
+		CompanyManager cp = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Employee e2 = new Employee("Jack", "1235");
+		Employee e3 = new Employee("Edward", "0225");
+		cp.getEmployees().add(e1);
+		cp.getEmployees().add(e2);
+		cp.getEmployees().add(e3);
+		assertEquals(cp.getEmployeeById("0225"), 2);
+	}
+	
+	@DisplayName("Search for employee with ID: employee does not exists")
+	@Test
+	void searchEmployeeDoesNotExist() {
+		CompanyManager cp = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Employee e2 = new Employee("Jack", "1235");
+		Employee e3 = new Employee("Edward", "0225");
+		cp.getEmployees().add(e1);
+		cp.getEmployees().add(e2);
+		cp.getEmployees().add(e3);
+		assertEquals(cp.getEmployeeById("6549"), -1);
+	}
 	
 }
