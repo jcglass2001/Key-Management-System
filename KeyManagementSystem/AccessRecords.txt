@@ -1,5 +1,5 @@
 List of Attempted Access Attempts: 
-Current Date and Time: 2022-07-26 at 20:21:07 EDT
-Employee: #1234 attempted to access room: #432 at: 2022-07-26 at 20:21:07 EDT attempt result: Success
-Employee: #1234 attempted to access room: #433 at: 2022-07-26 at 20:21:07 EDT attempt result: Failure
-Employee: #1244 attempted to access room: #432 at: 2022-07-26 at 20:21:07 EDT attempt result: Security Alert: employee ID not recognized
+Current Date and Time: 2022-07-27 at 13:38:51 EDT
+Employee: #1234 attempted to access room: #432 at: 2022-07-27 at 13:38:51 EDT attempt result: Success
+Employee: #1234 attempted to access room: #433 at: 2022-07-27 at 13:38:51 EDT attempt result: Failure
+Employee: #1244 attempted to access room: #432 at: 2022-07-27 at 13:38:51 EDT attempt result: Security Alert: employee ID not recognized

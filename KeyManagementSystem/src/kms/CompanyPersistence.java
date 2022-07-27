@@ -15,7 +15,7 @@ public class CompanyPersistence {
 	
 
 	//Save to text file
-	public static void saveCompany(CompanyManager companyManager) {
+	public void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
 
