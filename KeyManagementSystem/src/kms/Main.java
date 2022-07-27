@@ -13,10 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -97,17 +100,12 @@ public class Main extends Application {
 	protected TextField txtEmpId_Remove;
 	protected Button btnRemoveEmployee;
 	/* Elements for the Access scene */
-	protected Label lblEmpId_Access;
-	protected Label lblRoomNum_Access;
-	protected Label lblSuiteId_Access;
-	protected Label lblBuildingId_Access;
 	protected TextField txtEmpId_Access;
 	protected TextField txtRoomNum_Access;
 	protected TextField txtSuiteId_Access;
 	protected TextField txtBuildingId_Access;
 	protected TextArea statusMsg = new TextArea();
-	protected RadioButton rBtnGiveAccess;
-	protected RadioButton rBtnRemoveAccess;
+	protected TabPane tPaneAccess = new TabPane();
 
 	/* Elements for the Test scene */
 	protected Label lblEmpId_Test;
@@ -207,45 +205,15 @@ public class Main extends Application {
 		
 	}
 	
-	//INCOMPLETE
-	private Scene buildAccessMenu() {
-		// assign pane elements
-		txtEmpId_Access = new TextField();
-		txtEmpId_Access.setPromptText("Enter Employee ID.");
+	private Scene buildAccess() {
 		
-		txtRoomNum_Access = new TextField();
-		txtRoomNum_Access.setPromptText("Enter Room Number.");
-		
-		
-		txtSuiteId_Access = new TextField();
-		txtSuiteId_Access.setPromptText("Enter Suite ID.");
-		
-		txtBuildingId_Access = new TextField();
-		txtBuildingId_Access.setPromptText("Enter BUilding ID.");
-		
-		rBtnGiveAccess = new RadioButton("Give Access");
-		rBtnRemoveAccess = new RadioButton("Remove Access");
-		Button btnMenu = new Button("Back to Menu");
-		//create arraylist of access buttons
-		ArrayList<RadioButton> accessButtons = new ArrayList<>(Arrays.asList(rBtnGiveAccess,rBtnRemoveAccess));
-		//create arraylist of textfields
-		ArrayList<TextField> tFields = new ArrayList<>(Arrays.asList(txtEmpId_Access,txtRoomNum_Access,txtSuiteId_Access,txtBuildingId_Access));
-		//create toggle group and populate with access buttons
-		ToggleGroup accessOption = buildRadioGroup(accessButtons);
-		//create container populated with textfields
-		VBox vBoxAccessEntry = buildTextContainer(tFields);
-		//combine container with nav button
-		vBoxAccessEntry.getChildren().add(btnMenu);
-		// add padding to positioning
-		vBoxAccessEntry.setPadding(new Insets(20, 20, 20, 20));
-		// register event handlers
-		//rBtnGiveAccess.setOnAction(GiveAccessEventHandler());
-		btnMenu.setOnAction(e -> switchToMenu());
 		// set combined container to scene
-		accessMenu = new Scene(vBoxAccessEntry, 500, 500);
+		accessMenu = new Scene(buildAccessTabs(), 500, 500);
 		// return scene
 		return accessMenu;
 	}
+	
+	
 
 	private Scene buildReport() {
 		// assign elements
@@ -513,6 +481,126 @@ public class Main extends Application {
 		//return container
 		return vBoxEmployeeEntry;
 	}
+private Pane buildAccessTabs() {
+		
+		BorderPane bPane = new BorderPane();
+		tPaneAccess.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+		
+		// assign pane elements
+		txtEmpId_Access = new TextField();
+		txtEmpId_Access.setPromptText("Enter Employee ID.");
+		
+		//Build tabs
+		Tab buildingAccess = new Tab();
+		buildingAccess.setText("Building");
+		buildingAccess.setContent(buildTabBuildingAccess());
+		
+		Tab suiteAccess = new Tab();
+		suiteAccess.setText("Suite");
+		suiteAccess.setContent(buildTabSuiteAccess());
+		
+		Tab roomAccess = new Tab();
+		roomAccess.setText("Room");
+		roomAccess.setContent(buildTabRoomAccess());
+		
+		//add tabs to TabPane
+		tPaneAccess.getTabs().addAll(buildingAccess,suiteAccess,roomAccess);
+
+		bPane.setTop(txtEmpId_Access);
+		bPane.setCenter(tPaneAccess);
+		
+		return bPane;
+		
+	}
+	private Pane buildTabBuildingAccess() {
+		GridPane root = new GridPane();
+		//pane elements
+		TextField txtBuildingEntry = new TextField();
+		txtBuildingEntry.setPromptText("Enter Building Code.");
+		Button addAccess = new Button("Add Access");
+		Button removeAccess = new Button("Remove Access");
+		//create container for user text entry
+		VBox vBoxEntry = new VBox();
+		vBoxEntry.getStyleClass().add("vbox");
+		vBoxEntry.getChildren().addAll(new Label("Enter Building Code. Then select Access Option."), txtBuildingEntry);
+		//create container for button selection
+		HBox hBoxSelection = new HBox();
+		hBoxSelection.getStyleClass().add("hbox");
+		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
+		//register event handlers
+		addAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String buildingCode = txtBuildingEntry.getText();
+				String employeeID = txtEmpId_Access.getText();
+				companyController.addBuildingAccess(employeeID,buildingCode);
+			}
+		});
+		//add containers to pane
+		root.add(vBoxEntry, 0, 0);
+		root.add(hBoxSelection, 0, 1);
+		//return GridPane
+		return root;
+	}
+	private Pane buildTabSuiteAccess() {
+		GridPane root = new GridPane();
+		//pane elements
+		TextField txtBuildingEntry = new TextField();
+		txtBuildingEntry.setPromptText("Enter Building Code.");
+		TextField txtSuiteEntry = new TextField();
+		txtSuiteEntry.setPromptText("Enter Suite Code.");
+		Button addAccess = new Button("Add Access");
+		Button removeAccess = new Button("Remove Access");
+		//create container for user text entry
+		VBox vBoxEntry = new VBox();
+		vBoxEntry.getStyleClass().add("vbox");
+		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."), txtBuildingEntry,txtSuiteEntry);
+		//create container for button selection
+		HBox hBoxSelection = new HBox();
+		hBoxSelection.getStyleClass().add("hBox");
+		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
+		//register event handlers
+		addAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
+			}
+		});
+		//add containers to pane
+		root.add(vBoxEntry, 0, 0);
+		root.add(hBoxSelection, 0, 1);
+		//return GridPane
+		return root;
+		
+	}
+	private Pane buildTabRoomAccess() {
+		GridPane root = new GridPane();
+		//pane elements
+		TextField txtBuildingEntry = new TextField();
+		txtBuildingEntry.setPromptText("Enter Building Code.");
+		TextField txtSuiteEntry = new TextField();
+		txtSuiteEntry.setPromptText("Enter Suite Code.");
+		TextField txtRoomEntry = new TextField();
+		txtRoomEntry.setPromptText("Enter Room Code.");
+		Button addAccess = new Button("Add Access");
+		Button removeAccess = new Button("Remove Access");
+		//create container for user text entry
+		VBox vBoxEntry = new VBox();
+		vBoxEntry.getStyleClass().add("vbox");
+		vBoxEntry.getChildren().addAll(txtBuildingEntry,txtSuiteEntry,txtRoomEntry);
+		//create container for button selection
+		HBox hBoxSelection = new HBox();
+		hBoxSelection.getStyleClass().add("hBox");
+		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
+		//register event handlers
+		addAccess.setOnAction();
+		//add containers to pane
+		root.add(vBoxEntry, 0, 0);
+		root.add(hBoxSelection, 0, 1);
+		//return GridPane
+		return root;	
+	}
 	
 
 	/* 
@@ -599,7 +687,7 @@ public class Main extends Application {
 		buildMenu();
 		buildAdd();
 		buildRemove();
-		buildAccessMenu();
+		buildAccess();
 		buildReport();
 		buildTest();
 

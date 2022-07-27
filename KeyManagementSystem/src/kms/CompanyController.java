@@ -426,6 +426,14 @@ public class CompanyController {
 			a.show();
 		}
 	}
+	
+	public void addBuildingAccess(String empCode, String buildingCode) {
+		companyManager.addBuildingAccess(empCode, buildingCode);
+	}
+	public void addSuiteAccess(String empCode, String suiteCode, String buildingCode) {
+		companyManager.addSuiteAccess(empCode,suiteCode,buildingCode);
+	}
+	
 
 	
 	public void printReports(Character selected) {

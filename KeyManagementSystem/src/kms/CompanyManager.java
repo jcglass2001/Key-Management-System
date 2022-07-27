@@ -43,6 +43,20 @@ public class CompanyManager {
 	public void addEmployee(Employee e) {
 		employees.add(e);
 	}
+	public void addBuildingAccess(String empCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addBuildingAccess(getBuildingByCode(buildingCode));
+			}
+		}
+	}
+	public void addSuiteAccess(String empCode,String suiteCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addSuiteAccess(getSuiteByCode(suiteCode));
+			}
+		}
+	}
 	
 	//Removers
 	public void remBuilding(Building b) {
