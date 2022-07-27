@@ -136,6 +136,7 @@ public class CompanyManager {
 		return employees.size();
 	}
 	
+	//dummy search methods
 	public int getEmployeeById(String id) {
         Employee dummy = new Employee("temp", "-000");
 		for(Employee e: employees) {
@@ -157,6 +158,16 @@ public class CompanyManager {
         for(Suite s: suites) {
             if(s.getSuiteCode().equals(code)) {
                 dummy = s;
+            }
+        }
+        return dummy;
+    }
+	
+	public Room getRoomByNum(String code) {
+        Room dummy = new Room();        
+        for(Room r: rooms) {
+            if(r.getRoomNumber().equals(code)) {
+                dummy = r;
             }
         }
         return dummy;
