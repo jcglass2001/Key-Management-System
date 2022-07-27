@@ -60,6 +60,19 @@ public class Employee {
 		roomAccess.remove(room);
 	}
 	
+	//change access methods
+	public void changeBuildingAccess(ArrayList<Building> buildingsNew) {
+		buildingAccess = buildingsNew;
+	}
+	
+	public void changeSuiteAccess(ArrayList<Suite> suitesNew) {
+		suiteAccess = suitesNew;
+	}
+
+	public void changeRoomAccess(ArrayList<Room> roomsNew) {
+		roomAccess = roomsNew;
+	}
+	
 	//get access methods
 	public ArrayList<Building> getBuildingAccess() {
 		return buildingAccess;
