@@ -564,6 +564,7 @@ private Pane buildAccessTabs() {
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
 		addAccess.setOnAction(new AddBuildingAccessEventHandler());
+		removeAccess.setOnAction(new RemoveBuildingAccessEventHandler());
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -589,6 +590,7 @@ private Pane buildAccessTabs() {
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
 		addAccess.setOnAction(new AddSuiteAccessEventHandler());
+		removeAccess.setOnAction(new RemoveSuiteAccessEventHandler());
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -617,6 +619,7 @@ private Pane buildAccessTabs() {
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
 		addAccess.setOnAction(new AddRoomAccessEventHandler());
+		removeAccess.setOnAction(new RemoveRoomAccessEventHandler());
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -795,7 +798,31 @@ private Pane buildAccessTabs() {
 			companyController.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 		}
 	}
-	
+	private class RemoveBuildingAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			String buildingCode = txtBuildingId_Access.getText();
+			String employeeID = txtEmpId_Access.getText();
+			companyController.removeBuildingAccess(employeeID,  buildingCode);
+		}
+	}
+	private class RemoveSuiteAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			//grab user input from textfields
+			String empCode = txtEmpId_Access.getText();
+			String buildingCode = txtBuildingId_Access.getText();
+			String suiteCode = txtSuiteId_Access.getText();
+			companyController.removeSuiteAccess(empCode, suiteCode, buildingCode);
+		}
+	}
+	private class RemoveRoomAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			String empCode = txtEmpId_Access.getText();
+			String buildingCode = txtBuildingId_Access.getText();
+			String suiteCode = txtSuiteId_Access.getText();
+			String roomNum = txtRoomNum_Access.getText();
+			companyController.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+		}
+	}
 	private class RemoveBuildingEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab user input from textfields
