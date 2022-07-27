@@ -131,7 +131,6 @@ public class CompanyPersistence {
 		}
 		
 	}
-  
     //Reports
 	public static String printReportA(CompanyManager companyManager) {
 		String report = "";
@@ -163,15 +162,37 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportE(CompanyManager companyManager) {
+	public static String printReportE(CompanyManager companyManager, String buildingCode) {
 		String report = "";
-		
-		return report;
+        //grab building
+		for(int i = 0; i < companyManager.buildings.size(); i++) {
+				if(companyManager.getBuilding(i).getBuildingCode().equals(buildingCode)) {
+					//print building
+			        report += String.format("Building: %s - %s", companyManager.getBuilding(i).getName(), companyManager.getBuilding(i).getBuildingCode());
+			        //loop through suites list in building
+			        for(int j = 0; j < companyManager.getBuilding(i).getSuites().size(); j++) {
+			            //print suites
+			            report += String.format("\n\tSuite: %s - %s", companyManager.getBuilding(i).getSuites().get(j).getName(), companyManager.getBuilding(i).getSuites().get(j).getSuiteCode());
+			            //loop through and print all rooms in suite
+			            for(int k = 0; k < companyManager.getBuilding(i).getSuites().get(j).getRooms().size(); k++) {
+			                //print rooms
+			                report += String.format("\n\t\tRoom: %s", companyManager.getBuilding(i).getSuites().get(j).getRooms().get(k).getRoomNumber());
+			            }
+			        }
+				}
+		}
+       
+        return report;
 	}
 	
-	public static String printReportF(CompanyManager companyManager) {
+	public static String printReportF(CompanyManager companyManager, String buildingCode, String suiteCode) {
 		String report = "";
-		
+		for(int i = 0; i < companyManager.rooms.size(); i++) {
+			if(companyManager.getRoom(i).getBuildingCode().equals(buildingCode) && companyManager.getRoom(i).getSuiteCode().equals(suiteCode)) {
+				String addition = ("Room Number: " + companyManager.rooms.get(i).getRoomNumber() + "\n");
+				report += addition;
+			}
+		}
 		return report;
 	}
 	

@@ -23,12 +23,22 @@ public class CompanyManager {
 	}
 	
 	public void addSuite(Suite s) {
-		suites.add(s);
-	}
+		for(Building b : buildings) {
+			if(b.getBuildingCode().equals(s.getBuildingCode())) {
+            	 b.addSuite(s);
+            	 suites.add(s);
+			}
+		}
+    }
 	
 	public void addRoom(Room r) {
-		rooms.add(r);
-	}
+		for(Suite s: suites) {
+            if(s.getSuiteCode().equals(r.getSuiteCode())) {
+            	 s.addRoom(r);
+            	 rooms.add(r);
+            }
+        }
+    }
 	
 	public void addEmployee(Employee e) {
 		employees.add(e);
@@ -40,11 +50,21 @@ public class CompanyManager {
 	}
 	
 	public void remSuite(Suite s) {
-		suites.remove(s);
+		for(Building b: buildings) {
+            if(b.getBuildingCode().equals(s.getBuildingCode())) {
+            	 b.remSuite(s);
+            	 suites.remove(s);
+            }
+        }
 	}
 	
 	public void remRoom(Room r) {
-		rooms.remove(r);
+		for(Suite s: suites) {
+	          if(s.getSuiteCode().equals(r.getSuiteCode())) {
+	        	  s.remRoom(r);
+	        	  rooms.remove(r);
+	          }
+		}
 	}
 	
 	public void remEmployee(Employee e) {
@@ -124,6 +144,24 @@ public class CompanyManager {
         return employees.indexOf(dummy);
     }
 	
+	public Building getBuildingByCode(String code) {
+        Building dummy = new Building();
+        for(Building b: buildings) {
+            if(b.getBuildingCode().equals(code)) {dummy = b;}
+        }
+        return dummy;
+    }
+	
+	public Suite getSuiteByCode(String code) {
+        Suite dummy = new Suite();        
+        for(Suite s: suites) {
+            if(s.getSuiteCode().equals(code)) {
+                dummy = s;
+            }
+        }
+        return dummy;
+    }
+	
 	//Clear and Contains
 	public void clear() {
 		buildings.clear();
@@ -136,11 +174,11 @@ public class CompanyManager {
 		return buildings.contains(new Building(name, buildingCode));
 	}
 	
-	public boolean containsSuite(String name, String buildingCode, String suiteCode) {
+	public boolean containsSuite(Building b, String name, String buildingCode, String suiteCode) {
 		return suites.contains(new Suite(name, buildingCode, suiteCode));
 	}
 	
-	public boolean containsRoom(String buildingCode, String suiteCode, String roomNumber) {
+	public boolean containsRoom(Suite s, String buildingCode, String suiteCode, String roomNumber) {
 		return rooms.contains(new Room(buildingCode, suiteCode, roomNumber));
 	}
 	
@@ -173,4 +211,5 @@ public class CompanyManager {
 			+ " attempt result: " + result);
 		return result;
 	}
+  
 }

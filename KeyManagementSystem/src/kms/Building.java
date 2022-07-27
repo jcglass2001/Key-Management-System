@@ -7,7 +7,7 @@ public class Building {
 	//Vars
 	private String name;
 	private String buildingCode;
-	private ArrayList<Suite> suites = new ArrayList<Suite>();
+	public ArrayList<Suite> suites = new ArrayList<Suite>();
 	
 	//Constructors
 	public Building(String name, String buildingCode) {
@@ -43,6 +43,14 @@ public class Building {
 	
 	public ArrayList<Suite> getSuites(){
 		return suites;
+	}
+	
+	public void addSuite(Suite s) {
+		suites.add(s);
+	}
+	
+	public void remSuite(Suite s) {
+		suites.remove(s);
 	}
 	
 	@Override
