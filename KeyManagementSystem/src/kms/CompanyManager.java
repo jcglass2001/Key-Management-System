@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+
 public class CompanyManager {
 	//Lists
 	ArrayList<Building> buildings = new ArrayList<Building>();
@@ -186,29 +187,29 @@ public class CompanyManager {
 	}
 	
 	//test employee access
-		public String testAccess(String eId, String roomNum) {
-			//date time set up
-			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-			Date date = new Date(System.currentTimeMillis());
-			
-			//testing access
-			String result =  "";
-			if(getEmployeeById(eId) == -1)
-				result = "Security Alert: employee ID not recognized";
-			else {
-				Employee e = employees.get(getEmployeeById(eId));
-				ArrayList<Room> employeeAccess = e.getFullAccess();
-				for(int i = 0; i < employeeAccess.size(); i++) {
-					if(employeeAccess.get(i).getRoomNumber().equals(roomNum))
-						result = "Success";
-					else result = "Failure";
-				}
+	public String testAccess(String eId, String roomNum) {
+		//date time set up
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
+		//testing access
+		String result =  "";
+		if(getEmployeeById(eId) == -1)
+			result = "Security Alert: employee ID not recognized";
+		else {
+			Employee e = employees.get(getEmployeeById(eId));
+			ArrayList<Room> employeeAccess = e.getFullAccess();
+			for(int i = 0; i < employeeAccess.size(); i++) {
+				if(employeeAccess.get(i).getRoomNumber().equals(roomNum))
+					result = "Success";
+				else result = "Failure";
 			}
-			
-			//recording attempt and returning result
-			accessAttempts.add("Employee: #" + eId + " attempted to access room: #" + roomNum + " at: " + formatter.format(date) 
-				+ " attempt result: " + result);
-			return result;
 		}
-
+		
+		//recording attempt and returning result
+		accessAttempts.add("Employee: #" + eId + " attempted to access room: #" + roomNum + " at: " + formatter.format(date) 
+			+ " attempt result: " + result);
+		return result;
+	}
+  
 }

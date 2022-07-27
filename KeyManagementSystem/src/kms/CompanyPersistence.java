@@ -131,9 +131,7 @@ public class CompanyPersistence {
 		}
 		
 	}
-		
-  
-  //Reports
+    //Reports
 	public static String printReportA(CompanyManager companyManager) {
 		String report = "";
 		for (int i = 0; i < companyManager.employees.size(); i++) {
