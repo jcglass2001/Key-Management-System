@@ -487,9 +487,19 @@ private Pane buildAccessTabs() {
 		BorderPane bPane = new BorderPane();
 		tPaneAccess.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 		
+		Button btnMenu = new Button("Back to Menu");
+		
 		// assign pane elements
 		txtEmpId_Access = new TextField();
 		txtEmpId_Access.setPromptText("Enter Employee ID.");
+		
+		//register nav event handler
+		btnMenu.setOnAction(e -> switchScene(menu));
+		
+		//create container with employee entry and nav button
+		HBox hBoxContainer = new HBox();
+		hBoxContainer.getStyleClass().add("hbox");
+		hBoxContainer.getChildren().addAll(txtEmpId_Access,btnMenu);
 		
 		//Build tabs
 		Tab buildingAccess = new Tab();
@@ -507,7 +517,7 @@ private Pane buildAccessTabs() {
 		//add tabs to TabPane
 		tPaneAccess.getTabs().addAll(buildingAccess,suiteAccess,roomAccess);
 
-		bPane.setTop(txtEmpId_Access);
+		bPane.setTop(hBoxContainer);
 		bPane.setCenter(tPaneAccess);
 		
 		return bPane;
@@ -595,7 +605,7 @@ private Pane buildAccessTabs() {
 		hBoxSelection.getStyleClass().add("hBox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction();
+		addAccess.setOnAction(null);
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
