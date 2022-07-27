@@ -451,7 +451,7 @@ public class CompanyController {
 				 gui.displayInfo_Report.setText(msgA);
 				 break;
 			 case 'B':
-				 String msgB = CompanyPersistence.printReportB(companyManager);
+				 String msgB = CompanyPersistence.printReportB(companyManager, gui.txtEmpId_Access.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgB);
 				 break;

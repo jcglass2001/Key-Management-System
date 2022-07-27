@@ -141,10 +141,29 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportB(CompanyManager companyManager) {
-		String report = "";
-		
-		return report;
+	public static String printReportB(CompanyManager companyManager, String Id) {
+        String report = "";
+        for (int i = 0; i < companyManager.employees.size(); i++) {
+            report += (companyManager.employees.get(i).getName() + ", ID= " + companyManager.employees.get(i).getId() + "\n");
+            for(int j = 0; j < companyManager.employees.get(i).buildingAccess.size(); j++) {
+                //if(companyManager.getEmployee(i).getId().equals(Id)) {
+                    //loop through suites list in building
+                    for(int k = 0; k < companyManager.employees.get(i).getBuildingAccess().get(j).getSuites().size(); k++) {
+                        //loop through and print all rooms in suite
+                        for(int l = 0; l  < companyManager.employees.get(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().size(); l++) {
+                            //print rooms
+                            report += String.format("Room " + companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getRoomNumber()) + ", " +
+                            		companyManager.getBuildingByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getBuildingCode()).getName() + " Building (" +
+                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getBuildingCode() + "), " + 
+                            		companyManager.getSuiteByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getSuiteCode()).getName() + " Suite (" + 
+                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getSuiteCode() + ")\n";
+                        }
+                    }
+                //}
+            }
+            report += "\n";
+        }
+        return report;
 	}
 	
 	public static String printReportC(CompanyManager companyManager) {
