@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -59,18 +61,81 @@ class CompanyPersistenceTest {
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
-		Employee e2 = new Employee("Jack", "1244");
+		Employee e2 = new Employee("Jack", "1245");
 		Room r1 = new Room("01", "12", "432");
 		c1.addEmployee(e1);
+		c1.addEmployee(e2);
 		c1.addRoom(r1);
 		e1.addRoomAccess(r1);
 		c1.testAccess("1234", "432");
-		c1.testAccess("1234", "433");
+		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
 		p1.accessRecords(c1);
 		File testFile = new File("AccessRecords.txt");
 		assertEquals(testFile.exists(), true);
 		
+	}
+	
+	@DisplayName("Report H test")
+	@Test
+	void ReportH() {
+		CompanyPersistence p1 = new CompanyPersistence();
+		CompanyManager c1 = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Employee e2 = new Employee("Jack", "1245");
+		Building b1 = new Building("VSU", "01");
+		Suite s1 = new Suite("ClassRoom", "01", "12");
+		Room r1 = new Room("01", "12", "432");
+		c1.addEmployee(e1);
+		c1.addEmployee(e2);
+		c1.addBuilding(b1);
+		c1.addSuite(s1);
+		c1.addRoom(r1);
+		e1.addRoomAccess(r1);
+		c1.testAccess("1234", "432");
+		c1.testAccess("1245", "432");
+		c1.testAccess("1244", "432");
+		/*
+		ArrayList<String> reverseOrder = c1.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		System.out.println(r1.getRoomNumber());
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			System.out.println(reverseOrder.get(i).substring(43,47));
+		}
+		*/
+		System.out.println(c1.getRoomByNum("432"));
+		System.out.print(p1.printReportH(c1, "1234"));
+	}
+	
+	@DisplayName("Report I test")
+	@Test
+	void ReportI() {	
+		CompanyPersistence p1 = new CompanyPersistence();
+		CompanyManager c1 = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Employee e2 = new Employee("Jack", "1245");
+		Building b1 = new Building("VSU", "01");
+		Suite s1 = new Suite("ClassRoom", "01", "12");
+		Room r1 = new Room("01", "12", "432");
+		c1.addEmployee(e1);
+		c1.addEmployee(e2);
+		c1.addBuilding(b1);
+		c1.addSuite(s1);
+		c1.addRoom(r1);
+		e1.addRoomAccess(r1);
+		c1.testAccess("1234", "432");
+		c1.testAccess("1245", "432");
+		c1.testAccess("1244", "432");
+		/*
+		ArrayList<String> reverseOrder = c1.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		System.out.println(r1.getRoomNumber());
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			System.out.println(reverseOrder.get(i).substring(43,47));
+		}
+		*/
+		System.out.println(c1.getRoomByNum("432"));
+		System.out.print(p1.printReportI(c1, "1245"));
 	}
 
 }

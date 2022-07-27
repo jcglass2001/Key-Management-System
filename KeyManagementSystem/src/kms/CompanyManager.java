@@ -204,7 +204,7 @@ public class CompanyManager {
 		Date date = new Date(System.currentTimeMillis());
 		
 		//testing access
-		String result =  "";
+		String result =  "Failure";
 		if(getEmployeeById(eId) == -1)
 			result = "Security Alert: employee ID not recognized";
 		else {
@@ -213,7 +213,6 @@ public class CompanyManager {
 			for(int i = 0; i < employeeAccess.size(); i++) {
 				if(employeeAccess.get(i).getRoomNumber().equals(roomNum))
 					result = "Success";
-				else result = "Failure";
 			}
 		}
 		
