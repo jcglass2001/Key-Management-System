@@ -5,18 +5,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CompanyPersistence {
 	public static CompanyManager buildCompanyManager() {
-		// Code to read Blobs from text file and create BlobManager
-		// ...
 		return new CompanyManager();
 	}
 	
 
 	//Save to text file
-	public static void saveCompany(CompanyManager companyManager) {
+	public void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
 
@@ -26,17 +25,22 @@ public class CompanyPersistence {
 
 			//suites
 			for (int i = 0; i < companyManager.suites.size(); i++)
-				myWriter.write("%" + companyManager.suites.get(i).getName() + "-" + companyManager.suites.get(i).getSuiteCode()
-						+ "-" + companyManager.suites.get(i).getBuildingCode() + "\n");
+				myWriter.write("%" + companyManager.suites.get(i).getName() + "-" + companyManager.suites.get(i).getBuildingCode()
+						+ "-" + companyManager.suites.get(i).getSuiteCode() + "\n");
 
 			//rooms
 			for (int i = 0; i < companyManager.rooms.size(); i++)
-				myWriter.write("!" + companyManager.rooms.get(i).getRoomNumber() + "-"
-						+ companyManager.rooms.get(i).getSuiteCode() + "-" + companyManager.rooms.get(i).getBuildingCode() +"\n");
+				myWriter.write("!" + companyManager.rooms.get(i).getBuildingCode() + "-"
+						+ companyManager.rooms.get(i).getSuiteCode() + "-" + companyManager.rooms.get(i).getRoomNumber() +"\n");
 
 			//employees
-			for (int i = 0; i < companyManager.employees.size(); i++)
-				myWriter.write("$" + companyManager.employees.get(i).getName() + "-" + companyManager.employees.get(i).getId() + "\n");
+			for (int i = 0; i < companyManager.employees.size(); i++) {
+				myWriter.write("$" + companyManager.employees.get(i).getName() + "-" + companyManager.employees.get(i).getId());
+				ArrayList<Room> employeeAccess = companyManager.employees.get(i).getFullAccess();
+				for(int j = 0; j < employeeAccess.size(); j++)
+					myWriter.write("-" + employeeAccess.get(j).getRoomNumber());
+				myWriter.write("\n");
+			}
 
 			myWriter.close();
 			System.out.println("Successfully wrote to the file.");
@@ -55,6 +59,7 @@ public class CompanyPersistence {
 				
 				//# represents new building
 				if(currentLine.charAt(0) == '#') {
+					//split line into components for class construction
 					String lineData = currentLine.substring(1);
 					String[] components = lineData.split("-");
 					String tempName = components[0];
@@ -66,23 +71,25 @@ public class CompanyPersistence {
 						
 				//% represents new suite
 				if(currentLine.charAt(0) == '%') {
+					//split line into components for class construction
 					String lineData = currentLine.substring(1);
 					String[] components = lineData.split("-");
 					String tempName = components[0];
-					String tempCode = components[1];
-					String tempBuild = components[2];
+					String tempBuild = components[1];
+					String tempSuiteCode = components[2];
 							
-					Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
+					Suite tempSuite = new Suite(tempName, tempBuild, tempSuiteCode);
 					companyManager.addSuite(tempSuite);;
 				}
 						
 				//! represents new room
 				if(currentLine.charAt(0) == '!') {
+					//split line into components for class construction
 					String lineData = currentLine.substring(1);
 					String[] components = lineData.split("-");
-					String tempNum = components[0];
+					String tempBuild = components[0];
 					String tempSuite = components[1];
-					String tempBuild = components[2];
+					String tempNum = components[2];
 								
 					Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
 					companyManager.addRoom(tempRoom);
@@ -90,12 +97,22 @@ public class CompanyPersistence {
 						
 				//$ represents new employee
 				if(currentLine.charAt(0) == '$') {
+					//split line into components for class construction
 					String lineData = currentLine.substring(1);
 					String[] components = lineData.split("-");
 					String tempName = components[0];
 					String tempID = components[1];
-
+					
 					Employee tempEmp = new Employee(tempName, tempID);
+					
+					//any extra components are related to room access
+					if(components.length > 2) {
+						//loop through leftover components and add them as room access
+						for(int i = 2; i < components.length; i++) {
+							Room tempRoom = companyManager.getRoomByNum(components[i]);
+							tempEmp.addRoomAccess(tempRoom);
+						}
+					}
 					companyManager.addEmployee(tempEmp);
 				}	
 			}

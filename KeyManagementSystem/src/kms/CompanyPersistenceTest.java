@@ -16,13 +16,14 @@ class CompanyPersistenceTest {
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Building b = new Building("Google", "01");
-		Suite s1 = new Suite("Offices", "12", "01");
-		Room r1 = new Room("01", "12", "432");
+		Suite s1 = new Suite("Offices", "01", "02");
+		Room r1 = new Room("01", "02", "432");
 		Employee e1 = new Employee("Joseph", "1234");
 		c1.addBuilding(b);
 		c1.addSuite(s1);
 		c1.addRoom(r1);
 		c1.addEmployee(e1);
+		e1.addRoomAccess(r1);
 		p1.saveCompany(c1);
 		File testFile = new File("Report.txt");
 		assertEquals(testFile.exists(), true);
@@ -35,8 +36,8 @@ class CompanyPersistenceTest {
 		CompanyManager c1 = new CompanyManager();
 		CompanyManager c2 = new CompanyManager();
 		Building b = new Building("Google", "01");
-		Suite s1 = new Suite("Offices", "12", "01");
-		Room r1 = new Room("01", "12", "432");
+		Suite s1 = new Suite("Offices", "01", "02");
+		Room r1 = new Room("01", "02", "432");
 		Employee e1 = new Employee("Joseph", "1234");
 		c2.addBuilding(b);
 		c2.addSuite(s1);
@@ -46,6 +47,10 @@ class CompanyPersistenceTest {
 		File testFile = new File("Report.txt");
 		p1.buildFromFile(testFile, c1);
 		assertEquals(c1.getBuilding(0), c2.getBuilding(0));
+		assertEquals(c1.getSuite(0), c2.getSuite(0));
+		assertEquals(c1.getRoom(0), c2.getRoom(0));
+		assertEquals(c1.getEmployee(0), c2.getEmployee(0));
+		assertEquals(c1.getEmployee(0).getFullAccess().get(0).getRoomNumber(), "432" );
 	}
 	
 	@DisplayName("FileWriter: build access report")
