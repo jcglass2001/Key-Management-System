@@ -47,5 +47,25 @@ class CompanyPersistenceTest {
 		p1.buildFromFile(testFile, c1);
 		assertEquals(c1.getBuilding(0), c2.getBuilding(0));
 	}
+	
+	@DisplayName("FileWriter: build access report")
+	@Test
+	void AccessReportTest() throws IOException {
+		CompanyPersistence p1 = new CompanyPersistence();
+		CompanyManager c1 = new CompanyManager();
+		Employee e1 = new Employee("Joseph", "1234");
+		Employee e2 = new Employee("Jack", "1244");
+		Room r1 = new Room("01", "12", "432");
+		c1.addEmployee(e1);
+		c1.addRoom(r1);
+		e1.addRoomAccess(r1);
+		c1.testAccess("1234", "432");
+		c1.testAccess("1234", "433");
+		c1.testAccess("1244", "432");
+		p1.accessRecords(c1);
+		File testFile = new File("AccessRecords.txt");
+		assertEquals(testFile.exists(), true);
+		
+	}
 
 }

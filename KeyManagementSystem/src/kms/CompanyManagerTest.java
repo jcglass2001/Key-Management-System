@@ -219,7 +219,7 @@ class CompanyManagerTest {
 		CompanyManager cp = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
 		Room r = new Room("12", "12", "123");
-		assertEquals(cp.testAccess("1234", "123"), "Security Alert");
+		assertEquals(cp.testAccess("1234", "123"), "Security Alert: employee ID not recognized");
 		
 	}
 	
