@@ -8,7 +8,7 @@ public class Suite extends Building{
 	private String name;
 	private String suiteCode;
 	private String buildingCode;
-	ArrayList<Room> rooms = new ArrayList<Room>();
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	//Constructors
 	public Suite(String name, String buildingCode, String suiteCode) {

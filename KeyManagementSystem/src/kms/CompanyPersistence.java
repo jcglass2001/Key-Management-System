@@ -3,6 +3,8 @@ package kms;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class CompanyPersistence {
@@ -44,67 +46,92 @@ public class CompanyPersistence {
 		}
 	}
 	
-	//File Reader
-		public void buildFromFile(File file, CompanyManager companyManager) {
-			try {
-				Scanner scan = new Scanner(file);
-				while (scan.hasNextLine()){
-					String currentLine = scan.nextLine();
+	//build company from file
+	public void buildFromFile(File file, CompanyManager companyManager) {
+		try {
+			Scanner scan = new Scanner(file);
+			while (scan.hasNextLine()){
+				String currentLine = scan.nextLine();
 				
-					//# represents new building
-					if(currentLine.charAt(0) == '#') {
-						String lineData = currentLine.substring(1);
-						String[] components = lineData.split("-");
-						String tempName = components[0];
-						String tempCode = components[1];
-							
-						Building tempBuild = new Building(tempName, tempCode);
-						companyManager.addBuilding(tempBuild);;
-					}
+				//# represents new building
+				if(currentLine.charAt(0) == '#') {
+					String lineData = currentLine.substring(1);
+					String[] components = lineData.split("-");
+					String tempName = components[0];
+					String tempCode = components[1];
 						
-					//% represents new suite
-					if(currentLine.charAt(0) == '%') {
-						String lineData = currentLine.substring(1);
-						String[] components = lineData.split("-");
-						String tempName = components[0];
-						String tempCode = components[1];
-						String tempBuild = components[2];
-							
-						Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
-						companyManager.addSuite(tempSuite);;
-					}
-						
-					//! represents new room
-					if(currentLine.charAt(0) == '!') {
-						String lineData = currentLine.substring(1);
-						String[] components = lineData.split("-");
-						String tempNum = components[0];
-						String tempSuite = components[1];
-						String tempBuild = components[2];
-								
-						Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
-						companyManager.addRoom(tempRoom);
-					}
-						
-					//$ represents new employee
-					if(currentLine.charAt(0) == '$') {
-						String lineData = currentLine.substring(1);
-						String[] components = lineData.split("-");
-						String tempName = components[0];
-						String tempID = components[1];
-
-						Employee tempEmp = new Employee(tempName, tempID);
-						companyManager.addEmployee(tempEmp);
-					}	
+					Building tempBuild = new Building(tempName, tempCode);
+					companyManager.addBuilding(tempBuild);;
 				}
-				scan.close();
-			} catch (IOException e) {
-				System.out.println("An error occured.");
-				e.printStackTrace();
+						
+				//% represents new suite
+				if(currentLine.charAt(0) == '%') {
+					String lineData = currentLine.substring(1);
+					String[] components = lineData.split("-");
+					String tempName = components[0];
+					String tempCode = components[1];
+					String tempBuild = components[2];
+							
+					Suite tempSuite = new Suite(tempName, tempCode, tempBuild);
+					companyManager.addSuite(tempSuite);;
+				}
+						
+				//! represents new room
+				if(currentLine.charAt(0) == '!') {
+					String lineData = currentLine.substring(1);
+					String[] components = lineData.split("-");
+					String tempNum = components[0];
+					String tempSuite = components[1];
+					String tempBuild = components[2];
+								
+					Room tempRoom = new Room(tempBuild, tempSuite, tempNum);
+					companyManager.addRoom(tempRoom);
+				}
+						
+				//$ represents new employee
+				if(currentLine.charAt(0) == '$') {
+					String lineData = currentLine.substring(1);
+					String[] components = lineData.split("-");
+					String tempName = components[0];
+					String tempID = components[1];
+
+					Employee tempEmp = new Employee(tempName, tempID);
+					companyManager.addEmployee(tempEmp);
+				}	
 			}
-			
-		}
+			scan.close();
+		} catch (IOException e) {
+			System.out.println("An error occured.");
+			e.printStackTrace();
+		}	
+	}
 	
+	//Record employee access attempts
+	public void accessRecords(CompanyManager companyManager) {
+		try {
+			//date time set up
+			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+			Date date = new Date(System.currentTimeMillis());
+			
+			//document writing
+			FileWriter myWriter = new FileWriter("AccessRecords.txt");
+			
+			//document header
+			myWriter.write("List of Attempted Access Attempts: \n");
+			myWriter.write("Current Date and Time: " + formatter.format(date) + "\n");
+			
+			//doc data
+			for(int i = 0; i < companyManager.getAccessAttempts().size(); i++)
+				myWriter.write(companyManager.getAccessAttempts().get(i) + "\n");
+			myWriter.close();
+			System.out.println("Successfully wrote to the file.");
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		
+	}
+		
   
   //Reports
 	public static String printReportA(CompanyManager companyManager) {

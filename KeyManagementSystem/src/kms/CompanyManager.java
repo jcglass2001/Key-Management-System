@@ -1,5 +1,7 @@
 package kms;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class CompanyManager {
@@ -8,6 +10,7 @@ public class CompanyManager {
 	ArrayList<Suite> suites = new ArrayList<Suite>();
 	ArrayList<Room> rooms = new ArrayList<Room>();
 	ArrayList<Employee> employees = new ArrayList<Employee>();
+	ArrayList<String> accessAttempts = new ArrayList<String>();
 	
 	//Constructor
 	public CompanyManager() {
@@ -49,18 +52,18 @@ public class CompanyManager {
 		for(Building b: buildings) {
             if(b.getBuildingCode().equals(s.getBuildingCode())) {
             	 b.remSuite(s);
+            	 suites.remove(s);
             }
         }
-		 suites.remove(s);
 	}
 	
 	public void remRoom(Room r) {
 		for(Suite s: suites) {
 	          if(s.getSuiteCode().equals(r.getSuiteCode())) {
 	        	  s.remRoom(r);
+	        	  rooms.remove(r);
 	          }
 		}
-		rooms.remove(r);
 	}
 	
 	public void remEmployee(Employee e) {
@@ -82,6 +85,10 @@ public class CompanyManager {
 
 	public ArrayList<Employee> getEmployees() {
 		return employees;
+	}
+	
+	public ArrayList<String> getAccessAttempts() {
+		return accessAttempts;
 	}
 	
 	public Building getBuilding(int i) {
@@ -128,6 +135,14 @@ public class CompanyManager {
 		return employees.size();
 	}
 	
+	public int getEmployeeById(String id) {
+        Employee dummy = new Employee("temp", "-000");
+		for(Employee e: employees) {
+            if(e.getId().equals(id)) {dummy = e;}
+        }
+        return employees.indexOf(dummy);
+    }
+	
 	public Building getBuildingByCode(String code) {
         Building dummy = new Building();
         for(Building b: buildings) {
@@ -159,15 +174,41 @@ public class CompanyManager {
 	}
 	
 	public boolean containsSuite(Building b, String name, String buildingCode, String suiteCode) {
-		return b.suites.contains(new Suite(name, buildingCode, suiteCode));
+		return suites.contains(new Suite(name, buildingCode, suiteCode));
 	}
 	
 	public boolean containsRoom(Suite s, String buildingCode, String suiteCode, String roomNumber) {
-		return s.rooms.contains(new Room(buildingCode, suiteCode, roomNumber));
+		return rooms.contains(new Room(buildingCode, suiteCode, roomNumber));
 	}
 	
 	public boolean containsEmployee(String name, String id) {
 		return employees.contains(new Employee(name, id));
 	}
+	
+	//test employee access
+		public String testAccess(String eId, String roomNum) {
+			//date time set up
+			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+			Date date = new Date(System.currentTimeMillis());
+			
+			//testing access
+			String result =  "";
+			if(getEmployeeById(eId) == -1)
+				result = "Security Alert: employee ID not recognized";
+			else {
+				Employee e = employees.get(getEmployeeById(eId));
+				ArrayList<Room> employeeAccess = e.getFullAccess();
+				for(int i = 0; i < employeeAccess.size(); i++) {
+					if(employeeAccess.get(i).getRoomNumber().equals(roomNum))
+						result = "Success";
+					else result = "Failure";
+				}
+			}
+			
+			//recording attempt and returning result
+			accessAttempts.add("Employee: #" + eId + " attempted to access room: #" + roomNum + " at: " + formatter.format(date) 
+				+ " attempt result: " + result);
+			return result;
+		}
 
 }
