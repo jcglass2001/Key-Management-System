@@ -47,6 +47,19 @@ public class Employee {
 		roomAccess.add(room);
 	}
 	
+	//remove access methods
+	public void removeBuildingAccess(Building building) {
+		buildingAccess.remove(building);
+	}
+	
+	public void removeSuiteAccess(Suite suite) {
+		suiteAccess.remove(suite);
+	}
+
+	public void removeRoomAccess(Room room) {
+		roomAccess.remove(room);
+	}
+	
 	//get access methods
 	public ArrayList<Building> getBuildingAccess() {
 		return buildingAccess;

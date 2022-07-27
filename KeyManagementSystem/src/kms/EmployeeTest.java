@@ -66,4 +66,39 @@ class EmployeeTest {
 		assertEquals(e.getRoomAccess().get(0), r);
 	}
 	
+	@DisplayName("Remove building access")
+	@Test
+	void testRemoveBuildingAccessCodeLessThan2() {
+		Employee e = new Employee("Markus", "5432");
+		Building b1 = new Building("Offices", "12");
+		Building b2 = new Building("Bathrooms", "13");
+		e.addBuildingAccess(b1);
+		e.addBuildingAccess(b2);
+		e.removeBuildingAccess(b1);
+		assertEquals(e.getBuildingAccess().get(0), b2);
+	}
+	
+	@DisplayName("Remove suite access")
+	@Test
+	void testRemoveSuiteAccessCodeLessThan2() {
+		Employee e = new Employee("Markus", "5432");
+		Suite s1 = new Suite("Lobby", "12", "14");
+		Suite s2 = new Suite("Kitchen", "12", "13");
+		e.addSuiteAccess(s1);
+		e.addSuiteAccess(s2);
+		e.removeSuiteAccess(s1);
+		assertEquals(e.getSuiteAccess().get(0), s2);
+	}
+	
+	@DisplayName("Remove room access")
+	@Test
+	void testRemoveRoomAccessCodeGreaterThan3() {
+		Employee e = new Employee("Markus", "5432");
+		Room r1 = new Room("12", "12", "123");
+		Room r2 = new Room("12", "12", "124");
+		e.addRoomAccess(r1);
+		e.addRoomAccess(r2);
+		e.removeRoomAccess(r1);
+		assertEquals(e.getRoomAccess().get(0), r2);
+	}
 }
