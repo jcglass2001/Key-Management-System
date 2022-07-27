@@ -550,26 +550,20 @@ private Pane buildAccessTabs() {
 	private Pane buildTabBuildingAccess() {
 		GridPane root = new GridPane();
 		//pane elements
-		TextField txtBuildingEntry = new TextField();
-		txtBuildingEntry.setPromptText("Enter Building Code.");
+		txtBuildingId_Access = new TextField();
+		txtBuildingId_Access.setPromptText("Enter Building Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
 		//create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(new Label("Enter Building Code. Then select Access Option."), txtBuildingEntry);
+		vBoxEntry.getChildren().addAll(new Label("Enter Building Code. Then select Access Option."), txtBuildingId_Access);
 		//create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hbox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				String buildingCode = txtBuildingEntry.getText();
-				String employeeID = txtEmpId_Access.getText();
-				companyController.addBuildingAccess(employeeID,buildingCode);
-			}
-		});
+		addAccess.setOnAction(new AddBuildingAccessEventHandler());
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -579,29 +573,22 @@ private Pane buildAccessTabs() {
 	private Pane buildTabSuiteAccess() {
 		GridPane root = new GridPane();
 		//pane elements
-		TextField txtBuildingEntry = new TextField();
-		txtBuildingEntry.setPromptText("Enter Building Code.");
-		TextField txtSuiteEntry = new TextField();
-		txtSuiteEntry.setPromptText("Enter Suite Code.");
+		txtBuildingId_Access = new TextField();
+		txtBuildingId_Access.setPromptText("Enter Building Code.");
+		txtSuiteId_Access = new TextField();
+		txtSuiteId_Access.setPromptText("Enter Suite Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
 		//create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."), txtBuildingEntry,txtSuiteEntry);
+		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."), txtBuildingId_Access,txtSuiteId_Access);
 		//create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hBox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent e) {
-				String empCode = txtEmpId_Access.getText();
-				String buildingCode = txtBuildingEntry.getText();
-				String suiteCode = txtSuiteEntry.getText();
-				companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
-			}
-		});
+		addAccess.setOnAction(new AddSuiteAccessEventHandler());
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -612,24 +599,24 @@ private Pane buildAccessTabs() {
 	private Pane buildTabRoomAccess() {
 		GridPane root = new GridPane();
 		//pane elements
-		TextField txtBuildingEntry = new TextField();
-		txtBuildingEntry.setPromptText("Enter Building Code.");
-		TextField txtSuiteEntry = new TextField();
-		txtSuiteEntry.setPromptText("Enter Suite Code.");
-		TextField txtRoomEntry = new TextField();
-		txtRoomEntry.setPromptText("Enter Room Code.");
+		txtBuildingId_Access = new TextField();
+		txtBuildingId_Access.setPromptText("Enter Building Code.");
+		txtSuiteId_Access = new TextField();
+		txtSuiteId_Access.setPromptText("Enter Suite Code.");
+		txtRoomNum_Access = new TextField();
+		txtRoomNum_Access.setPromptText("Enter Room Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
 		//create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(txtBuildingEntry,txtSuiteEntry,txtRoomEntry);
+		vBoxEntry.getChildren().addAll(txtBuildingId_Access,txtSuiteId_Access,txtRoomNum_Access);
 		//create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hBox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction(null);
+		addAccess.setOnAction(new AddRoomAccessEventHandler());
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -776,6 +763,36 @@ private Pane buildAccessTabs() {
 			String last = txtLastName.getText();
 			String id = txtEmployeeId.getText();
 			companyController.addEmployee(first, middle, last, id);
+		}
+	}
+	
+	private class AddBuildingAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			//grab user input from textfields
+			String buildingCode = txtBuildingId_Access.getText();
+			String employeeID = txtEmpId_Access.getText();
+			companyController.addBuildingAccess(employeeID,buildingCode);
+			
+		}
+	}
+	
+	private class AddSuiteAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			//grab user input from textfields
+			String empCode = txtEmpId_Access.getText();
+			String buildingCode = txtBuildingId_Access.getText();
+			String suiteCode = txtSuiteId_Access.getText();
+			companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
+		}
+	}
+	
+	private class AddRoomAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			String empCode = txtEmpId_Access.getText();
+			String buildingCode = txtBuildingId_Access.getText();
+			String suiteCode = txtSuiteId_Access.getText();
+			String roomNum = txtRoomNum_Access.getText();
+			companyController.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 		}
 	}
 	

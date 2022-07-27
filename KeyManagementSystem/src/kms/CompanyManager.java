@@ -43,20 +43,6 @@ public class CompanyManager {
 	public void addEmployee(Employee e) {
 		employees.add(e);
 	}
-	public void addBuildingAccess(String empCode, String buildingCode) {
-		for(Employee e: employees) {
-			if(e.getId().equals(empCode)) {
-				e.addBuildingAccess(getBuildingByCode(buildingCode));
-			}
-		}
-	}
-	public void addSuiteAccess(String empCode,String suiteCode, String buildingCode) {
-		for(Employee e: employees) {
-			if(e.getId().equals(empCode)) {
-				e.addSuiteAccess(getSuiteByCode(suiteCode));
-			}
-		}
-	}
 	
 	//Removers
 	public void remBuilding(Building b) {
@@ -150,6 +136,7 @@ public class CompanyManager {
 		return employees.size();
 	}
 	
+	//dummy search methods
 	public int getEmployeeById(String id) {
         Employee dummy = new Employee("temp", "-000");
 		for(Employee e: employees) {
@@ -175,6 +162,40 @@ public class CompanyManager {
         }
         return dummy;
     }
+	
+	public Room getRoomByNum(String code) {
+        Room dummy = new Room();        
+        for(Room r: rooms) {
+            if(r.getRoomNumber().equals(code)) {
+                dummy = r;
+            }
+        }
+        return dummy;
+    }
+	
+	public void addBuildingAccess(String empCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addBuildingAccess(getBuildingByCode(buildingCode));
+			}
+		}
+	}
+	
+	public void addSuiteAccess(String empCode,String suiteCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addSuiteAccess(getSuiteByCode(suiteCode));
+			}
+		}
+	}
+	
+	public void addRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addRoomAccess(getRoomByNum(roomNum));
+			}
+		}
+	}
 	
 	//Clear and Contains
 	public void clear() {
