@@ -196,6 +196,27 @@ public class CompanyManager {
 			}
 		}
 	}
+	public void removeBuildingAccess(String empCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.removeBuildingAccess(getBuildingByCode(buildingCode));
+			}
+		}
+	}
+	public void removeSuiteAccess(String empCode, String suiteCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.removeSuiteAccess(getSuiteByCode(suiteCode));
+			}
+		}
+	}
+	public void removeRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+		for(Employee e:employees) {
+			if(e.getId().equals(empCode)) {
+				e.removeRoomAccess(getRoomByNum(roomNum));
+			}
+		}
+	}
 	
 	//Clear and Contains
 	public void clear() {

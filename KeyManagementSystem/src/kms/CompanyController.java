@@ -438,6 +438,15 @@ public class CompanyController {
 	public void addRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
 		companyManager.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 	}
+	public void removeBuildingAccess(String empCode, String buildingCode) {
+		companyManager.removeBuildingAccess(empCode, buildingCode);
+	}
+	public void removeSuiteAccess(String empCode, String suiteCode, String buildingCode) {
+		companyManager.removeSuiteAccess(empCode, suiteCode, buildingCode);
+	}
+	public void removeRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+		companyManager.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+	}
 	
 	public void saveCompany() {
 		CompanyPersistence.saveCompany(companyManager);
