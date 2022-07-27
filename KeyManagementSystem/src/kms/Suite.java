@@ -8,7 +8,7 @@ public class Suite extends Building{
 	private String name;
 	private String suiteCode;
 	private String buildingCode;
-	private ArrayList<Room> rooms = new ArrayList<Room>();
+	ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	//Constructors
 	public Suite(String name, String buildingCode, String suiteCode) {
@@ -63,6 +63,10 @@ public class Suite extends Building{
 	
 	public void addRoom(Room r){
 		rooms.add(r);
+	}
+	
+	public void remRoom(Room r){
+		rooms.remove(r);
 	}
 	
 	@Override

@@ -623,7 +623,8 @@ public class Main extends Application {
 			String suiteName = txtSuiteName_Suite.getText();
 			String buildingId = txtBuildingId_Suite.getText();
 			String suiteId = txtSuiteId_Suite.getText();
-			companyController.addSuite(suiteName, buildingId, suiteId);
+			Building b = new Building(buildingId);
+			companyController.addSuite(b, suiteName, buildingId, suiteId);
 		}
 	}
 	
@@ -633,7 +634,8 @@ public class Main extends Application {
 			String buildingId = txtBuildingId_Room.getText();
 			String suiteId= txtSuiteId_Room.getText();
 			String roomNum = txtRoomNum_Room.getText();
-			companyController.addRoom(buildingId, suiteId, roomNum);
+			Suite s = new Suite(suiteId);
+			companyController.addRoom(s, buildingId, suiteId, roomNum);
 		}
 	}
 	
@@ -647,6 +649,7 @@ public class Main extends Application {
 			companyController.addEmployee(first, middle, last, id);
 		}
 	}
+	
 	private class RemoveBuildingEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab user input from textfields
@@ -656,24 +659,28 @@ public class Main extends Application {
 			companyController.removeBuilding(buildingName, buildingId);
 		}
 	}
+	
 	private class RemoveSuiteEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab user input from textfields
 			String suiteName = txtSuiteName_Suite_Remove.getText();
 			String buildingId = txtBuildingId_Suite_Remove.getText();
 			String suiteId = txtSuiteId_Suite_Remove.getText();
+			Building b = new Building(buildingId);
 			//remove suite from company
-			companyController.removeSuite(suiteName, suiteId, buildingId);
+			companyController.removeSuite(b, suiteName, buildingId, suiteId);
 		}
 	}
+	
 	private class RemoveRoomEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab  user input from textfields
 			String roomNum = txtRoomNum_Room_Remove.getText();
 			String suiteId = txtSuiteId_Room_Remove.getText();
 			String buildingId = txtBuildingId_Room_Remove.getText();
+			Suite s = new Suite(suiteId);
 			//remove room from company
-			companyController.removeRoom(roomNum, suiteId, buildingId);
+			companyController.removeRoom(s, roomNum, suiteId, buildingId);
 		}
 	}
 	

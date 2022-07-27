@@ -131,27 +131,27 @@ class CompanyManagerTest {
 		assertEquals(cp.containsBuilding(b1.getName(), b1.getBuildingCode()), true);
 	}
 	
-	@DisplayName("Contains suite")
-	@Test
-	void ConSuite() {
-		CompanyManager cp = new CompanyManager();
-		Suite s1 = new Suite("Offices", "12", "01");
-		Suite s2 = new Suite("Execs", "12", "02");
-		cp.getSuites().add(s1);
-		cp.getSuites().add(s2);
-		assertEquals(cp.containsSuite(s1.getName(), s1.getBuildingCode(), s1.getSuiteCode()), true);
-	}
+//	@DisplayName("Contains suite")
+//	@Test
+//	void ConSuite() {
+//		CompanyManager cp = new CompanyManager();
+//		Suite s1 = new Suite("Offices", "12", "01");
+//		Suite s2 = new Suite("Execs", "12", "02");
+//		cp.getSuites().add(s1);
+//		cp.getSuites().add(s2);
+//		assertEquals(cp.containsSuite(s1.getName(), s1.getBuildingCode(), s1.getSuiteCode()), true);
+//	}
 	
-	@DisplayName("Contains room")
-	@Test
-	void ConRoom() {
-		CompanyManager cp = new CompanyManager();
-		Room r1 = new Room("01", "12", "432");
-		Room r2 = new Room("01", "12", "433");
-		cp.getRooms().add(r1);
-		cp.getRooms().add(r2);
-		assertEquals(cp.containsRoom(r1.getBuildingCode(), r1.getSuiteCode(), r1.getRoomNumber()), true);
-	}
+//	@DisplayName("Contains room")
+//	@Test
+//	void ConRoom() {
+//		CompanyManager cp = new CompanyManager();
+//		Room r1 = new Room("01", "12", "432");
+//		Room r2 = new Room("01", "12", "433");
+//		cp.getRooms().add(r1);
+//		cp.getRooms().add(r2);
+//		assertEquals(cp.containsRoom(r1.getBuildingCode(), r1.getSuiteCode(), r1.getRoomNumber()), true);
+//	}
 	
 	@DisplayName("Contains employee")
 	@Test

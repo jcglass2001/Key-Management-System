@@ -63,7 +63,7 @@ public class CompanyController {
 		
 	}
 	
-	public void addSuite(String name, String buildingCode, String suiteCode) {
+	public void addSuite(Building b, String name, String buildingCode, String suiteCode) {
 		//Calling validators
 		CompanyCodeStatus companyNameMessage = CompanyValidator.isNameValid(name);
 		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
@@ -72,7 +72,7 @@ public class CompanyController {
 		if(companyNameMessage.isValid()) {
 			if(companyBuildingMessage.isValid()) {
 				if(companySuiteMessage.isValid()) {
-					if(!companyManager.containsSuite(name, buildingCode, suiteCode)) {
+					if(!companyManager.containsSuite(b, name, buildingCode, suiteCode)) {
 						//create building instance
 						Suite s = new Suite(name, buildingCode, suiteCode);
 						companyManager.addSuite(s);
@@ -121,7 +121,7 @@ public class CompanyController {
 		}
 	}
 	
-	public void addRoom(String buildingCode, String suiteCode, String roomNumber) {
+	public void addRoom(Suite s, String buildingCode, String suiteCode, String roomNumber) {
 		//Calling validators
 		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
 		CompanyCodeStatus companySuiteMessage = CompanyValidator.isSuiteValid(suiteCode);
@@ -130,7 +130,7 @@ public class CompanyController {
 		if(companyBuildingMessage.isValid()) {
 			if(companySuiteMessage.isValid()) {
 				if(companyRoomMessage.isValid()) {
-					if(!companyManager.containsRoom(buildingCode, suiteCode, roomNumber)) {
+					if(!companyManager.containsRoom(s, buildingCode, suiteCode, roomNumber)) {
 						//creates room instance
 						Room r = new Room(buildingCode, suiteCode, roomNumber);
 						companyManager.addRoom(r);
@@ -269,7 +269,7 @@ public class CompanyController {
 		}
 	}
 	
-	public void removeSuite(String name, String suiteCode, String buildingCode) {
+	public void removeSuite(Building b, String name, String buildingCode, String suiteCode) {
 		//Calling validators
 		CompanyCodeStatus companyNameMessage = CompanyValidator.isNameValid(name);
 		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
@@ -278,10 +278,10 @@ public class CompanyController {
 		if(companyNameMessage.isValid()) {
 			if(companyBuildingMessage.isValid()) {
 				if(companySuiteMessage.isValid()) {
-					if(companyManager.containsSuite(name, buildingCode, suiteCode)) {
+					if(companyManager.containsSuite(b, name, buildingCode, suiteCode)) {
 						//create building instance
 						Suite s = new Suite(name, buildingCode, suiteCode);
-						companyManager.addSuite(s);
+						companyManager.remSuite(s);
 						
 						//set alert and content text
 						a.setAlertType(AlertType.INFORMATION);
@@ -326,7 +326,8 @@ public class CompanyController {
 				a.show();
 		}
 	}
-	public void removeRoom(String roomNumber, String suiteCode, String buildingCode) {
+	
+	public void removeRoom(Suite s, String roomNumber, String suiteCode, String buildingCode) {
 		//Calling validators
 		CompanyCodeStatus companyBuildingMessage = CompanyValidator.isBuildingValid(buildingCode);
 		CompanyCodeStatus companySuiteMessage = CompanyValidator.isSuiteValid(suiteCode);
@@ -335,10 +336,10 @@ public class CompanyController {
 		if(companyBuildingMessage.isValid()) {
 			if(companySuiteMessage.isValid()) {
 				if(companyRoomMessage.isValid()) {
-					if(companyManager.containsRoom(buildingCode, suiteCode, roomNumber)) {
+					if(companyManager.containsRoom(s, buildingCode, suiteCode, roomNumber)) {
 						//creates room instance
 						Room r = new Room(buildingCode, suiteCode, roomNumber);
-						companyManager.addRoom(r);
+						companyManager.remRoom(r);
 						
 						//set alert and content text
 						a.setAlertType(AlertType.INFORMATION);
@@ -350,8 +351,8 @@ public class CompanyController {
 						gui.txtBuildingId_Room_Remove.clear();
 						gui.txtSuiteId_Room_Remove.clear();
 						gui.txtRoomNum_Room_Remove.clear();
-					}
-					else {
+					 }
+						else {
 						//set alert and content text
 						a.setAlertType(AlertType.INFORMATION);
 						a.setContentText("Room with that number doesn't exist!");

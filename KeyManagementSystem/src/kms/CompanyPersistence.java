@@ -140,20 +140,23 @@ public class CompanyPersistence {
 	public static String printReportE(CompanyManager companyManager, String buildingCode) {
 		String report = "";
         //grab building
-        Building b = companyManager.getBuildingByCode(buildingCode);
-        //print building
-        report += String.format("Building: %s(%s)", b.getName(),b.getBuildingCode());
-        //loop through suites list in building
-        for(Suite s: b.getSuites()) {
-            //print suites
-            report += String.format("\t\tSuite: %s(%s)", s.getName(),s.getSuiteCode());
-            //loop through and print all rooms in suite
-            for(Room r: s.getRooms()) {
-                //print rooms
-                report += String.format("\t\t\tRoom: %s", r.getRoomNumber());
-            }
-        }
-		
+		for(int i = 0; i < companyManager.buildings.size(); i++) {
+				if(companyManager.getBuilding(i).getBuildingCode().equals(buildingCode)) {
+					//print building
+			        report += String.format("Building: %s - %s", companyManager.getBuilding(i).getName(), companyManager.getBuilding(i).getBuildingCode());
+			        //loop through suites list in building
+			        for(int j = 0; j < companyManager.getBuilding(i).getSuites().size(); j++) {
+			            //print suites
+			            report += String.format("\n\tSuite: %s - %s", companyManager.getBuilding(i).getSuites().get(j).getName(), companyManager.getBuilding(i).getSuites().get(j).getSuiteCode());
+			            //loop through and print all rooms in suite
+			            for(int k = 0; k < companyManager.getBuilding(i).getSuites().get(j).getRooms().size(); k++) {
+			                //print rooms
+			                report += String.format("\n\t\tRoom: %s", companyManager.getBuilding(i).getSuites().get(j).getRooms().get(k).getRoomNumber());
+			            }
+			        }
+				}
+		}
+       
         return report;
 	}
 	
