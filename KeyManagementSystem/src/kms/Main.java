@@ -52,6 +52,7 @@ public class Main extends Application {
 	protected Button btnAccess;
 	protected Button btnReport;
 	protected Button btnTest;
+	protected Button btnSaveCompany;
 	
 
 	/* Element for the Add scene */
@@ -109,13 +110,11 @@ public class Main extends Application {
 
 	/* Elements for the Test scene */
 	protected Label lblEmpId_Test;
-	protected TextField txtEmpId_Test;
+	protected TextField txtEmpIdEntry_Test;
+	protected TextArea accessStatus_Test;
+	protected Button access_Test;
 
 	/* Elements for the Report Scene */
-	protected Label lblBuildingId_Report;
-	protected Label lblSuiteId_Report;
-	protected Label lblRoomId_Report;
-	protected Label lblEmpId_Report;
 	protected TextField txtBuildingId_Report;
 	protected TextField txtSuiteId_Report;
 	protected TextField txtRoomId_Report;
@@ -136,6 +135,7 @@ public class Main extends Application {
 		btnReport = new Button("Report");
 		btnTest = new Button("Test");
 		btnRemove = new Button("Remove");
+		btnSaveCompany = new Button("Save Company");
 		// create container
 		VBox menuSelection = new VBox();
 		menuSelection.getStyleClass().add("h_or_v_box");
@@ -148,6 +148,7 @@ public class Main extends Application {
 		btnAccess.setOnAction(e -> switchToAccess());
 		btnReport.setOnAction(e -> switchToReport());
 		btnTest.setOnAction(e -> switchToTest());
+		btnSaveCompany.setOnAction(new SaveCompanyEventHandler());
 		// assign container to scene
 		menu = new Scene(menuSelection, 300, 300);
 
@@ -241,12 +242,12 @@ public class Main extends Application {
 	private Scene buildTest() {
 		// assign pane elements
 		
-		txtEmpId_Test = new TextField();
-		txtEmpId_Test.setPromptText("Enter Employee ID.");
+		txtEmpIdEntry_Test = new TextField();
+		txtEmpIdEntry_Test.setPromptText("Enter Employee ID.");
 		Button btnMenu = new Button("Back to Menu");
 		// create input container
 		VBox testInfo = new VBox();
-		testInfo.getChildren().add(txtEmpId_Test);
+		testInfo.getChildren().add(txtEmpIdEntry_Test);
 		// add nav button
 		testInfo.getChildren().add(btnMenu);
 		// position container in center and add padding
@@ -790,13 +791,13 @@ private Pane buildAccessTabs() {
 			companyController.removeEmployee(fName,mInit,lName,empID);
 		}
 	}
-	
-	//INCOMPLETE
-	private class GiveAccessEventHandler implements EventHandler<ActionEvent>{
+	private class SaveCompanyEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
-			//
+			companyController.saveCompany();
 		}
 	}
+	
+	
 	
 
 	@Override

@@ -434,6 +434,10 @@ public class CompanyController {
 		companyManager.addSuiteAccess(empCode,suiteCode,buildingCode);
 	}
 	
+	public void saveCompany() {
+		CompanyPersistence.saveCompany(companyManager);
+	}
+	
 
 	
 	public void printReports(Character selected) {
