@@ -47,6 +47,12 @@ public class Main extends Application {
 	protected Scene test;
 
 	// menu elements
+	protected Label lblAddInfo;
+	protected Label lblRemoveInfo;
+	protected Label lblAccessInfo;
+	protected Label lblReportInfo;
+	protected Label lblTestInfo;
+	protected Label lblSaveInfo;
 	protected Button btnAdd;
 	protected Button btnRemove;
 	protected Button btnAccess;
@@ -131,15 +137,33 @@ public class Main extends Application {
 	private Scene buildMenu() {
 		// assign scene elements
 		btnAdd = new Button("Add");
+		lblAddInfo = new Label("Add Building, Suite, Room, or Employee to company");
+		
 		btnAccess = new Button("Access");
+		lblAccessInfo = new Label("Add or remove access of properties from employee");
+		
 		btnReport = new Button("Report");
+		lblReportInfo = new Label("Generate reports A-O to display company information");
+		
 		btnTest = new Button("Test");
+		lblTestInfo = new Label("Test Employee access");
+		
 		btnRemove = new Button("Remove");
+		lblRemoveInfo = new Label("Remove Building, Suite, Room, or Employee");
+		
 		btnSaveCompany = new Button("Save Company");
+		lblSaveInfo = new Label("Save company to text file");
+		
+		//create container pairing label with respective buttons
+		VBox addSelection = buildLabelButtonContainer(lblAddInfo,btnAdd);
+		VBox removeSelection = buildLabelButtonContainer(lblRemoveInfo,btnRemove);
+		VBox accessSelection = buildLabelButtonContainer(lblAccessInfo,btnAccess);
+		VBox reportSelection = buildLabelButtonContainer(lblReportInfo,btnReport);
+		VBox saveSelection = buildLabelButtonContainer(lblSaveInfo,btnSaveCompany);
 		// create container
-		VBox menuSelection = new VBox();
+		VBox menuSelection = new VBox(10);
 		menuSelection.getStyleClass().add("h_or_v_box");
-		menuSelection.getChildren().addAll(btnAdd, btnRemove, btnAccess, btnReport, btnTest);
+		menuSelection.getChildren().addAll(addSelection,removeSelection,accessSelection,reportSelection,saveSelection);
 		// add padding
 		menuSelection.setPadding(new Insets(20, 20, 20, 20));
 		// register event handlers
@@ -150,7 +174,7 @@ public class Main extends Application {
 		btnTest.setOnAction(e -> switchToTest());
 		btnSaveCompany.setOnAction(new SaveCompanyEventHandler());
 		// assign container to scene
-		menu = new Scene(menuSelection, 300, 300);
+		menu = new Scene(menuSelection, 500, 500);
 
 		return menu;
 	}
@@ -683,6 +707,12 @@ private Pane buildAccessTabs() {
 			container.getChildren().add(txt);
 		}
 		//return vBox
+		return container;
+	}
+	private VBox buildLabelButtonContainer(Label lbl, Button btn) {
+		VBox container = new VBox(2);
+		container.getStyleClass().add("vbox");
+		container.getChildren().addAll(lbl,btn);
 		return container;
 	}
 	
