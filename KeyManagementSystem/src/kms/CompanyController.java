@@ -426,6 +426,23 @@ public class CompanyController {
 			a.show();
 		}
 	}
+	
+	public void addBuildingAccess(String empCode, String buildingCode) {
+		companyManager.addBuildingAccess(empCode, buildingCode);
+	}
+	
+	public void addSuiteAccess(String empCode, String suiteCode, String buildingCode) {
+		companyManager.addSuiteAccess(empCode, suiteCode, buildingCode);
+	}
+	
+	public void addRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+		companyManager.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+	}
+	
+	public void saveCompany() {
+		CompanyPersistence.saveCompany(companyManager);
+	}
+	
 
 	
 	public void printReports(Character selected) {
@@ -464,7 +481,7 @@ public class CompanyController {
 				 gui.displayInfo_Report.setText(msgF);
 				 break;
 			 case 'G':
-				 String msgG = CompanyPersistence.printReportG(companyManager);
+				 String msgG = CompanyPersistence.printReportG(companyManager, gui.txtBuildingId_Access.getText(), gui.txtRoomNum_Access.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgG);
 				 break;
@@ -503,11 +520,6 @@ public class CompanyController {
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgN);
 				 break;
-			 case 'O':
-				 String msgO = CompanyPersistence.printReportO(companyManager);
-				 //display msg to text area
-				 gui.displayInfo_Report.setText(msgO);
-				 break;	 	 	 	 	 	 	 	 	 	 	 
 			 }
 		}catch(Exception e) {}
 	}

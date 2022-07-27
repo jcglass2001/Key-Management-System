@@ -173,6 +173,30 @@ public class CompanyManager {
         return dummy;
     }
 	
+	public void addBuildingAccess(String empCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addBuildingAccess(getBuildingByCode(buildingCode));
+			}
+		}
+	}
+	
+	public void addSuiteAccess(String empCode,String suiteCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addSuiteAccess(getSuiteByCode(suiteCode));
+			}
+		}
+	}
+	
+	public void addRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addRoomAccess(getRoomByNum(roomNum));
+			}
+		}
+	}
+	
 	//Clear and Contains
 	public void clear() {
 		buildings.clear();
