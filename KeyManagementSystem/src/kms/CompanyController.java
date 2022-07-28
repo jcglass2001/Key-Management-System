@@ -1,5 +1,7 @@
 package kms;
 
+import java.io.File;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -426,7 +428,6 @@ public class CompanyController {
 			a.show();
 		}
 	}
-	
 	public void addBuildingAccess(String empCode, String buildingCode) {
 		companyManager.addBuildingAccess(empCode, buildingCode);
 	}
@@ -447,9 +448,18 @@ public class CompanyController {
 	public void removeRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
 		companyManager.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 	}
+	public void testAccess(String empCode, String roomNum, String buildingCode) {
+		Alert a = new Alert(AlertType.INFORMATION);
+		a.setContentText(companyManager.testAccess(empCode, roomNum));
+		a.show();
+	}
 	
 	public void saveCompany() {
 		CompanyPersistence.saveCompany(companyManager);
+	}
+	public void loadCompany() {
+		File file = new File("Report.txt");
+		CompanyPersistence.buildFromFile(file,companyManager);
 	}
 	
 
@@ -505,22 +515,22 @@ public class CompanyController {
 				 gui.displayInfo_Report.setText(msgI);
 				 break;
 			 case 'J':
-				 String msgJ = CompanyPersistence.printReportJ(companyManager);
+				 String msgJ = CompanyPersistence.printReportJ(companyManager, gui.txtBuildingId_Report.getText(), gui.txtRoomId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgJ);
 				 break;
 			 case 'K':
-				 String msgK = CompanyPersistence.printReportK(companyManager);
+				 String msgK = CompanyPersistence.printReportK(companyManager, gui.txtBuildingId_Report.getText(), gui.txtRoomId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgK);
 				 break;
 			 case 'L':
-				 String msgL = CompanyPersistence.printReportL(companyManager);
+				 String msgL = CompanyPersistence.printReportL(companyManager,gui.txtBuildingId_Report.getText(), gui.txtRoomId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgL);
 				 break;
 			 case 'M':
-				 String msgM = CompanyPersistence.printReportM(companyManager);
+				 String msgM = CompanyPersistence.printReportM(companyManager, gui.txtBuildingId_Report.getText(), gui.txtRoomId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgM);
 				 break;

@@ -50,13 +50,13 @@ class RoomTest {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("1","12", "123");});
 	}
 	
-	@DisplayName("Not enough digits in building code")
+	@DisplayName("Not enough digits in suite code")
 	@Test
 	void testNotEnoughDigitsSuite() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","1", "123");});
 	}
 	
-	@DisplayName("Not enough digits in building code")
+	@DisplayName("Not enough digits in room number")
 	@Test
 	void testNotEnoughDigitsRoom() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {new Room("12","12", "1");});
