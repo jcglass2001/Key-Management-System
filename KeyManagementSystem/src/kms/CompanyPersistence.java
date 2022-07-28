@@ -16,7 +16,7 @@ public class CompanyPersistence {
 	
 
 	//Save to text file
-	public void saveCompany(CompanyManager companyManager) {
+	public static void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
 
@@ -160,16 +160,58 @@ public class CompanyPersistence {
 	}
 	
 	public static String printReportB(CompanyManager companyManager) {
-		String report = "";
-		
-		return report;
+        String report = "";
+        for (int i = 0; i < companyManager.employees.size(); i++) {
+            report += (companyManager.employees.get(i).getName() + ", ID= " + companyManager.employees.get(i).getId() + "\n");
+            for(int j = 0; j < companyManager.employees.get(i).buildingAccess.size(); j++) {
+                    for(int k = 0; k < companyManager.employees.get(i).getBuildingAccess().get(j).getSuites().size(); k++) {
+                        //loop through and print all rooms in suite
+                        for(int l = 0; l  < companyManager.employees.get(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().size(); l++) {
+                            //print rooms
+                            report += String.format("Room " + companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getRoomNumber()) + ", " +
+                            		companyManager.getBuildingByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getBuildingCode()).getName() + " Building (" +
+                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getBuildingCode() + "), " + 
+                            		companyManager.getSuiteByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getSuiteCode()).getName() + " Suite (" + 
+                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getSuiteCode() + ")\n";
+                        }
+                    }
+                
+            }
+            report += "\n";
+        }
+        return report;
 	}
 	
 	public static String printReportC(CompanyManager companyManager) {
-		String report = "";
-		
-		return report;
-	}
+        String report = "";
+
+        // loop through employees
+        for (int i = 0; i < companyManager.employees.size(); i++) {
+            // grab employee and add details to message
+            Employee dummy = companyManager.employees.get(i);
+            report += String.format("%s,ID=%s", dummy.getName(), dummy.getId());
+            // loop through employee room access list
+            for (int j = 0; j < dummy.getRoomAccess().size(); i++) {
+                Room rDummy = dummy.getRoomAccess().get(i);
+                report += String.format("\tRoom Access: %s, %s Building (%s), %s Suite (%s)", rDummy.getRoomNumber(),
+                        "[building type]", rDummy.getBuildingCode(), "[suite type]", rDummy.getSuiteCode());
+            }
+            // loop through employee suite access list
+            for (int k = 0; k < dummy.getSuiteAccess().size(); i++) {
+                Suite sDummy = dummy.getSuiteAccess().get(i);
+                report += String.format("\tSuite Access: %s Building (%s), %s Suite (%s)", "[building type]",
+                        sDummy.getBuildingCode(), sDummy.getName(), sDummy.getSuiteCode());
+            }
+            // loop through employee building access list
+            for (int l = 0; l < dummy.getBuildingAccess().size(); i++) {
+                Building bDummy = dummy.getBuildingAccess().get(i);
+                report += String.format("\tBuilding Access: %s Building (%s)", bDummy.getName(),
+                        bDummy.getBuildingCode());
+            }
+        }
+
+        return report;
+    }
 
 	public static String printReportD(CompanyManager companyManager) {
 		String report = "";
@@ -214,8 +256,15 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportG(CompanyManager companyManager) {
+	public static String printReportG(CompanyManager companyManager, String buildingCode, String roomNum) {
 		String report = "";
+		for (int i = 0; i < companyManager.employees.size(); i++) {
+			for(int j = 0; j < companyManager.employees.get(i).getRoomAccess().size(); j++) {
+				if(companyManager.employees.get(i).roomAccess.get(j).getBuildingCode().equals(buildingCode) && companyManager.employees.get(i).roomAccess.get(j).getRoomNumber().equals(roomNum)) {
+					report += (companyManager.employees.get(i).getName() + ", ID= " + companyManager.employees.get(i).getId() + "\n");
+	            }
+			}
+		}
 		
 		return report;
 	}
@@ -290,9 +339,4 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportO(CompanyManager companyManager) {
-		String report = "";
-		
-		return report;
-	}
 }

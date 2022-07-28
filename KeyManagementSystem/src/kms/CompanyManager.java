@@ -173,6 +173,51 @@ public class CompanyManager {
         return dummy;
     }
 	
+	public void addBuildingAccess(String empCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addBuildingAccess(getBuildingByCode(buildingCode));
+			}
+		}
+	}
+	
+	public void addSuiteAccess(String empCode,String suiteCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addSuiteAccess(getSuiteByCode(suiteCode));
+			}
+		}
+	}
+	
+	public void addRoomAccess(String empCode, String roomNum) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.addRoomAccess(getRoomByNum(roomNum));
+			}
+		}
+	}
+	public void removeBuildingAccess(String empCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.removeBuildingAccess(getBuildingByCode(buildingCode));
+			}
+		}
+	}
+	public void removeSuiteAccess(String empCode, String suiteCode, String buildingCode) {
+		for(Employee e: employees) {
+			if(e.getId().equals(empCode)) {
+				e.removeSuiteAccess(getSuiteByCode(suiteCode));
+			}
+		}
+	}
+	public void removeRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+		for(Employee e:employees) {
+			if(e.getId().equals(empCode)) {
+				e.removeRoomAccess(getRoomByNum(roomNum));
+			}
+		}
+	}
+	
 	//Clear and Contains
 	public void clear() {
 		buildings.clear();
