@@ -278,8 +278,6 @@ public class Main extends Application {
 		txtEmpIdEntry_Test = new TextField();
 		txtEmpIdEntry_Test.setPromptText("Enter Employee ID.");
 		
-		txtBuildingIdEntry_Test = new TextField();
-		txtBuildingIdEntry_Test.setPromptText("Enter Building Code.");
 		
 		txtRoomIdEntry_Test = new TextField();
 		txtRoomIdEntry_Test.setPromptText("Enter Room Number.");
@@ -287,7 +285,7 @@ public class Main extends Application {
 		access_Test = new Button("Test Access");
 		Button btnMenu = new Button("Back to Menu");
 		//create arraylist of textfields
-		ArrayList<TextField> tFields = new ArrayList<>(Arrays.asList(txtEmpIdEntry_Test,txtBuildingIdEntry_Test,txtRoomIdEntry_Test));
+		ArrayList<TextField> tFields = new ArrayList<>(Arrays.asList(txtEmpIdEntry_Test,txtRoomIdEntry_Test));
 		//create container populated with textfields
 		VBox testEntry = buildTextContainer(tFields);
 		//build button container
@@ -912,9 +910,9 @@ public class Main extends Application {
 			// grab user input
 			String empCode = txtEmpIdEntry_Test.getText();
 			String roomNum = txtRoomIdEntry_Test.getText();
-			String buildingCode = txtBuildingIdEntry_Test.getText();
+			
 			//test employee access
-			companyController.testAccess(empCode,roomNum,buildingCode);
+			companyController.testAccess(empCode,roomNum);
 		}
 	}
 

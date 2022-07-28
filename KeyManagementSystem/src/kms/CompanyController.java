@@ -448,7 +448,7 @@ public class CompanyController {
 	public void removeRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
 		companyManager.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 	}
-	public void testAccess(String empCode, String roomNum, String buildingCode) {
+	public void testAccess(String empCode, String roomNum) {
 		Alert a = new Alert(AlertType.INFORMATION);
 		a.setContentText(companyManager.testAccess(empCode, roomNum));
 		a.show();

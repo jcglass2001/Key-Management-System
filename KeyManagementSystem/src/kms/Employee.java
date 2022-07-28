@@ -91,7 +91,7 @@ public class Employee {
 		
 		//adding from building access
 		for(int i = 0; i < buildingAccess.size(); i++) {
-			for(int j = 0; j < buildingAccess.get(i).getSuites().size(); i++) {
+			for(int j = 0; j < buildingAccess.get(i).getSuites().size(); j++) {
 				for(int k = 0; k < buildingAccess.get(i).getSuites().get(j).getRooms().size(); k++) {
 					fullAccessSet.add(buildingAccess.get(i).getSuites().get(j).getRooms().get(k));
 				}
