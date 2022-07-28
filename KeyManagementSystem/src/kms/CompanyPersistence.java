@@ -52,7 +52,7 @@ public class CompanyPersistence {
 	}
 	
 	//build company from file
-	public void buildFromFile(File file, CompanyManager companyManager) {
+	public static void buildFromFile(File file, CompanyManager companyManager) {
 		try {
 			Scanner scan = new Scanner(file);
 			while (scan.hasNextLine()){

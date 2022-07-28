@@ -1,5 +1,7 @@
 package kms;
 
+import java.io.File;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -454,6 +456,10 @@ public class CompanyController {
 	
 	public void saveCompany() {
 		CompanyPersistence.saveCompany(companyManager);
+	}
+	public void loadCompany() {
+		File file = new File("Report.txt");
+		CompanyPersistence.buildFromFile(file,companyManager);
 	}
 	
 

@@ -52,12 +52,14 @@ public class Main extends Application {
 	protected Label lblReportInfo;
 	protected Label lblTestInfo;
 	protected Label lblSaveInfo;
+	protected Label lblLoadInfo;
 	protected Button btnAdd;
 	protected Button btnRemove;
 	protected Button btnAccess;
 	protected Button btnReport;
 	protected Button btnTest;
 	protected Button btnSaveCompany;
+	protected Button btnLoadCompany;
 
 	/* Element for the Add scene */
 	// addBuildingInfo
@@ -143,7 +145,7 @@ public class Main extends Application {
 		lblAccessInfo = new Label("Add or remove access of properties from employee");
 
 		btnReport = new Button("Report");
-		lblReportInfo = new Label("Generate reports A-O to display company information");
+		lblReportInfo = new Label("Generate reports A-M to display company information");
 
 		btnTest = new Button("Test");
 		lblTestInfo = new Label("Test Employee access");
@@ -153,6 +155,9 @@ public class Main extends Application {
 
 		btnSaveCompany = new Button("Save Company");
 		lblSaveInfo = new Label("Save company to text file");
+		
+		btnLoadCompany = new Button("Load Company");
+		lblLoadInfo = new Label("Load company from saved text file");
 
 		// create container pairing label with respective buttons
 		VBox addSelection = buildLabelButtonContainer(lblAddInfo, btnAdd);
@@ -160,11 +165,12 @@ public class Main extends Application {
 		VBox accessSelection = buildLabelButtonContainer(lblAccessInfo, btnAccess);
 		VBox reportSelection = buildLabelButtonContainer(lblReportInfo, btnReport);
 		VBox saveSelection = buildLabelButtonContainer(lblSaveInfo, btnSaveCompany);
+		VBox loadSelection = buildLabelButtonContainer(lblLoadInfo, btnLoadCompany);
 		// create container
 		VBox menuSelection = new VBox(10);
 		menuSelection.getStyleClass().add("h_or_v_box");
 		menuSelection.getChildren().addAll(addSelection, removeSelection, accessSelection, reportSelection,
-				saveSelection);
+				saveSelection,loadSelection);
 		// add padding
 		menuSelection.setPadding(new Insets(20, 20, 20, 20));
 		// register event handlers
@@ -174,6 +180,7 @@ public class Main extends Application {
 		btnReport.setOnAction(e -> switchToReport());
 		btnTest.setOnAction(e -> switchToTest());
 		btnSaveCompany.setOnAction(new SaveCompanyEventHandler());
+		btnLoadCompany.setOnAction(new LoadCompanyEventHandler());
 		// assign container to scene
 		menu = new Scene(menuSelection, 500, 500);
 
@@ -912,6 +919,11 @@ public class Main extends Application {
 	private class SaveCompanyEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
 			companyController.saveCompany();
+		}
+	}
+	private class LoadCompanyEventHandler implements EventHandler<ActionEvent>{
+		public void  handle(ActionEvent event) {
+			companyController.loadCompany();
 		}
 	}
 
