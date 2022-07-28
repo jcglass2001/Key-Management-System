@@ -193,19 +193,19 @@ public class CompanyPersistence {
             // loop through employee room access list
             for (int j = 0; j < dummy.getRoomAccess().size(); j++) {
                 Room rDummy = dummy.getRoomAccess().get(j);
-                report += String.format("\tRoom Access: %s, %s Building (%s), %s Suite (%s)\n", rDummy.getRoomNumber(),
-                        "[building type]", rDummy.getBuildingCode(), "[suite type]", rDummy.getSuiteCode());
+                report += String.format("Room Access: %s, %s Building (%s), %s Suite (%s)\n", rDummy.getRoomNumber(),
+                        companyManager.getBuildingByCode(rDummy.getBuildingCode()).getName(), rDummy.getBuildingCode(),companyManager.getSuiteByCode(rDummy.getSuiteCode()).getName(), rDummy.getSuiteCode());
             }
             // loop through employee suite access list
             for (int k = 0; k < dummy.getSuiteAccess().size(); k++) {
                 Suite sDummy = dummy.getSuiteAccess().get(k);
-                report += String.format("\tSuite Access: %s Building (%s), %s Suite (%s)", "[building type]\n",
+                report += String.format("Suite Access: %s Building (%s), %s Suite (%s)\n", companyManager.getBuildingByCode(sDummy.getBuildingCode()).getName(),
                         sDummy.getBuildingCode(), sDummy.getName(), sDummy.getSuiteCode());
             }
             // loop through employee building access list
             for (int l = 0; l < dummy.getBuildingAccess().size(); l++) {
                 Building bDummy = dummy.getBuildingAccess().get(l);
-                report += String.format("\tBuilding Access: %s Building (%s)\n", bDummy.getName(),
+                report += String.format("Building Access: %s Building (%s)\n", bDummy.getName(),
                         bDummy.getBuildingCode());
             }
         }
