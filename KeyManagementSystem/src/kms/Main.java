@@ -32,11 +32,10 @@ import java.util.List;
 
 import javafx.beans.value.*;
 
-
 public class Main extends Application {
 	CompanyController companyController;
-	
-	//stage
+
+	// stage
 	private Stage stage;
 	// Scenes
 	protected Scene menu;
@@ -59,7 +58,6 @@ public class Main extends Application {
 	protected Button btnReport;
 	protected Button btnTest;
 	protected Button btnSaveCompany;
-	
 
 	/* Element for the Add scene */
 	// addBuildingInfo
@@ -85,22 +83,22 @@ public class Main extends Application {
 	protected TextField txtEmployeeId;
 	protected Button btnAddEmployee;
 
-	/*Elements for Remove Scene*/
-	//removeBuildingInfo
+	/* Elements for Remove Scene */
+	// removeBuildingInfo
 	protected TextField txtBuildingId_Remove;
 	protected TextField txtBuildingName_Remove;
 	protected Button btnRemoveBuilding;
-	//removeSuiteInfo
+	// removeSuiteInfo
 	protected TextField txtSuiteName_Suite_Remove;
 	protected TextField txtSuiteId_Suite_Remove;
 	protected TextField txtBuildingId_Suite_Remove;
 	protected Button btnRemoveSuite;
-	//removeRoomInfo
+	// removeRoomInfo
 	protected TextField txtRoomNum_Room_Remove;
 	protected TextField txtSuiteId_Room_Remove;
 	protected TextField txtBuildingId_Room_Remove;
 	protected Button btnRemoveRoom;
-	//removeEmployeeInfo
+	// removeEmployeeInfo
 	protected TextField txtFName_Remove;
 	protected TextField txtMInitial_Remove;
 	protected TextField txtLName_Remove;
@@ -138,32 +136,33 @@ public class Main extends Application {
 		// assign scene elements
 		btnAdd = new Button("Add");
 		lblAddInfo = new Label("Add Building, Suite, Room, or Employee to company");
-		
+
 		btnAccess = new Button("Access");
 		lblAccessInfo = new Label("Add or remove access of properties from employee");
-		
+
 		btnReport = new Button("Report");
 		lblReportInfo = new Label("Generate reports A-O to display company information");
-		
+
 		btnTest = new Button("Test");
 		lblTestInfo = new Label("Test Employee access");
-		
+
 		btnRemove = new Button("Remove");
 		lblRemoveInfo = new Label("Remove Building, Suite, Room, or Employee");
-		
+
 		btnSaveCompany = new Button("Save Company");
 		lblSaveInfo = new Label("Save company to text file");
-		
-		//create container pairing label with respective buttons
-		VBox addSelection = buildLabelButtonContainer(lblAddInfo,btnAdd);
-		VBox removeSelection = buildLabelButtonContainer(lblRemoveInfo,btnRemove);
-		VBox accessSelection = buildLabelButtonContainer(lblAccessInfo,btnAccess);
-		VBox reportSelection = buildLabelButtonContainer(lblReportInfo,btnReport);
-		VBox saveSelection = buildLabelButtonContainer(lblSaveInfo,btnSaveCompany);
+
+		// create container pairing label with respective buttons
+		VBox addSelection = buildLabelButtonContainer(lblAddInfo, btnAdd);
+		VBox removeSelection = buildLabelButtonContainer(lblRemoveInfo, btnRemove);
+		VBox accessSelection = buildLabelButtonContainer(lblAccessInfo, btnAccess);
+		VBox reportSelection = buildLabelButtonContainer(lblReportInfo, btnReport);
+		VBox saveSelection = buildLabelButtonContainer(lblSaveInfo, btnSaveCompany);
 		// create container
 		VBox menuSelection = new VBox(10);
 		menuSelection.getStyleClass().add("h_or_v_box");
-		menuSelection.getChildren().addAll(addSelection,removeSelection,accessSelection,reportSelection,saveSelection);
+		menuSelection.getChildren().addAll(addSelection, removeSelection, accessSelection, reportSelection,
+				saveSelection);
 		// add padding
 		menuSelection.setPadding(new Insets(20, 20, 20, 20));
 		// register event handlers
@@ -204,41 +203,40 @@ public class Main extends Application {
 
 		return add;
 	}
+
 	private Scene buildRemove() {
 		Button btnMenu = new Button("Back to Menu");
-		//create gridpane
+		// create gridpane
 		GridPane root = new GridPane();
-		//place entry panels side by side
+		// place entry panels side by side
 		root.add(buildBuildingEntry_Remove(), 0, 0);
 		root.add(buildSuiteEntry_Remove(), 1, 0);
 		root.add(buildRoomEntry_Remove(), 2, 0);
 		root.add(buildEmployeeEntry_Remove(), 3, 0);
-		//add navigation button
+		// add navigation button
 		root.add(btnMenu, 0, 3);
 		// add padding
 		root.setPadding(new Insets(20, 20, 20, 20));
-		//register event handlers
+		// register event handlers
 		btnMenu.setOnAction(e -> switchScene(menu));
 		btnRemoveBuilding.setOnAction(new RemoveBuildingEventHandler());
 		btnRemoveSuite.setOnAction(new RemoveSuiteEventHandler());
 		btnRemoveRoom.setOnAction(new RemoveRoomEventHandler());
 		btnRemoveEmployee.setOnAction(new RemoveEmployeeHandler());
-		//assign grid to scene
-		remove = new Scene(root,800,500);
-		//return scene
+		// assign grid to scene
+		remove = new Scene(root, 800, 500);
+		// return scene
 		return remove;
-		
+
 	}
-	
+
 	private Scene buildAccess() {
-		
+
 		// set combined container to scene
 		accessMenu = new Scene(buildAccessTabs(), 500, 500);
 		// return scene
 		return accessMenu;
 	}
-	
-	
 
 	private Scene buildReport() {
 		// assign elements
@@ -265,7 +263,7 @@ public class Main extends Application {
 
 	private Scene buildTest() {
 		// assign pane elements
-		
+
 		txtEmpIdEntry_Test = new TextField();
 		txtEmpIdEntry_Test.setPromptText("Enter Employee ID.");
 		Button btnMenu = new Button("Back to Menu");
@@ -285,8 +283,8 @@ public class Main extends Application {
 		return test;
 	}
 
-	/* 
-	 * Following methods build panes for select scenes 
+	/*
+	 * Following methods build panes for select scenes
 	 */
 
 	/* constructs pane for report scene */
@@ -294,23 +292,24 @@ public class Main extends Application {
 		// assign pane elements
 		txtBuildingId_Report = new TextField();
 		txtBuildingId_Report.setPromptText("Enter Building ID.");
-		
+
 		txtSuiteId_Report = new TextField();
 		txtSuiteId_Report.setPromptText("Enter Suite ID.");
-		
+
 		txtRoomId_Report = new TextField();
 		txtRoomId_Report.setPromptText("Enter Room ID.");
-		
+
 		txtEmpId_Report = new TextField();
 		txtEmpId_Report.setPromptText("Enter Employee ID.");
-		
+
 		btnGenerate_Report = new Button("Generate");
 
 		// create and populate drop down list
 		cBoxList_Report = populateChoiceBox();
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtBuildingId_Report,txtSuiteId_Report,txtRoomId_Report,txtEmpId_Report));
-		//create container populated with textfields
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtBuildingId_Report, txtSuiteId_Report, txtRoomId_Report, txtEmpId_Report));
+		// create container populated with textfields
 		VBox vBoxReportEntry = buildTextContainer(tFields);
 		// combine containers
 		VBox vBoxReport = new VBox();
@@ -325,19 +324,19 @@ public class Main extends Application {
 		// assign pane elements
 		txtBuildingName = new TextField();
 		txtBuildingName.setPromptText("Enter Building Name.");
-		
+
 		txtBuildingId = new TextField();
 		txtBuildingId.setPromptText("Enter Building ID.");
-		
+
 		btnAddBuilding = new Button("Add Building");
 
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtBuildingName,txtBuildingId));
-		//create container populated with textfields
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(Arrays.asList(txtBuildingName, txtBuildingId));
+		// create container populated with textfields
 		VBox vBoxBuildingEntry = buildTextContainer(tFields);
-		//combine container with button
+		// combine container with button
 		vBoxBuildingEntry.getChildren().add(btnAddBuilding);
-		//return container
+		// return container
 		return vBoxBuildingEntry;
 	}
 
@@ -346,20 +345,21 @@ public class Main extends Application {
 		// assign pane elements
 		txtSuiteName_Suite = new TextField();
 		txtSuiteName_Suite.setPromptText("Enter Suite Name.");
-		
+
 		txtSuiteId_Suite = new TextField();
 		txtSuiteId_Suite.setPromptText("Enter Suite ID.");
-		
+
 		txtBuildingId_Suite = new TextField();
 		txtBuildingId_Suite.setPromptText("Enter Building ID.");
-		
+
 		btnAddSuite = new Button("Add Suite");
-		
-		//create arraylist of textfield elements
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtSuiteName_Suite,txtSuiteId_Suite,txtBuildingId_Suite));
-		//create container populated with textfields
+
+		// create arraylist of textfield elements
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtSuiteName_Suite, txtSuiteId_Suite, txtBuildingId_Suite));
+		// create container populated with textfields
 		VBox vBoxSuiteEntry = buildTextContainer(tFields);
-		//combine container with button
+		// combine container with button
 		vBoxSuiteEntry.getChildren().add(btnAddSuite);
 		// return container
 		return vBoxSuiteEntry;
@@ -370,21 +370,22 @@ public class Main extends Application {
 		// assign pane elements
 		txtRoomNum_Room = new TextField();
 		txtRoomNum_Room.setPromptText("Enter Room Number.");
-		
+
 		txtSuiteId_Room = new TextField();
 		txtSuiteId_Room.setPromptText("Enter Suite ID.");
-		
+
 		txtBuildingId_Room = new TextField();
 		txtBuildingId_Room.setPromptText("Enter Building ID.");
-		
+
 		btnAddRoom = new Button("Add Room");
-		//create arraylist of textfield elements
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtRoomNum_Room,txtSuiteId_Room, txtBuildingId_Room));
-		//create container populated with textfields
+		// create arraylist of textfield elements
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtRoomNum_Room, txtSuiteId_Room, txtBuildingId_Room));
+		// create container populated with textfields
 		VBox vBoxRoomEntry = buildTextContainer(tFields);
-		//combine container with button
+		// combine container with button
 		vBoxRoomEntry.getChildren().add(btnAddRoom);
-		//return container
+		// return container
 		return vBoxRoomEntry;
 	}
 
@@ -393,184 +394,194 @@ public class Main extends Application {
 		// assign pane elements
 		txtFirstName = new TextField();
 		txtFirstName.setPromptText("Enter First Name.");
-		
+
 		txtMiddleInitial = new TextField();
 		txtMiddleInitial.setPromptText("Enter Middle Initial.");
-		
+
 		txtLastName = new TextField();
 		txtLastName.setPromptText("Enter Last Name.");
-		
+
 		txtEmployeeId = new TextField();
 		txtEmployeeId.setPromptText("Enter Employee ID.");
-		
+
 		btnAddEmployee = new Button("Add Employee");
-		
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtFirstName,txtMiddleInitial,txtLastName,txtEmployeeId));
-		//create container populated with textfields
+
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtFirstName, txtMiddleInitial, txtLastName, txtEmployeeId));
+		// create container populated with textfields
 		VBox vBoxEmployeeEntry = buildTextContainer(tFields);
 		// combine container with button
 		vBoxEmployeeEntry.getChildren().add(btnAddEmployee);
 		// return container
 		return vBoxEmployeeEntry;
 	}
-	
-	/* constructs building entry pane section for remove scene
+
+	/*
+	 * constructs building entry pane section for remove scene
 	 */
 	private Pane buildBuildingEntry_Remove() {
-		//assign pane elements
+		// assign pane elements
 		txtBuildingName_Remove = new TextField();
 		txtBuildingName_Remove.setPromptText("Enter Building Name.");
-		
+
 		txtBuildingId_Remove = new TextField();
 		txtBuildingId_Remove.setPromptText("Enter Building ID.");
-		
+
 		btnRemoveBuilding = new Button("Remove Building");
-		
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtBuildingName_Remove,txtBuildingId_Remove));
-		//create container populated with textfields
+
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(Arrays.asList(txtBuildingName_Remove, txtBuildingId_Remove));
+		// create container populated with textfields
 		VBox vBoxBuildingEntry = buildTextContainer(tFields);
-		//add button to container
+		// add button to container
 		vBoxBuildingEntry.getChildren().add(btnRemoveBuilding);
-		//return container
+		// return container
 		return vBoxBuildingEntry;
-		
+
 	}
+
 	private Pane buildSuiteEntry_Remove() {
-		//assign pane elements
+		// assign pane elements
 		txtSuiteName_Suite_Remove = new TextField();
 		txtSuiteName_Suite_Remove.setPromptText("Enter Suite Name.");
-		
+
 		txtSuiteId_Suite_Remove = new TextField();
 		txtSuiteId_Suite_Remove.setPromptText("Enter Suite ID.");
-		
+
 		txtBuildingId_Suite_Remove = new TextField();
 		txtBuildingId_Suite_Remove.setPromptText("Enter Building ID.");
-		
+
 		btnRemoveSuite = new Button("Remove Suite");
-		
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtSuiteName_Suite_Remove,txtSuiteId_Suite_Remove,txtBuildingId_Suite_Remove));
-		//create container populated with textfields
+
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtSuiteName_Suite_Remove, txtSuiteId_Suite_Remove, txtBuildingId_Suite_Remove));
+		// create container populated with textfields
 		VBox vBoxSuiteEntry = buildTextContainer(tFields);
-		//add button to container
+		// add button to container
 		vBoxSuiteEntry.getChildren().add(btnRemoveSuite);
-		//return container
+		// return container
 		return vBoxSuiteEntry;
 	}
+
 	private Pane buildRoomEntry_Remove() {
-		//assign pane elements
+		// assign pane elements
 		txtRoomNum_Room_Remove = new TextField();
 		txtRoomNum_Room_Remove.setPromptText("Enter Room Number.");
-		
+
 		txtSuiteId_Room_Remove = new TextField();
 		txtSuiteId_Room_Remove.setPromptText("Enter Suite ID.");
-		
+
 		txtBuildingId_Room_Remove = new TextField();
 		txtBuildingId_Room_Remove.setPromptText("Enter Building ID.");
-		
+
 		btnRemoveRoom = new Button("Remove Room");
-		
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtRoomNum_Room_Remove,txtSuiteId_Room_Remove,txtBuildingId_Room_Remove));
-		//create container populated with textfields
+
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtRoomNum_Room_Remove, txtSuiteId_Room_Remove, txtBuildingId_Room_Remove));
+		// create container populated with textfields
 		VBox vBoxRoomEntry = buildTextContainer(tFields);
-		//add button to container
+		// add button to container
 		vBoxRoomEntry.getChildren().add(btnRemoveRoom);
-		//return container
-		return vBoxRoomEntry;	
+		// return container
+		return vBoxRoomEntry;
 	}
+
 	private Pane buildEmployeeEntry_Remove() {
-		//assign pane elements
+		// assign pane elements
 		txtFName_Remove = new TextField();
 		txtFName_Remove.setPromptText("Enter First Name.");
-		
+
 		txtMInitial_Remove = new TextField();
 		txtMInitial_Remove.setPromptText("Enter Middile Initial.");
-		
+
 		txtLName_Remove = new TextField();
 		txtLName_Remove.setPromptText("Enter Last Name.");
-		
+
 		txtEmpId_Remove = new TextField();
 		txtEmpId_Remove.setPromptText("Enter Employee ID.");
-		
+
 		btnRemoveEmployee = new Button("Remove Employee");
-		
-		//create arraylist of textfields
-		ArrayList<TextField>tFields = new ArrayList<>(Arrays.asList(txtFName_Remove,txtMInitial_Remove,txtLName_Remove,txtEmpId_Remove));
-		//crate container populated with textfields
+
+		// create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(
+				Arrays.asList(txtFName_Remove, txtMInitial_Remove, txtLName_Remove, txtEmpId_Remove));
+		// crate container populated with textfields
 		VBox vBoxEmployeeEntry = buildTextContainer(tFields);
-		//add button to container
+		// add button to container
 		vBoxEmployeeEntry.getChildren().add(btnRemoveEmployee);
-		//return container
+		// return container
 		return vBoxEmployeeEntry;
 	}
-private Pane buildAccessTabs() {
-		
+
+	private Pane buildAccessTabs() {
+
 		BorderPane bPane = new BorderPane();
 		tPaneAccess.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-		
+
 		Button btnMenu = new Button("Back to Menu");
-		
+
 		// assign pane elements
 		txtEmpId_Access = new TextField();
 		txtEmpId_Access.setPromptText("Enter Employee ID.");
-		
-		//register nav event handler
+
+		// register nav event handler
 		btnMenu.setOnAction(e -> switchScene(menu));
-		
-		//create container with employee entry and nav button
+
+		// create container with employee entry and nav button
 		HBox hBoxContainer = new HBox();
 		hBoxContainer.getStyleClass().add("hbox");
-		hBoxContainer.getChildren().addAll(txtEmpId_Access,btnMenu);
-		
-		//Build tabs
+		hBoxContainer.getChildren().addAll(txtEmpId_Access, btnMenu);
+
+		// Build tabs
 		Tab buildingAccess = new Tab();
 		buildingAccess.setText("Building");
 		buildingAccess.setContent(buildTabBuildingAccess());
-		
+
 		Tab suiteAccess = new Tab();
 		suiteAccess.setText("Suite");
 		suiteAccess.setContent(buildTabSuiteAccess());
-		
+
 		Tab roomAccess = new Tab();
 		roomAccess.setText("Room");
 		roomAccess.setContent(buildTabRoomAccess());
-		
-		//add tabs to TabPane
-		tPaneAccess.getTabs().addAll(buildingAccess,suiteAccess,roomAccess);
+
+		// add tabs to TabPane
+		tPaneAccess.getTabs().addAll(buildingAccess, suiteAccess, roomAccess);
 
 		bPane.setTop(hBoxContainer);
 		bPane.setCenter(tPaneAccess);
-		
+
 		return bPane;
-		
+
 	}
+
 	private Pane buildTabBuildingAccess() {
 		GridPane root = new GridPane();
-		//pane elements
+		// pane elements
 		TextField txtBuildingEntry = new TextField();
 		txtBuildingEntry.setPromptText("Enter Building Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
-		//create container for user text entry
+		// create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
 		vBoxEntry.getChildren().addAll(new Label("Enter Building Code. Then select Access Option."), txtBuildingEntry);
-		//create container for button selection
+		// create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hbox");
-		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
-		//register event handlers
+		hBoxSelection.getChildren().addAll(addAccess, removeAccess);
+		// register event handlers
 		addAccess.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				String buildingCode = txtBuildingEntry.getText();
 				String employeeID = txtEmpId_Access.getText();
-				companyController.addBuildingAccess(employeeID,buildingCode);
+				companyController.addBuildingAccess(employeeID, buildingCode);
 			}
 		});
-    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+		removeAccess.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				String buildingCode = txtBuildingEntry.getText();
 				String employeeID = txtEmpId_Access.getText();
@@ -578,30 +589,32 @@ private Pane buildAccessTabs() {
 			}
 		});
 
-		//add containers to pane
+		// add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
-		//return GridPane
+		// return GridPane
 		return root;
 	}
+
 	private Pane buildTabSuiteAccess() {
 		GridPane root = new GridPane();
-		//pane elements
+		// pane elements
 		TextField txtBuildingEntry = new TextField();
 		txtBuildingEntry.setPromptText("Enter Building Code.");
 		TextField txtSuiteEntry = new TextField();
 		txtSuiteEntry.setPromptText("Enter Suite Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
-		//create container for user text entry
+		// create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."), txtBuildingEntry,txtSuiteEntry);
-		//create container for button selection
+		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."),
+				txtBuildingEntry, txtSuiteEntry);
+		// create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hBox");
-		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
-		//register event handlers
+		hBoxSelection.getChildren().addAll(addAccess, removeAccess);
+		// register event handlers
 		addAccess.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				String empCode = txtEmpId_Access.getText();
@@ -610,8 +623,8 @@ private Pane buildAccessTabs() {
 				companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
 			}
 		});
-    
-    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+
+		removeAccess.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				String empCode = txtEmpId_Access.getText();
 				String buildingCode = txtBuildingEntry.getText();
@@ -620,16 +633,17 @@ private Pane buildAccessTabs() {
 			}
 		});
 
-		//add containers to pane
+		// add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
-		//return GridPane
+		// return GridPane
 		return root;
-		
+
 	}
+
 	private Pane buildTabRoomAccess() {
 		GridPane root = new GridPane();
-		//pane elements
+		// pane elements
 		TextField txtBuildingEntry = new TextField();
 		txtBuildingEntry.setPromptText("Enter Building Code.");
 		TextField txtSuiteEntry = new TextField();
@@ -638,15 +652,15 @@ private Pane buildAccessTabs() {
 		txtRoomEntry.setPromptText("Enter Room Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
-		//create container for user text entry
+		// create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(txtBuildingEntry,txtSuiteEntry,txtRoomEntry);
-		//create container for button selection
+		vBoxEntry.getChildren().addAll(txtBuildingEntry, txtSuiteEntry, txtRoomEntry);
+		// create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hBox");
-		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
-		//register event handlers
+		hBoxSelection.getChildren().addAll(addAccess, removeAccess);
+		// register event handlers
 		addAccess.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				String empCode = txtEmpId_Access.getText();
@@ -656,8 +670,8 @@ private Pane buildAccessTabs() {
 				companyController.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 			}
 		});
-    
-    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+
+		removeAccess.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				String empCode = txtEmpId_Access.getText();
 				String buildingCode = txtBuildingEntry.getText();
@@ -667,21 +681,21 @@ private Pane buildAccessTabs() {
 			}
 		});
 
-		//add containers to pane
+		// add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
-		//return GridPane
-		return root;	
+		// return GridPane
+		return root;
 	}
-	
 
-	/* 
-	 * Navigation Helper Methods 
+	/*
+	 * Navigation Helper Methods
 	 */
 	private void switchToAdd() {
 		switchScene(add);
 		stage.setTitle("Add Scene");
 	}
+
 	private void switchToRemove() {
 		switchScene(remove);
 		stage.setTitle("Remove Scene");
@@ -706,8 +720,8 @@ private Pane buildAccessTabs() {
 		switchScene(menu);
 		stage.setTitle("Main Menu");
 	}
-	
-	/*Helper Methods*/
+
+	/* Helper Methods */
 
 	/* helper method that builds choicebox with chars A-O */
 	private ChoiceBox<Character> populateChoiceBox() {
@@ -723,37 +737,36 @@ private Pane buildAccessTabs() {
 
 		return cb;
 	}
-	
-	/*Helper method that creates group of radio buttons for access scene*/
+
+	/* Helper method that creates group of radio buttons for access scene */
 	private ToggleGroup buildRadioGroup(ArrayList<RadioButton> buttons) {
-		//create toggle group
+		// create toggle group
 		ToggleGroup options = new ToggleGroup();
-		//loop through arraylist and add buttons to toggle group
-		for(RadioButton b : buttons) {
+		// loop through arraylist and add buttons to toggle group
+		for (RadioButton b : buttons) {
 			b.setToggleGroup(options);
 		}
-		//return toggle group
+		// return toggle group
 		return options;
 	}
 
-	private VBox buildTextContainer(ArrayList<TextField>tFields) {
-		//create vBox
+	private VBox buildTextContainer(ArrayList<TextField> tFields) {
+		// create vBox
 		VBox container = new VBox(10);
-		//loop through arraylist and add textfields to vBox
-		for(TextField txt: tFields) {
+		// loop through arraylist and add textfields to vBox
+		for (TextField txt : tFields) {
 			container.getChildren().add(txt);
 		}
-		//return vBox
+		// return vBox
 		return container;
 	}
+
 	private VBox buildLabelButtonContainer(Label lbl, Button btn) {
 		VBox container = new VBox(2);
 		container.getStyleClass().add("vbox");
-		container.getChildren().addAll(lbl,btn);
+		container.getChildren().addAll(lbl, btn);
 		return container;
 	}
-	
-	
 
 	/* helper method that switches inputted scene when called */
 	private void switchScene(Scene scene) {
@@ -770,20 +783,20 @@ private Pane buildAccessTabs() {
 		buildTest();
 
 	}
-	
-	//Event Handlers
-	private class AddBuildingEventHandler implements EventHandler<ActionEvent>{
+
+	// Event Handlers
+	private class AddBuildingEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-				//grab user input from text fields
-				String buildingId = txtBuildingId.getText();
-				String buildingName = txtBuildingName.getText();
-				companyController.addBuilding(buildingName, buildingId);
+			// grab user input from text fields
+			String buildingId = txtBuildingId.getText();
+			String buildingName = txtBuildingName.getText();
+			companyController.addBuilding(buildingName, buildingId);
 		}
 	}
-	
-	private class AddSuiteEventHandler implements EventHandler<ActionEvent>{
+
+	private class AddSuiteEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab user input from text fields
+			// grab user input from text fields
 			String suiteName = txtSuiteName_Suite.getText();
 			String buildingId = txtBuildingId_Suite.getText();
 			String suiteId = txtSuiteId_Suite.getText();
@@ -791,21 +804,21 @@ private Pane buildAccessTabs() {
 			companyController.addSuite(b, suiteName, buildingId, suiteId);
 		}
 	}
-	
-	private class AddRoomEventHandler implements EventHandler<ActionEvent>{
+
+	private class AddRoomEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab user input from text fields
+			// grab user input from text fields
 			String buildingId = txtBuildingId_Room.getText();
-			String suiteId= txtSuiteId_Room.getText();
+			String suiteId = txtSuiteId_Room.getText();
 			String roomNum = txtRoomNum_Room.getText();
 			Suite s = new Suite(suiteId);
 			companyController.addRoom(s, buildingId, suiteId, roomNum);
 		}
 	}
-	
-	private class AddEmployeeEventHandler implements EventHandler<ActionEvent>{
+
+	private class AddEmployeeEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab user input from textfields
+			// grab user input from textfields
 			String first = txtFirstName.getText();
 			String middle = txtMiddleInitial.getText();
 			String last = txtLastName.getText();
@@ -813,62 +826,62 @@ private Pane buildAccessTabs() {
 			companyController.addEmployee(first, middle, last, id);
 		}
 	}
-	
-	private class RemoveBuildingEventHandler implements EventHandler<ActionEvent>{
+
+	private class RemoveBuildingEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab user input from textfields
+			// grab user input from textfields
 			String buildingId = txtBuildingId_Remove.getText();
 			String buildingName = txtBuildingName_Remove.getText();
-			//remove building from company
+			// remove building from company
 			companyController.removeBuilding(buildingName, buildingId);
 		}
 	}
-	
-	private class RemoveSuiteEventHandler implements EventHandler<ActionEvent>{
+
+	private class RemoveSuiteEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab user input from textfields
+			// grab user input from textfields
 			String suiteName = txtSuiteName_Suite_Remove.getText();
 			String buildingId = txtBuildingId_Suite_Remove.getText();
 			String suiteId = txtSuiteId_Suite_Remove.getText();
 			Building b = new Building(buildingId);
-			//remove suite from company
+			// remove suite from company
 			companyController.removeSuite(b, suiteName, buildingId, suiteId);
 		}
 	}
-	
-	private class RemoveRoomEventHandler implements EventHandler<ActionEvent>{
+
+	private class RemoveRoomEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab  user input from textfields
+			// grab user input from textfields
 			String roomNum = txtRoomNum_Room_Remove.getText();
 			String suiteId = txtSuiteId_Room_Remove.getText();
 			String buildingId = txtBuildingId_Room_Remove.getText();
 			Suite s = new Suite(suiteId);
-			//remove room from company
+			// remove room from company
 			companyController.removeRoom(s, roomNum, suiteId, buildingId);
 		}
 	}
-	
-	private class GenerateReportEventHandler implements EventHandler<ActionEvent>{
+
+	private class GenerateReportEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab selected choice from choicebox
-			Character selectedOption = (Character)cBoxList_Report.getValue();
+			// grab selected choice from choicebox
+			Character selectedOption = (Character) cBoxList_Report.getValue();
 			companyController.printReports(selectedOption);
 		}
 	}
-	
-	private class RemoveEmployeeHandler implements EventHandler<ActionEvent>{
+
+	private class RemoveEmployeeHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
-			//grab user input
+			// grab user input
 			String fName = txtFName_Remove.getText();
 			String mInit = txtMInitial_Remove.getText();
 			String lName = txtLName_Remove.getText();
 			String empID = txtEmpId_Remove.getText();
-			//remove employee from company
-			companyController.removeEmployee(fName,mInit,lName,empID);
+			// remove employee from company
+			companyController.removeEmployee(fName, mInit, lName, empID);
 		}
 	}
-	
-	private class SaveCompanyEventHandler implements EventHandler<ActionEvent>{
+
+	private class SaveCompanyEventHandler implements EventHandler<ActionEvent> {
 		public void handle(ActionEvent event) {
 			companyController.saveCompany();
 		}
@@ -877,9 +890,9 @@ private Pane buildAccessTabs() {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			//Passing controller GUI
+			// Passing controller GUI
 			companyController = new CompanyController(this);
-					
+
 			// build stage scenes
 			buildScenes();
 			// initiate stage

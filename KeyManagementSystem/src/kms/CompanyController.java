@@ -490,7 +490,7 @@ public class CompanyController {
 				 gui.displayInfo_Report.setText(msgF);
 				 break;
 			 case 'G':
-				 String msgG = CompanyPersistence.printReportG(companyManager, gui.txtBuildingId_Access.getText(), gui.txtRoomNum_Access.getText());
+				 String msgG = CompanyPersistence.printReportG(companyManager, gui.txtBuildingId_Report.getText(), gui.txtRoomId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgG);
 				 break;
