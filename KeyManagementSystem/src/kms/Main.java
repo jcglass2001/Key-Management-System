@@ -570,6 +570,14 @@ private Pane buildAccessTabs() {
 				companyController.addBuildingAccess(employeeID,buildingCode);
 			}
 		});
+    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String buildingCode = txtBuildingEntry.getText();
+				String employeeID = txtEmpId_Access.getText();
+				companyController.addRemoveAccess(employeeID,buildingCode);
+			}
+		});
+
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -602,6 +610,16 @@ private Pane buildAccessTabs() {
 				companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
 			}
 		});
+    
+    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				companyController.removeSuiteAccess(empCode, suiteCode, buildingCode);
+			}
+		});
+
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -638,6 +656,17 @@ private Pane buildAccessTabs() {
 				companyController.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
 			}
 		});
+    
+    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				String roomNum = txtRoomEntry.getText();
+				companyController.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+			}
+		});
+
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
