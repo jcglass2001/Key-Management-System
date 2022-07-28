@@ -314,27 +314,72 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportJ(CompanyManager companyManager) {
-		String report = "";
+	public static String printReportJ(CompanyManager companyManager, String buildingCode, String roomNum) {
+		String report = ("Report J: \nSuccessful Access Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			String currentLine = reverseOrder.get(i);
+			if(currentLine.substring(94).equals("Success")) {
+				if(currentLine.substring(43,46).equals(roomNum)) {
+					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(61,77) + "\n");
+				}
+			}
+		}
 		
 		return report;
 	}
 	
-	public static String printReportK(CompanyManager companyManager) {
-		String report = "";
+	public static String printReportK(CompanyManager companyManager, String buildingCode, String roomNum) {
+		String report = ("Report K: \nFailed Access Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			String currentLine = reverseOrder.get(i);
+			if(currentLine.substring(94).equals("Failure")) {
+				if(currentLine.substring(43,46).equals(roomNum)) {
+					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(61,77) + "\n");
+				}
+			}
+		}
 		
 		return report;
 	}
 	
-	public static String printReportL(CompanyManager companyManager) {
-		String report = "";
+	public static String printReportL(CompanyManager companyManager, String buildingCode, String roomNum) {
+		String report = ("Report L: \nSecurity Alert Break In Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			String currentLine = reverseOrder.get(i);
+			if(currentLine.substring(94).contains("Security Alert")) {
+				if(currentLine.substring(43,46).equals(roomNum)) {
+					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(61,77) + "\n");
+				}
+			}
+		}
 		
 		return report;
 	}
 	
-	public static String printReportM(CompanyManager companyManager) {
-		String report = "";
-		
+	public static String printReportM(CompanyManager companyManager, String buildingCode, String roomNum) {
+		String report = ("Report M: \nAccess Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			String currentLine = reverseOrder.get(i);
+			if(currentLine.substring(43, 46).equals(roomNum)) {
+				if(currentLine.substring(94).equals("Failure") || currentLine.substring(94).equals("Success")) {
+					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(61,77) + " " + currentLine.substring(94) + "\n");
+				}
+				else {
+					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(61,77) + " " + currentLine.substring(94, 108) + "\n");
+				}
+			}
+		}
 		return report;
 	}
 	
