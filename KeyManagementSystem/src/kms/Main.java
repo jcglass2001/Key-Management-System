@@ -585,7 +585,7 @@ public class Main extends Application {
 			public void handle(ActionEvent e) {
 				String buildingCode = txtBuildingEntry.getText();
 				String employeeID = txtEmpId_Access.getText();
-				companyController.removeBuildingAccess(employeeID, buildingCode);
+				companyController.removeBuildingAccess(employeeID,buildingCode);
 			}
 		});
 

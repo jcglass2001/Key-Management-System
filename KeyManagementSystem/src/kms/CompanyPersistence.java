@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class CompanyPersistence {
@@ -273,14 +274,42 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportH(CompanyManager companyManager) {
-		String report = "";
+	public String printReportH(CompanyManager companyManager, String eId) {
+		String report = "Report H: \n";
+		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			String currentLine = reverseOrder.get(i);
+			if(currentLine.substring(11,15).equals(eId)) {
+				if(currentLine.substring(94).equals("Success")) {
+					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(eId));
+					String roomNum = currentLine.substring(43,46);
+					Room currentRoom = companyManager.getRoomByNum(roomNum);
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " succesfully accessed room #" + currentRoom.getRoomNumber()
+							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(61,77) + "\n");
+				}
+			}
+		}
 		
 		return report;
 	}
 	
-	public static String printReportI(CompanyManager companyManager) {
-		String report = "";
+	public static String printReportI(CompanyManager companyManager, String eId) {
+		String report = "Report I: \n";
+		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
+		Collections.reverse(reverseOrder);
+		for(int i = 0; i < reverseOrder.size(); i++) {
+			String currentLine = reverseOrder.get(i);
+			if(currentLine.substring(11,15).equals(eId)) {
+				if(currentLine.substring(94).equals("Failure")) {
+					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(eId));
+					String roomNum = currentLine.substring(43,46);
+					Room currentRoom = companyManager.getRoomByNum(roomNum);
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " failed to access room #" + currentRoom.getRoomNumber()
+							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(61,77) + "\n");
+				}
+			}
+		}
 		
 		return report;
 	}
