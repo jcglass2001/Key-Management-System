@@ -152,7 +152,8 @@ public class Main extends Application {
 
 		btnRemove = new Button("Remove");
 		lblRemoveInfo = new Label("Remove Building, Suite, Room, or Employee");
-
+		
+		
 		btnSaveCompany = new Button("Save Company");
 		lblSaveInfo = new Label("Save company to text file");
 		
@@ -164,12 +165,13 @@ public class Main extends Application {
 		VBox removeSelection = buildLabelButtonContainer(lblRemoveInfo, btnRemove);
 		VBox accessSelection = buildLabelButtonContainer(lblAccessInfo, btnAccess);
 		VBox reportSelection = buildLabelButtonContainer(lblReportInfo, btnReport);
+		VBox testSelection = buildLabelButtonContainer(lblTestInfo,btnTest);
 		VBox saveSelection = buildLabelButtonContainer(lblSaveInfo, btnSaveCompany);
 		VBox loadSelection = buildLabelButtonContainer(lblLoadInfo, btnLoadCompany);
 		// create container
 		VBox menuSelection = new VBox(10);
 		menuSelection.getStyleClass().add("h_or_v_box");
-		menuSelection.getChildren().addAll(addSelection, removeSelection, accessSelection, reportSelection,
+		menuSelection.getChildren().addAll(addSelection, removeSelection, accessSelection, reportSelection, testSelection,
 				saveSelection,loadSelection);
 		// add padding
 		menuSelection.setPadding(new Insets(20, 20, 20, 20));
