@@ -26,7 +26,7 @@ class CompanyManagerTest {
 		assertEquals(cp.getSuite(0).getName(), "Offices");
 	}
 	
-	@DisplayName("Adds rooms // getSuite")
+	@DisplayName("Adds rooms // getRoom")
 	@Test
 	void AddRooms() {
 		CompanyManager cp = new CompanyManager();
