@@ -276,11 +276,17 @@ public class CompanyPersistence {
 	
 	public static String printReportH(CompanyManager companyManager, String eId) {
 		String report = "Report H: \n";
+		
+		//reverse chronological order
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
+		
+		//iterate through history of access attempts
 		for(int i = 0; i < reverseOrder.size(); i++) {
 			String currentLine = reverseOrder.get(i);
+			//check of employee matches the submitted id
 			if(currentLine.substring(11,15).equals(eId)) {
+				//check if attempt was a success
 				if(currentLine.substring(94).equals("Success")) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(eId));
 					String roomNum = currentLine.substring(43,46);
@@ -296,11 +302,17 @@ public class CompanyPersistence {
 	
 	public static String printReportI(CompanyManager companyManager, String eId) {
 		String report = "Report I: \n";
+		
+		//reverse chronological order
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
+		
+		//iterate through history of access attempts
 		for(int i = 0; i < reverseOrder.size(); i++) {
 			String currentLine = reverseOrder.get(i);
+			//check of employee matches the submitted id
 			if(currentLine.substring(11,15).equals(eId)) {
+				//check if attempt was a failure
 				if(currentLine.substring(94).equals("Failure")) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(eId));
 					String roomNum = currentLine.substring(43,46);
@@ -316,11 +328,17 @@ public class CompanyPersistence {
 	
 	public static String printReportJ(CompanyManager companyManager, String buildingCode, String roomNum) {
 		String report = ("Report J: \nSuccessful Access Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		
+		//reverse chronological order
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
+		
+		//iterate through history of access attempts
 		for(int i = 0; i < reverseOrder.size(); i++) {
 			String currentLine = reverseOrder.get(i);
+			//check if attempt was a success
 			if(currentLine.substring(94).equals("Success")) {
+				//checks if the room matches the submitted roomNum
 				if(currentLine.substring(43,46).equals(roomNum)) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
 					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(46,77) + "\n");
@@ -333,11 +351,17 @@ public class CompanyPersistence {
 	
 	public static String printReportK(CompanyManager companyManager, String buildingCode, String roomNum) {
 		String report = ("Report K: \nFailed Access Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		
+		//reverse chronological order
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
+		
+		//iterate through history of access attempts
 		for(int i = 0; i < reverseOrder.size(); i++) {
 			String currentLine = reverseOrder.get(i);
+			//check if attempt was a failure
 			if(currentLine.substring(94).equals("Failure")) {
+				//checks if the room matches the submitted roomNum
 				if(currentLine.substring(43,46).equals(roomNum)) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
 					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(46,77) + "\n");
@@ -350,11 +374,17 @@ public class CompanyPersistence {
 	
 	public static String printReportL(CompanyManager companyManager, String buildingCode, String roomNum) {
 		String report = ("Report L: \nSecurity Alert Break In Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		
+		//reverse chronological order
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
+		
+		//iterate through history of access attempts
 		for(int i = 0; i < reverseOrder.size(); i++) {
 			String currentLine = reverseOrder.get(i);
+			//check if attempt was a Security Alert
 			if(currentLine.substring(94).contains("Security Alert")) {
+				//checks if the room matches the submitted roomNum
 				if(currentLine.substring(43,46).equals(roomNum)) {
 					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(46,77) + "\n");
 				}
@@ -366,10 +396,15 @@ public class CompanyPersistence {
 	
 	public static String printReportM(CompanyManager companyManager, String buildingCode, String roomNum) {
 		String report = ("Report M: \nAccess Attempts to Building #" + buildingCode + " Room #" + roomNum + ":\n");
+		
+		//reverse chronological order
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
+		
+		//iterate through history of access attempts
 		for(int i = 0; i < reverseOrder.size(); i++) {
 			String currentLine = reverseOrder.get(i);
+			//checks if the room matches the submitted roomNum
 			if(currentLine.substring(43, 46).equals(roomNum)) {
 				if(currentLine.substring(94).equals("Failure") || currentLine.substring(94).equals("Success")) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
