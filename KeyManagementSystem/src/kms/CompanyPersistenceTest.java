@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -79,6 +81,9 @@ class CompanyPersistenceTest {
 	@DisplayName("Report H test")
 	@Test
 	void ReportH() {
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
@@ -95,12 +100,17 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		System.out.print(p1.printReportH(c1, "1234"));
+		String expected = ("Report H: \n" + "Joseph employee #1234 succesfully accessed room #432 in suite #12 in building #01 at: " 
+		+ formatter.format(date) + "\n");
+		assertEquals(p1.printReportH(c1, "1234"), expected);
 	}
 	
 	@DisplayName("Report I test")
 	@Test
-	void ReportI() {	
+	void ReportI() {
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
@@ -117,12 +127,17 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		System.out.print(p1.printReportI(c1, "1245"));
+		String expected = ("Report I: \n" + "Jack employee #1245 failed to access room #432 in suite #12 in building #01 at: "
+				+ formatter.format(date) + "\n");
+		assertEquals(p1.printReportI(c1, "1245"), expected);
 	}
 	
 	@DisplayName("Report J test")
 	@Test
-	void ReportJ() {	
+	void ReportJ() {
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
@@ -139,12 +154,17 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		System.out.print(p1.printReportJ(c1, "01", "432"));
+		String expected =  ("Report J: \n" + "Successful Access Attempts to Building #01 Room #432:\n" 
+		+ "Joseph employee #1234 at: " + formatter.format(date) + "\n");
+		assertEquals(p1.printReportJ(c1, "01", "432"), expected);
 	}
 	
 	@DisplayName("Report K test")
 	@Test
-	void ReportK() {	
+	void ReportK() {
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
@@ -161,12 +181,17 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		System.out.print(p1.printReportK(c1, "01", "432"));
+		String expected = ("Report K: \n" + "Failed Access Attempts to Building #01 Room #432:\n"
+				+ "Jack employee #1245 at: " + formatter.format(date) + "\n");
+		assertEquals(p1.printReportK(c1, "01", "432"), expected);
 	}
 	
 	@DisplayName("Report L test")
 	@Test
-	void ReportL() {	
+	void ReportL() {
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
@@ -183,12 +208,17 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		System.out.print(p1.printReportL(c1, "01", "432"));
+		String expected = ("Report L: \n" + "Security Alert Break In Attempts to Building #01 Room #432:\n"
+				+ "Employee #1244 at: " + formatter.format(date) + "\n");
+		assertEquals(p1.printReportL(c1, "01", "432"), expected);
 	}
 	
 	@DisplayName("Report M test")
 	@Test
 	void ReportM() {	
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+		Date date = new Date(System.currentTimeMillis());
+		
 		CompanyPersistence p1 = new CompanyPersistence();
 		CompanyManager c1 = new CompanyManager();
 		Employee e1 = new Employee("Joseph", "1234");
@@ -205,7 +235,9 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		System.out.print(p1.printReportM(c1, "01", "432"));
+		String expected = ("Report M: \n" + "Access Attempts to Building #01 Room #432:\n" + "Employee #1244 at: " + formatter.format(date) + " Security Alert\n"
+				+ "Jack employee #1245 at: " + formatter.format(date) + " Failure\n" + "Joseph employee #1234 at: " + formatter.format(date) + " Success\n");
+		assertEquals(p1.printReportM(c1, "01", "432"), expected);
 	}
 
 }

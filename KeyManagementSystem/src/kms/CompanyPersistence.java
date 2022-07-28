@@ -286,7 +286,7 @@ public class CompanyPersistence {
 					String roomNum = currentLine.substring(43,46);
 					Room currentRoom = companyManager.getRoomByNum(roomNum);
 					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " succesfully accessed room #" + currentRoom.getRoomNumber()
-							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(61,77) + "\n");
+							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(46,77) + "\n");
 				}
 			}
 		}
@@ -306,7 +306,7 @@ public class CompanyPersistence {
 					String roomNum = currentLine.substring(43,46);
 					Room currentRoom = companyManager.getRoomByNum(roomNum);
 					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " failed to access room #" + currentRoom.getRoomNumber()
-							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(61,77) + "\n");
+							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(46,77) + "\n");
 				}
 			}
 		}
@@ -323,7 +323,7 @@ public class CompanyPersistence {
 			if(currentLine.substring(94).equals("Success")) {
 				if(currentLine.substring(43,46).equals(roomNum)) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
-					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(61,77) + "\n");
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(46,77) + "\n");
 				}
 			}
 		}
@@ -340,7 +340,7 @@ public class CompanyPersistence {
 			if(currentLine.substring(94).equals("Failure")) {
 				if(currentLine.substring(43,46).equals(roomNum)) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
-					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(61,77) + "\n");
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(46,77) + "\n");
 				}
 			}
 		}
@@ -356,7 +356,7 @@ public class CompanyPersistence {
 			String currentLine = reverseOrder.get(i);
 			if(currentLine.substring(94).contains("Security Alert")) {
 				if(currentLine.substring(43,46).equals(roomNum)) {
-					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(61,77) + "\n");
+					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(46,77) + "\n");
 				}
 			}
 		}
@@ -373,10 +373,10 @@ public class CompanyPersistence {
 			if(currentLine.substring(43, 46).equals(roomNum)) {
 				if(currentLine.substring(94).equals("Failure") || currentLine.substring(94).equals("Success")) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(currentLine.substring(11,15)));
-					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(61,77) + " " + currentLine.substring(94) + "\n");
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + currentLine.substring(46,77) + " " + currentLine.substring(94) + "\n");
 				}
 				else {
-					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(61,77) + " " + currentLine.substring(94, 108) + "\n");
+					report += ("Employee #" + currentLine.substring(11,15) + currentLine.substring(46,77) + " " + currentLine.substring(94, 108) + "\n");
 				}
 			}
 		}
