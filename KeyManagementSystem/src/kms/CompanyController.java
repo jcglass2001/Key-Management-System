@@ -432,11 +432,11 @@ public class CompanyController {
 	}
 	
 	public void addSuiteAccess(String empCode, String suiteCode, String buildingCode) {
-		companyManager.addSuiteAccess(empCode, suiteCode, buildingCode);
+		companyManager.addSuiteAccess(empCode, suiteCode);
 	}
 	
 	public void addRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
-		companyManager.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+		companyManager.addRoomAccess(empCode, roomNum);
 	}
 	public void removeBuildingAccess(String empCode, String buildingCode) {
 		companyManager.removeBuildingAccess(empCode, buildingCode);

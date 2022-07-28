@@ -550,21 +550,34 @@ private Pane buildAccessTabs() {
 	private Pane buildTabBuildingAccess() {
 		GridPane root = new GridPane();
 		//pane elements
-		txtBuildingId_Access = new TextField();
-		txtBuildingId_Access.setPromptText("Enter Building Code.");
+		TextField txtBuildingEntry = new TextField();
+		txtBuildingEntry.setPromptText("Enter Building Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
 		//create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(new Label("Enter Building Code. Then select Access Option."), txtBuildingId_Access);
+		vBoxEntry.getChildren().addAll(new Label("Enter Building Code. Then select Access Option."), txtBuildingEntry);
 		//create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hbox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction(new AddBuildingAccessEventHandler());
-		removeAccess.setOnAction(new RemoveBuildingAccessEventHandler());
+		addAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String buildingCode = txtBuildingEntry.getText();
+				String employeeID = txtEmpId_Access.getText();
+				companyController.addBuildingAccess(employeeID,buildingCode);
+			}
+		});
+    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String buildingCode = txtBuildingEntry.getText();
+				String employeeID = txtEmpId_Access.getText();
+				companyController.addRemoveAccess(employeeID,buildingCode);
+			}
+		});
+
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -574,23 +587,39 @@ private Pane buildAccessTabs() {
 	private Pane buildTabSuiteAccess() {
 		GridPane root = new GridPane();
 		//pane elements
-		txtBuildingId_Access = new TextField();
-		txtBuildingId_Access.setPromptText("Enter Building Code.");
-		txtSuiteId_Access = new TextField();
-		txtSuiteId_Access.setPromptText("Enter Suite Code.");
+		TextField txtBuildingEntry = new TextField();
+		txtBuildingEntry.setPromptText("Enter Building Code.");
+		TextField txtSuiteEntry = new TextField();
+		txtSuiteEntry.setPromptText("Enter Suite Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
 		//create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."), txtBuildingId_Access,txtSuiteId_Access);
+		vBoxEntry.getChildren().addAll(new Label("Enter Suite & Building Codes. Then select Access Option."), txtBuildingEntry,txtSuiteEntry);
 		//create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hBox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction(new AddSuiteAccessEventHandler());
-		removeAccess.setOnAction(new RemoveSuiteAccessEventHandler());
+		addAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
+			}
+		});
+    
+    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				companyController.removeSuiteAccess(empCode, suiteCode, buildingCode);
+			}
+		});
+
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -601,25 +630,43 @@ private Pane buildAccessTabs() {
 	private Pane buildTabRoomAccess() {
 		GridPane root = new GridPane();
 		//pane elements
-		txtBuildingId_Access = new TextField();
-		txtBuildingId_Access.setPromptText("Enter Building Code.");
-		txtSuiteId_Access = new TextField();
-		txtSuiteId_Access.setPromptText("Enter Suite Code.");
-		txtRoomNum_Access = new TextField();
-		txtRoomNum_Access.setPromptText("Enter Room Code.");
+		TextField txtBuildingEntry = new TextField();
+		txtBuildingEntry.setPromptText("Enter Building Code.");
+		TextField txtSuiteEntry = new TextField();
+		txtSuiteEntry.setPromptText("Enter Suite Code.");
+		TextField txtRoomEntry = new TextField();
+		txtRoomEntry.setPromptText("Enter Room Code.");
 		Button addAccess = new Button("Add Access");
 		Button removeAccess = new Button("Remove Access");
 		//create container for user text entry
 		VBox vBoxEntry = new VBox();
 		vBoxEntry.getStyleClass().add("vbox");
-		vBoxEntry.getChildren().addAll(txtBuildingId_Access,txtSuiteId_Access,txtRoomNum_Access);
+		vBoxEntry.getChildren().addAll(txtBuildingEntry,txtSuiteEntry,txtRoomEntry);
 		//create container for button selection
 		HBox hBoxSelection = new HBox();
 		hBoxSelection.getStyleClass().add("hBox");
 		hBoxSelection.getChildren().addAll(addAccess,removeAccess);
 		//register event handlers
-		addAccess.setOnAction(new AddRoomAccessEventHandler());
-		removeAccess.setOnAction(new RemoveRoomAccessEventHandler());
+		addAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				String roomNum = txtRoomEntry.getText();
+				companyController.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+			}
+		});
+    
+    removeAccess.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				String empCode = txtEmpId_Access.getText();
+				String buildingCode = txtBuildingEntry.getText();
+				String suiteCode = txtSuiteEntry.getText();
+				String roomNum = txtRoomEntry.getText();
+				companyController.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
+			}
+		});
+
 		//add containers to pane
 		root.add(vBoxEntry, 0, 0);
 		root.add(hBoxSelection, 0, 1);
@@ -666,7 +713,7 @@ private Pane buildAccessTabs() {
 	private ChoiceBox<Character> populateChoiceBox() {
 		ChoiceBox<Character> cb = new ChoiceBox<>();
 		// create char array to list with elements A-O
-		char[] alphabet = "ABCDEFGHIJKLMNO".toCharArray();
+		char[] alphabet = "ABCDEFGHIJKLMN".toCharArray();
 		// populate letters in choiceBox
 		for (int i = 0; i < alphabet.length; i++) {
 			cb.getItems().add(alphabet[i]);
@@ -734,8 +781,6 @@ private Pane buildAccessTabs() {
 		}
 	}
 	
-	
-	
 	private class AddSuiteEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab user input from text fields
@@ -769,60 +814,6 @@ private Pane buildAccessTabs() {
 		}
 	}
 	
-	private class AddBuildingAccessEventHandler implements EventHandler<ActionEvent>{
-		public void handle(ActionEvent event) {
-			//grab user input from textfields
-			String buildingCode = txtBuildingId_Access.getText();
-			String employeeID = txtEmpId_Access.getText();
-			companyController.addBuildingAccess(employeeID,buildingCode);
-			
-		}
-	}
-	
-	private class AddSuiteAccessEventHandler implements EventHandler<ActionEvent>{
-		public void handle(ActionEvent event) {
-			//grab user input from textfields
-			String empCode = txtEmpId_Access.getText();
-			String buildingCode = txtBuildingId_Access.getText();
-			String suiteCode = txtSuiteId_Access.getText();
-			companyController.addSuiteAccess(empCode, suiteCode, buildingCode);
-		}
-	}
-	
-	private class AddRoomAccessEventHandler implements EventHandler<ActionEvent>{
-		public void handle(ActionEvent event) {
-			String empCode = txtEmpId_Access.getText();
-			String buildingCode = txtBuildingId_Access.getText();
-			String suiteCode = txtSuiteId_Access.getText();
-			String roomNum = txtRoomNum_Access.getText();
-			companyController.addRoomAccess(empCode, suiteCode, buildingCode, roomNum);
-		}
-	}
-	private class RemoveBuildingAccessEventHandler implements EventHandler<ActionEvent>{
-		public void handle(ActionEvent event) {
-			String buildingCode = txtBuildingId_Access.getText();
-			String employeeID = txtEmpId_Access.getText();
-			companyController.removeBuildingAccess(employeeID,  buildingCode);
-		}
-	}
-	private class RemoveSuiteAccessEventHandler implements EventHandler<ActionEvent>{
-		public void handle(ActionEvent event) {
-			//grab user input from textfields
-			String empCode = txtEmpId_Access.getText();
-			String buildingCode = txtBuildingId_Access.getText();
-			String suiteCode = txtSuiteId_Access.getText();
-			companyController.removeSuiteAccess(empCode, suiteCode, buildingCode);
-		}
-	}
-	private class RemoveRoomAccessEventHandler implements EventHandler<ActionEvent>{
-		public void handle(ActionEvent event) {
-			String empCode = txtEmpId_Access.getText();
-			String buildingCode = txtBuildingId_Access.getText();
-			String suiteCode = txtSuiteId_Access.getText();
-			String roomNum = txtRoomNum_Access.getText();
-			companyController.removeRoomAccess(empCode, suiteCode, buildingCode, roomNum);
-		}
-	}
 	private class RemoveBuildingEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab user input from textfields
@@ -864,6 +855,7 @@ private Pane buildAccessTabs() {
 			companyController.printReports(selectedOption);
 		}
 	}
+	
 	private class RemoveEmployeeHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			//grab user input
@@ -875,14 +867,12 @@ private Pane buildAccessTabs() {
 			companyController.removeEmployee(fName,mInit,lName,empID);
 		}
 	}
+	
 	private class SaveCompanyEventHandler implements EventHandler<ActionEvent>{
 		public void handle(ActionEvent event) {
 			companyController.saveCompany();
 		}
 	}
-	
-	
-	
 
 	@Override
 	public void start(Stage primaryStage) {

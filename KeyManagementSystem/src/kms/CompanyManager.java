@@ -181,7 +181,7 @@ public class CompanyManager {
 		}
 	}
 	
-	public void addSuiteAccess(String empCode,String suiteCode, String buildingCode) {
+	public void addSuiteAccess(String empCode,String suiteCode) {
 		for(Employee e: employees) {
 			if(e.getId().equals(empCode)) {
 				e.addSuiteAccess(getSuiteByCode(suiteCode));
@@ -189,7 +189,7 @@ public class CompanyManager {
 		}
 	}
 	
-	public void addRoomAccess(String empCode, String suiteCode, String buildingCode, String roomNum) {
+	public void addRoomAccess(String empCode, String roomNum) {
 		for(Employee e: employees) {
 			if(e.getId().equals(empCode)) {
 				e.addRoomAccess(getRoomByNum(roomNum));
