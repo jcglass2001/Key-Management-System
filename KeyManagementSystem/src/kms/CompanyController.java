@@ -495,12 +495,12 @@ public class CompanyController {
 				 gui.displayInfo_Report.setText(msgG);
 				 break;
 			 case 'H':
-				 String msgH = CompanyPersistence.printReportH(companyManager);
+				 String msgH = CompanyPersistence.printReportH(companyManager, gui.txtEmpId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgH);
 				 break;
 			 case 'I':
-				 String msgI = CompanyPersistence.printReportI(companyManager);
+				 String msgI = CompanyPersistence.printReportI(companyManager, gui.txtEmpId_Report.getText());
 				 //display msg to text area
 				 gui.displayInfo_Report.setText(msgI);
 				 break;

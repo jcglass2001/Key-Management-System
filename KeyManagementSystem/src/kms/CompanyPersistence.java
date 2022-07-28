@@ -274,7 +274,7 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public String printReportH(CompanyManager companyManager, String eId) {
+	public static String printReportH(CompanyManager companyManager, String eId) {
 		String report = "Report H: \n";
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
