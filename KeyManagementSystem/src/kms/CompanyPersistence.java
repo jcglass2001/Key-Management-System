@@ -258,9 +258,14 @@ public class CompanyPersistence {
 	public static String printReportG(CompanyManager companyManager, String buildingCode, String roomNum) {
 		String report = "";
 		for (int i = 0; i < companyManager.employees.size(); i++) {
-			for(int j = 0; j < companyManager.employees.get(i).getRoomAccess().size(); j++) {
-				if(companyManager.employees.get(i).roomAccess.get(j).getBuildingCode().equals(buildingCode) && companyManager.employees.get(i).roomAccess.get(j).getRoomNumber().equals(roomNum)) {
-					report += (companyManager.employees.get(i).getName() + ", ID= " + companyManager.employees.get(i).getId() + "\n");
+			//grab employee
+			Employee dummy = companyManager.employees.get(i);
+			for(int j = 0; j < dummy.getRoomAccess().size(); j++) {
+				//grab room
+				Room rDummy = dummy.getRoomAccess().get(j);
+				//add employee details if room's building code & room number matches parameters
+				if(rDummy.getBuildingCode().equals(buildingCode) && rDummy.getRoomNumber().equals(roomNum)) {
+					report += (dummy.getName() + ", ID= " + dummy.getId() + "\n");
 	            }
 			}
 		}
