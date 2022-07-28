@@ -95,15 +95,6 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		/*
-		ArrayList<String> reverseOrder = c1.getAccessAttempts();
-		Collections.reverse(reverseOrder);
-		System.out.println(r1.getRoomNumber());
-		for(int i = 0; i < reverseOrder.size(); i++) {
-			System.out.println(reverseOrder.get(i).substring(43,47));
-		}
-		*/
-		System.out.println(c1.getRoomByNum("432"));
 		System.out.print(p1.printReportH(c1, "1234"));
 	}
 	
@@ -126,15 +117,6 @@ class CompanyPersistenceTest {
 		c1.testAccess("1234", "432");
 		c1.testAccess("1245", "432");
 		c1.testAccess("1244", "432");
-		/*
-		ArrayList<String> reverseOrder = c1.getAccessAttempts();
-		Collections.reverse(reverseOrder);
-		System.out.println(r1.getRoomNumber());
-		for(int i = 0; i < reverseOrder.size(); i++) {
-			System.out.println(reverseOrder.get(i).substring(43,47));
-		}
-		*/
-		System.out.println(c1.getRoomByNum("432"));
 		System.out.print(p1.printReportI(c1, "1245"));
 	}
 

@@ -220,7 +220,7 @@ public class CompanyPersistence {
 		return report;
 	}
 	
-	public static String printReportH(CompanyManager companyManager, String eId) {
+	public String printReportH(CompanyManager companyManager, String eId) {
 		String report = "Report H: \n";
 		ArrayList<String> reverseOrder = companyManager.getAccessAttempts();
 		Collections.reverse(reverseOrder);
@@ -229,9 +229,8 @@ public class CompanyPersistence {
 			if(currentLine.substring(11,15).equals(eId)) {
 				if(currentLine.substring(94).equals("Success")) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(eId));
-					String roomNum = currentLine.substring(43,47);
+					String roomNum = currentLine.substring(43,46);
 					Room currentRoom = companyManager.getRoomByNum(roomNum);
-					System.out.println(currentRoom);
 					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " succesfully accessed room #" + currentRoom.getRoomNumber()
 							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(61,77) + "\n");
 				}
@@ -250,10 +249,9 @@ public class CompanyPersistence {
 			if(currentLine.substring(11,15).equals(eId)) {
 				if(currentLine.substring(94).equals("Failure")) {
 					Employee currentEmp = companyManager.getEmployee(companyManager.getEmployeeById(eId));
-					String roomNum = currentLine.substring(43,47);
+					String roomNum = currentLine.substring(43,46);
 					Room currentRoom = companyManager.getRoomByNum(roomNum);
-					System.out.println(currentRoom);
-					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " failed to accessed room #" + currentRoom.getRoomNumber()
+					report += (currentEmp.getName() + " employee #" + currentEmp.getId() + " failed to access room #" + currentRoom.getRoomNumber()
 							+ " in suite #" + currentRoom.getSuiteCode() + " in building #" + currentRoom.getBuildingCode() + currentLine.substring(61,77) + "\n");
 				}
 			}
