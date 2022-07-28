@@ -574,7 +574,7 @@ private Pane buildAccessTabs() {
 			public void handle(ActionEvent e) {
 				String buildingCode = txtBuildingEntry.getText();
 				String employeeID = txtEmpId_Access.getText();
-				companyController.addRemoveAccess(employeeID,buildingCode);
+				companyController.removeBuildingAccess(employeeID,buildingCode);
 			}
 		});
 
