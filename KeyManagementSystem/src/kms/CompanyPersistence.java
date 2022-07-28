@@ -15,7 +15,7 @@ public class CompanyPersistence {
 	
 
 	//Save to text file
-	public void saveCompany(CompanyManager companyManager) {
+	public static void saveCompany(CompanyManager companyManager) {
 		try {
 			FileWriter myWriter = new FileWriter("Report.txt");
 
@@ -163,20 +163,18 @@ public class CompanyPersistence {
         for (int i = 0; i < companyManager.employees.size(); i++) {
             report += (companyManager.employees.get(i).getName() + ", ID= " + companyManager.employees.get(i).getId() + "\n");
             for(int j = 0; j < companyManager.employees.get(i).buildingAccess.size(); j++) {
-                //if(companyManager.getEmployee(i).getId().equals(Id)) {
-                    //loop through suites list in building
                     for(int k = 0; k < companyManager.employees.get(i).getBuildingAccess().get(j).getSuites().size(); k++) {
                         //loop through and print all rooms in suite
                         for(int l = 0; l  < companyManager.employees.get(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().size(); l++) {
                             //print rooms
                             report += String.format("Room " + companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getRoomNumber()) + ", " +
-                            		companyManager.getBuildingByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getBuildingCode()).getName() + " Building (" +
-                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getBuildingCode() + "), " + 
-                            		companyManager.getSuiteByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getSuiteCode()).getName() + " Suite (" + 
-                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(1).getSuiteCode() + ")\n";
+                            		companyManager.getBuildingByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getBuildingCode()).getName() + " Building (" +
+                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getBuildingCode() + "), " + 
+                            		companyManager.getSuiteByCode(companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getSuiteCode()).getName() + " Suite (" + 
+                            		companyManager.getEmployee(i).getBuildingAccess().get(j).getSuites().get(k).getRooms().get(l).getSuiteCode() + ")\n";
                         }
                     }
-                //}
+                
             }
             report += "\n";
         }
@@ -184,10 +182,35 @@ public class CompanyPersistence {
 	}
 	
 	public static String printReportC(CompanyManager companyManager) {
-		String report = "";
-		
-		return report;
-	}
+        String report = "";
+
+        // loop through employees
+        for (int i = 0; i < companyManager.employees.size(); i++) {
+            // grab employee and add details to message
+            Employee dummy = companyManager.employees.get(i);
+            report += String.format("%s,ID=%s", dummy.getName(), dummy.getId());
+            // loop through employee room access list
+            for (int j = 0; j < dummy.getRoomAccess().size(); i++) {
+                Room rDummy = dummy.getRoomAccess().get(i);
+                report += String.format("\tRoom Access: %s, %s Building (%s), %s Suite (%s)", rDummy.getRoomNumber(),
+                        "[building type]", rDummy.getBuildingCode(), "[suite type]", rDummy.getSuiteCode());
+            }
+            // loop through employee suite access list
+            for (int k = 0; k < dummy.getSuiteAccess().size(); i++) {
+                Suite sDummy = dummy.getSuiteAccess().get(i);
+                report += String.format("\tSuite Access: %s Building (%s), %s Suite (%s)", "[building type]",
+                        sDummy.getBuildingCode(), sDummy.getName(), sDummy.getSuiteCode());
+            }
+            // loop through employee building access list
+            for (int l = 0; l < dummy.getBuildingAccess().size(); i++) {
+                Building bDummy = dummy.getBuildingAccess().get(i);
+                report += String.format("\tBuilding Access: %s Building (%s)", bDummy.getName(),
+                        bDummy.getBuildingCode());
+            }
+        }
+
+        return report;
+    }
 
 	public static String printReportD(CompanyManager companyManager) {
 		String report = "";
