@@ -115,6 +115,8 @@ public class Main extends Application {
 	/* Elements for the Test scene */
 	protected Label lblEmpId_Test;
 	protected TextField txtEmpIdEntry_Test;
+	protected TextField txtRoomIdEntry_Test;
+	protected TextField txtBuildingIdEntry_Test;
 	protected TextArea accessStatus_Test;
 	protected Button access_Test;
 
@@ -266,17 +268,33 @@ public class Main extends Application {
 
 		txtEmpIdEntry_Test = new TextField();
 		txtEmpIdEntry_Test.setPromptText("Enter Employee ID.");
+		
+		txtBuildingIdEntry_Test = new TextField();
+		txtBuildingIdEntry_Test.setPromptText("Enter Building Code.");
+		
+		txtRoomIdEntry_Test = new TextField();
+		txtRoomIdEntry_Test.setPromptText("Enter Room Number.");
+		
+		access_Test = new Button("Test Access");
 		Button btnMenu = new Button("Back to Menu");
-		// create input container
-		VBox testInfo = new VBox();
-		testInfo.getChildren().add(txtEmpIdEntry_Test);
-		// add nav button
-		testInfo.getChildren().add(btnMenu);
+		//create arraylist of textfields
+		ArrayList<TextField> tFields = new ArrayList<>(Arrays.asList(txtEmpIdEntry_Test,txtBuildingIdEntry_Test,txtRoomIdEntry_Test));
+		//create container populated with textfields
+		VBox testEntry = buildTextContainer(tFields);
+		//build button container
+		HBox hBoxButtons = new HBox(10);
+		hBoxButtons.getStyleClass().add("hbox");
+		hBoxButtons.getChildren().addAll(access_Test, btnMenu);
+		//combine textfield and button containers
+		VBox testInfo = new VBox(20);
+		testInfo.getStyleClass().add("vbox");
+		testInfo.getChildren().addAll(testEntry,hBoxButtons);
 		// position container in center and add padding
 		testInfo.setAlignment(Pos.CENTER);
 		testInfo.setPadding(new Insets(20, 20, 20, 20));
 		// register event handlers
 		btnMenu.setOnAction(e -> switchScene(menu));
+		access_Test.setOnAction(new TestAccessEventHandler());
 		// set container to scene
 		test = new Scene(testInfo, 300, 300);
 		// return scene
@@ -878,6 +896,16 @@ public class Main extends Application {
 			String empID = txtEmpId_Remove.getText();
 			// remove employee from company
 			companyController.removeEmployee(fName, mInit, lName, empID);
+		}
+	}
+	private class TestAccessEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			// grab user input
+			String empCode = txtEmpIdEntry_Test.getText();
+			String roomNum = txtRoomIdEntry_Test.getText();
+			String buildingCode = txtBuildingIdEntry_Test.getText();
+			//test employee access
+			companyController.testAccess(empCode,roomNum,buildingCode);
 		}
 	}
 
